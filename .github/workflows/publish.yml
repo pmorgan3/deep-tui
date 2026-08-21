@@ -1,6 +1,11 @@
 name: Publish npm packages
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - packages/*/package.json
   workflow_dispatch:
     inputs:
       tag:
@@ -31,6 +36,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
         with:
           version: 10.33.0
@@ -44,10 +51,15 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - name: Check package tarballs
-        if: inputs.dry_run
+        if: github.event_name == 'workflow_dispatch' && inputs.dry_run
         run: pnpm run publish:packages -- --tag "${{ inputs.tag }}" --dry-run
-      - name: Publish package tarballs
-        if: ${{ !inputs.dry_run }}
+      - name: Publish version changes
+        if: github.event_name == 'push'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm run publish:packages -- --tag latest --changed-since "${{ github.event.before }}"
+      - name: Publish package tarballs manually
+        if: github.event_name == 'workflow_dispatch' && !inputs.dry_run
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm run publish:packages -- --tag "${{ inputs.tag }}"

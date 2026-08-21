@@ -17,7 +17,7 @@ export function apply(ctx: Context): void {
       return [
         '',
         '',
-        centered('F L E C T', render.style('F L E C T', 'accent', true), render.width),
+        centered('D E E P  T U I', render.style('D E E P  T U I', 'accent', true), render.width),
         centered('bend the harness, not your workflow', render.style('bend the harness, not your workflow', 'muted'), render.width),
       ]
     },

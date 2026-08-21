@@ -3,7 +3,7 @@
 Contributes the empty-transcript Deep TUI wordmark and tagline:
 
 ```text
-F L E C T
+D E E P  T U I
 bend the harness, not your workflow
 ```
 

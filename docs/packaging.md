@@ -10,25 +10,24 @@ executable, while the SDK, runtime, and first-party features remain ordinary
 - Public packages use ESM and publish compiled `dist` output.
 - Internal `workspace:*` relationships are rewritten by pnpm to released
   package versions when tarballs are built.
-- The first release should version the workspace packages together. Independent
-  package versioning can wait until the SDK compatibility policy is stable.
+- Workspace packages are versioned independently, so a release only republishes
+  packages whose manifest version changed.
 - A source release must pass `pnpm check` and `pnpm pack:check` before publish.
 
-The `@deep-tui` npm scope is secured and the workspace is synchronized at its
-first development version, `0.1.0`. Do not publish until the repository identity
-and remaining name clearance called out in [`naming.md`](naming.md) are complete.
+The `@deep-tui` npm scope and trusted-publishing configuration are secured.
 
-## Initial release checklist
+## Release process
 
-1. Confirm the repository identity and trusted-publishing target.
-2. Confirm every public workspace package remains synchronized at `0.1.0`.
-3. Confirm every tarball contains its compiled entry, declarations, README,
+1. Bump the version only in each public package that should be released.
+2. Confirm every changed tarball contains its compiled entry, declarations, README,
    and MIT license.
-4. Run `pnpm install --frozen-lockfile`, `pnpm check`, and `pnpm pack:check` on
+3. Run `pnpm install --frozen-lockfile`, `pnpm check`, and `pnpm pack:check` on
    Node.js 22.
-5. Inspect the CLI tarball and test installing it into an empty temporary
-   project before publishing dependencies in topological order.
-6. Tag the exact commit only after the registry publish succeeds.
+4. Push the version changes to `main`. The npm workflow compares package
+   manifests with the pre-push commit and publishes only packages whose version
+   changed, in dependency order, with the `latest` distribution tag.
+5. Use the manual workflow dispatch for a dry run or an alternate distribution
+   tag. A real manual run still skips versions that already exist on npm.
 
 Binary releases and a searchable plugin index are later milestones. GitHub URL
 plugins deliberately do not depend on that index: a URL in user configuration

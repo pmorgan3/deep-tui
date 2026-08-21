@@ -9,10 +9,16 @@ const registry = "https://registry.npmjs.org/";
 const args = process.argv.slice(2);
 const tagIndex = args.indexOf("--tag");
 const tag = tagIndex === -1 ? "next" : args[tagIndex + 1];
+const changedSinceIndex = args.indexOf("--changed-since");
+const changedSince = changedSinceIndex === -1 ? undefined : args[changedSinceIndex + 1];
 const dryRun = args.includes("--dry-run");
 
 if (!tag || !/^[a-z][a-z0-9._-]*$/i.test(tag)) {
   throw new Error(`Invalid npm distribution tag: ${tag ?? "<missing>"}`);
+}
+
+if (changedSinceIndex !== -1 && !changedSince) {
+  throw new Error("--changed-since requires a Git revision");
 }
 
 function run(command, commandArgs, options = {}) {
@@ -37,7 +43,11 @@ for (const entry of packageEntries) {
   const directory = join(root, "packages", entry.name);
   const manifest = JSON.parse(await readFile(join(directory, "package.json"), "utf8"));
   if (manifest.private) continue;
-  packages.push({ directory, manifest });
+  packages.push({
+    directory,
+    manifest,
+    manifestPath: `packages/${entry.name}/package.json`,
+  });
 }
 
 const packagesByName = new Map(packages.map((pkg) => [pkg.manifest.name, pkg]));
@@ -68,6 +78,29 @@ function visit(pkg) {
 
 for (const pkg of packages.toSorted((a, b) => a.manifest.name.localeCompare(b.manifest.name))) {
   visit(pkg);
+}
+
+let selectedPackages = orderedPackages;
+if (changedSince) {
+  const diff = run(
+    "git",
+    ["diff", "--name-only", "--diff-filter=ACMRT", `${changedSince}..HEAD`, "--", ":(glob)packages/*/package.json"],
+    { capture: true },
+  );
+  if (diff.status !== 0) {
+    throw new Error(`Could not compare package versions with ${changedSince}:\n${diff.stderr || diff.stdout}`);
+  }
+
+  const changedManifestPaths = new Set(diff.stdout.trim().split("\n").filter(Boolean));
+  selectedPackages = orderedPackages.filter((pkg) => {
+    if (!changedManifestPaths.has(pkg.manifestPath)) return false;
+
+    const previous = run("git", ["show", `${changedSince}:${pkg.manifestPath}`], { capture: true });
+    if (previous.status !== 0) return true;
+
+    const previousManifest = JSON.parse(previous.stdout);
+    return previousManifest.version !== pkg.manifest.version;
+  });
 }
 
 const temporaryDirectory = await mkdtemp(join(tmpdir(), "deep-tui-publish-"));
@@ -102,12 +135,12 @@ function isAlreadyPublished(name, version) {
 
 try {
   console.log(
-    `${dryRun ? "Checking" : "Publishing"} ${orderedPackages.length} packages with tag ${tag}.`,
+    `${dryRun ? "Checking" : "Publishing"} ${selectedPackages.length} packages with tag ${tag}.`,
   );
 
-  for (const [index, pkg] of orderedPackages.entries()) {
+  for (const [index, pkg] of selectedPackages.entries()) {
     const { name, version } = pkg.manifest;
-    const position = `[${index + 1}/${orderedPackages.length}]`;
+    const position = `[${index + 1}/${selectedPackages.length}]`;
 
     if (!dryRun && isAlreadyPublished(name, version)) {
       console.log(`${position} ${name}@${version} already exists; skipping.`);

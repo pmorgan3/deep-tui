@@ -1,6 +1,6 @@
 {
   "name": "@deep-tui/plugin-welcome-brand",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Deep TUI wordmark and tagline for the empty TUI transcript.",
   "license": "MIT",
   "publishConfig": {
