@@ -71,7 +71,7 @@ describe('run budget', () => {
     vi.setSystemTime(new Date('2026-08-21T02:00:00Z'))
     const ctx = new Context()
     const services = await Promise.all([ctx.plugin(AgentLifecycleService), ctx.plugin(TuiService)])
-    const plugin = await ctx.plugin(budgetPlugin, { maxCostUsd: 0.0001 })
+    const plugin = await ctx.plugin(budgetPlugin, { maxCostUsd: 0.0001, maxSteps: 100 })
     const state = {
       cwd: '.', width: 80, height: 24, provider: 'deepseek', model: 'flash', models: ['flash'], theme: 'default',
       contextWindow: 1_000, usage: {}, input: '', cursor: 0, slashSelection: 0,
@@ -94,7 +94,7 @@ describe('run budget', () => {
 
       const render = { state, style: (text: string) => text } as unknown as TuiRenderContext
       expect(ctx.tui.listStatusItems().map(item => item.render(render)))
-        .toContain('BUDGET 1/∞ · DEEPSEEK PEAK')
+        .toContain('BUDGET 1/100 · DEEPSEEK PEAK')
       expect(await ctx.tui.executeSlash('/budget status', actions)).toBe(true)
       expect(lines).toContain('DeepSeek peak pricing active (2× off-peak).')
       await ctx.agentHooks.finish({ ...run, steps: 1, status: 'limit-reached', usage })
