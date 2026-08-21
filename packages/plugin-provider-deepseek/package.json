@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "description": "DeepSeek V4 Pro and Flash provider plugin for Deep TUI.",
   "license": "MIT",
-  "publishConfig": { "access": "public" },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -13,7 +16,10 @@
       "default": "./dist/index.js"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit"
@@ -22,5 +28,17 @@
     "@deep-tui/plugin-provider-openai-compatible": "workspace:*",
     "@deep-tui/sdk": "workspace:*",
     "cordis": "^4.0.0-rc.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmorgan3/deep-tui.git",
+    "directory": "packages/plugin-provider-deepseek"
+  },
+  "homepage": "https://github.com/pmorgan3/deep-tui#readme",
+  "bugs": {
+    "url": "https://github.com/pmorgan3/deep-tui/issues"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }
