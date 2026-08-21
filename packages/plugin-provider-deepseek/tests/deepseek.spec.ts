@@ -1,11 +1,12 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from 'cordis'
 import { BillingService, ModelService, type ModelRequest } from '@deep-tui/sdk'
-import deepseek, { resolveDeepSeekModel } from '../src/index.js'
+import deepseek, { deepSeekPricingPeriod, resolveDeepSeekModel } from '../src/index.js'
 
 const previousApiKey = process.env.DEEPSEEK_API_KEY
 
 afterEach(() => {
+  vi.useRealTimers()
   vi.unstubAllGlobals()
   if (previousApiKey === undefined) {
     delete process.env.DEEPSEEK_API_KEY
@@ -23,6 +24,15 @@ function request(model: string): ModelRequest {
 }
 
 describe('DeepSeek provider', () => {
+  it('uses the documented UTC peak windows with exclusive end boundaries', () => {
+    expect(deepSeekPricingPeriod(new Date('2026-08-21T00:59:59Z'))).toBe('off-peak')
+    expect(deepSeekPricingPeriod(new Date('2026-08-21T01:00:00Z'))).toBe('peak')
+    expect(deepSeekPricingPeriod(new Date('2026-08-21T03:59:59Z'))).toBe('peak')
+    expect(deepSeekPricingPeriod(new Date('2026-08-21T04:00:00Z'))).toBe('off-peak')
+    expect(deepSeekPricingPeriod(new Date('2026-08-21T06:00:00Z'))).toBe('peak')
+    expect(deepSeekPricingPeriod(new Date('2026-08-21T10:00:00Z'))).toBe('off-peak')
+  })
+
   it('maps the friendly model aliases to official model ids', () => {
     expect(resolveDeepSeekModel('flash')).toBe('deepseek-v4-flash')
     expect(resolveDeepSeekModel('pro')).toBe('deepseek-v4-pro')
@@ -31,20 +41,26 @@ describe('DeepSeek provider', () => {
   })
 
   it('reads DEEPSEEK_API_KEY and sends the resolved model', async () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-08-21T02:00:00Z'))
     process.env.DEEPSEEK_API_KEY = 'test-deepseek-key'
-    const fetchMock = vi.fn(async () => ({
-      ok: true,
-      status: 200,
-      json: async () => ({
-        choices: [{ message: { content: 'Hi from DeepSeek' } }],
-        usage: {
-          prompt_tokens: 100,
-          prompt_cache_hit_tokens: 40,
-          prompt_cache_miss_tokens: 60,
-          completion_tokens: 10,
-        },
-      }),
-    } as Response))
+    const fetchMock = vi.fn(async () => {
+      // Billing uses the request-start period even when the response completes in another window.
+      vi.setSystemTime(new Date('2026-08-21T05:00:00Z'))
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          choices: [{ message: { content: 'Hi from DeepSeek' } }],
+          usage: {
+            prompt_tokens: 100,
+            prompt_cache_hit_tokens: 40,
+            prompt_cache_miss_tokens: 60,
+            completion_tokens: 10,
+          },
+        }),
+      } as Response
+    })
     vi.stubGlobal('fetch', fetchMock)
 
     const ctx = new Context()
@@ -62,7 +78,7 @@ describe('DeepSeek provider', () => {
       outputTokens: 10,
       contextTokens: 100,
     })
-    expect(response.usage?.calculatedCostUsd).toBeCloseTo(0.000034945, 12)
+    expect(response.usage?.calculatedCostUsd).toBeCloseTo(0.00012056, 12)
     expect(fetchMock).toHaveBeenCalledOnce()
     const [url, init] = fetchMock.mock.calls[0] ?? []
     expect(url).toBe('https://deepseek.test/v1/chat/completions')
@@ -76,6 +92,45 @@ describe('DeepSeek provider', () => {
     })
 
     await provider.dispose()
+    await billing.dispose()
+    await models.dispose()
+  })
+
+  it('uses off-peak pricing and keeps flat proxy overrides fixed across periods', async () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-08-21T05:00:00Z'))
+    process.env.DEEPSEEK_API_KEY = 'test-deepseek-key'
+    vi.stubGlobal('fetch', vi.fn(async () => Response.json({
+      choices: [{ message: { content: 'done' } }],
+      usage: {
+        prompt_tokens: 100,
+        prompt_cache_hit_tokens: 40,
+        prompt_cache_miss_tokens: 60,
+        completion_tokens: 10,
+      },
+    })))
+    const ctx = new Context()
+    const models = await ctx.plugin(ModelService)
+    const billing = await ctx.plugin(BillingService)
+    const provider = await ctx.plugin(deepseek)
+
+    const response = await ctx.models.complete('deepseek', request('pro'))
+    expect(response.usage?.calculatedCostUsd).toBeCloseTo(0.00006028, 12)
+
+    await provider.dispose()
+    const fixed = await ctx.plugin(deepseek, {
+      pricing: {
+        'deepseek-v4-pro': {
+          cachedInputPerMillion: 1,
+          uncachedInputPerMillion: 1,
+          outputPerMillion: 1,
+        },
+      },
+    })
+    expect((await ctx.models.complete('deepseek', request('pro'))).usage?.calculatedCostUsd)
+      .toBeCloseTo(0.00011, 12)
+
+    await fixed.dispose()
     await billing.dispose()
     await models.dispose()
   })

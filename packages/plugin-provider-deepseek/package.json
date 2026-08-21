@@ -1,6 +1,6 @@
 {
   "name": "@deep-tui/plugin-provider-deepseek",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "DeepSeek V4 Pro and Flash provider plugin for Deep TUI.",
   "license": "MIT",
   "publishConfig": {

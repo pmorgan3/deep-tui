@@ -28,7 +28,10 @@ export interface DeepSeekConfig {
   thinking?: boolean
   /** Thinking effort sent to DeepSeek. Defaults to max. */
   reasoningEffort?: DeepSeekReasoningEffort
-  /** Override per-million-token tariffs used for local charge calculation. */
+  /**
+   * Override per-million-token tariffs used for local charge calculation.
+   * Each supplied field is treated as a fixed proxy/vendor rate in both pricing periods.
+   */
   pricing?: Partial<Record<DeepSeekModelId, Partial<DeepSeekPricing>>>
 }
 
@@ -38,23 +41,45 @@ export interface DeepSeekPricing {
   outputPerMillion: number
 }
 
+export type DeepSeekPricingPeriod = 'peak' | 'off-peak'
+
 const modelAliases: Record<DeepSeekModelAlias, DeepSeekModelId> = {
   pro: 'deepseek-v4-pro',
   flash: 'deepseek-v4-flash',
 }
 
-/** Official public API prices checked 2026-08-17; configurable because vendor prices can change. */
+/** Official peak API prices checked 2026-08-21; configurable because vendor prices can change. */
 export const defaultDeepSeekPricing: Record<DeepSeekModelId, DeepSeekPricing> = {
   'deepseek-v4-flash': {
-    cachedInputPerMillion: 0.0028,
-    uncachedInputPerMillion: 0.14,
-    outputPerMillion: 0.28,
+    cachedInputPerMillion: 0.014,
+    uncachedInputPerMillion: 0.44,
+    outputPerMillion: 1.32,
   },
   'deepseek-v4-pro': {
-    cachedInputPerMillion: 0.003625,
-    uncachedInputPerMillion: 0.435,
-    outputPerMillion: 0.87,
+    cachedInputPerMillion: 0.044,
+    uncachedInputPerMillion: 1.32,
+    outputPerMillion: 3.96,
   },
+}
+
+/** Official off-peak API prices checked 2026-08-21. */
+export const defaultDeepSeekOffPeakPricing: Record<DeepSeekModelId, DeepSeekPricing> = {
+  'deepseek-v4-flash': {
+    cachedInputPerMillion: 0.007,
+    uncachedInputPerMillion: 0.22,
+    outputPerMillion: 0.66,
+  },
+  'deepseek-v4-pro': {
+    cachedInputPerMillion: 0.022,
+    uncachedInputPerMillion: 0.66,
+    outputPerMillion: 1.98,
+  },
+}
+
+/** DeepSeek peak windows are 01:00-04:00 and 06:00-10:00 UTC, with end times exclusive. */
+export function deepSeekPricingPeriod(at: Date | number = Date.now()): DeepSeekPricingPeriod {
+  const hour = new Date(at).getUTCHours()
+  return (hour >= 1 && hour < 4) || (hour >= 6 && hour < 10) ? 'peak' : 'off-peak'
 }
 
 function calculateCost(usage: ModelUsage, pricing: DeepSeekPricing): number {
@@ -91,7 +116,7 @@ interface DeepSeekBalanceResponse {
 class DeepSeekProvider implements ModelProvider, BillingProvider {
   readonly id: string
   private readonly upstream: OpenAiCompatibleProvider
-  private readonly pricing: Record<DeepSeekModelId, DeepSeekPricing>
+  private readonly pricing: Record<DeepSeekModelId, Record<DeepSeekPricingPeriod, DeepSeekPricing>>
   private readonly baseUrl: string
   private readonly headers: Record<string, string>
 
@@ -114,10 +139,15 @@ class DeepSeekProvider implements ModelProvider, BillingProvider {
         ? { thinking: { type: 'disabled' } }
         : { thinking: { type: 'enabled' }, reasoning_effort: reasoningEffort },
     })
-    this.pricing = {
-      'deepseek-v4-flash': { ...defaultDeepSeekPricing['deepseek-v4-flash'], ...config.pricing?.['deepseek-v4-flash'] },
-      'deepseek-v4-pro': { ...defaultDeepSeekPricing['deepseek-v4-pro'], ...config.pricing?.['deepseek-v4-pro'] },
-    }
+    this.pricing = Object.fromEntries(
+      (['deepseek-v4-flash', 'deepseek-v4-pro'] as const).map(model => {
+        const override = config.pricing?.[model]
+        return [model, {
+          peak: { ...defaultDeepSeekPricing[model], ...override },
+          'off-peak': { ...defaultDeepSeekOffPeakPricing[model], ...override },
+        }]
+      }),
+    ) as Record<DeepSeekModelId, Record<DeepSeekPricingPeriod, DeepSeekPricing>>
   }
 
   async complete(request: ModelRequest): Promise<ModelResponse> {
@@ -125,6 +155,7 @@ class DeepSeekProvider implements ModelProvider, BillingProvider {
       throw new Error('DEEPSEEK_API_KEY is not set in the environment')
     }
     const model = resolveDeepSeekModel(request.model)
+    const pricingPeriod = deepSeekPricingPeriod()
     const response = await this.upstream.complete({
       ...request,
       model,
@@ -134,7 +165,7 @@ class DeepSeekProvider implements ModelProvider, BillingProvider {
       ...response,
       usage: {
         ...response.usage,
-        calculatedCostUsd: calculateCost(response.usage, this.pricing[model]),
+        calculatedCostUsd: calculateCost(response.usage, this.pricing[model][pricingPeriod]),
       },
     }
   }
@@ -142,9 +173,13 @@ class DeepSeekProvider implements ModelProvider, BillingProvider {
   async *stream(request: ModelRequest): AsyncIterable<ModelStreamEvent> {
     if (!process.env.DEEPSEEK_API_KEY) throw new Error('DEEPSEEK_API_KEY is not set in the environment')
     const model = resolveDeepSeekModel(request.model)
+    const pricingPeriod = deepSeekPricingPeriod()
     for await (const event of this.upstream.stream({ ...request, model })) {
       if (event.type === 'usage') {
-        yield { type: 'usage', usage: { ...event.usage, calculatedCostUsd: calculateCost(event.usage, this.pricing[model]) } }
+        yield {
+          type: 'usage',
+          usage: { ...event.usage, calculatedCostUsd: calculateCost(event.usage, this.pricing[model][pricingPeriod]) },
+        }
       } else {
         yield event
       }
