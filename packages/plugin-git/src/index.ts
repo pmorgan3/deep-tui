@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process'
 import type { Context } from 'cordis'
-import { assertRecord, type JsonObject, type ToolExecutionContext } from '@flect/sdk'
+import { assertRecord, type JsonObject, type ToolExecutionContext } from '@deep-tui/sdk'
 
 export interface GitPluginConfig {
   gitBinary?: string

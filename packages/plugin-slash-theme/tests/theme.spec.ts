@@ -9,7 +9,7 @@ import {
   ProjectService,
   type TuiActions,
   type TuiState,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 import themeSlash from '../src/index.js'
 
 async function mountThemeContext(config: { persist?: boolean } = {}, root = process.cwd()) {
@@ -99,14 +99,14 @@ describe('theme slash plugin', () => {
   })
 
   it('previews with arrows, cancels with Escape, and persists an accepted theme', async () => {
-    const cwd = await mkdtemp(path.join(tmpdir(), 'flect-theme-'))
+    const cwd = await mkdtemp(path.join(tmpdir(), 'deep-tui-theme-'))
     try {
       const first = await mountThemeContext({}, cwd)
       const firstSession = makeActions(cwd)
       await first.ctx.tui.startSession(firstSession.actions)
 
       await first.ctx.tui.executeSlash('/theme', firstSession.actions)
-      expect(firstSession.state.overlay?.id).toBe('flect.theme.picker')
+      expect(firstSession.state.overlay?.id).toBe('deep-tui.theme.picker')
       await press(first.ctx, 'down', firstSession.actions)
       const previewed = first.ctx.themes.current()?.id
       expect(previewed).toBeTruthy()
@@ -115,14 +115,14 @@ describe('theme slash plugin', () => {
 
       await press(first.ctx, 'escape', firstSession.actions)
       expect(first.ctx.themes.current()?.id).toBe('default')
-      await expect(readFile(path.join(cwd, '.flect/theme.json'), 'utf8')).rejects.toMatchObject({ code: 'ENOENT' })
+      await expect(readFile(path.join(cwd, '.deep-tui/theme.json'), 'utf8')).rejects.toMatchObject({ code: 'ENOENT' })
 
       await first.ctx.tui.executeSlash('/theme', firstSession.actions)
       await press(first.ctx, 'down', firstSession.actions)
       const accepted = first.ctx.themes.current()?.id
       await press(first.ctx, 'enter', firstSession.actions)
       expect(firstSession.state.overlay).toBeUndefined()
-      expect(JSON.parse(await readFile(path.join(cwd, '.flect/theme.json'), 'utf8'))).toEqual({ theme: accepted })
+      expect(JSON.parse(await readFile(path.join(cwd, '.deep-tui/theme.json'), 'utf8'))).toEqual({ theme: accepted })
       await first.ctx.tui.stopSession(firstSession.actions)
       await first.dispose()
 

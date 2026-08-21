@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { PermissionRisk } from '@flect/sdk'
+import type { PermissionRisk } from '@deep-tui/sdk'
 
 export interface PlanModeConfig {
   /** Start in plan mode. Defaults to false. */
@@ -47,7 +47,7 @@ export function apply(ctx: Context, config: PlanModeConfig = {}): void {
     enabled = next
     if (enabled && !suppressAutoStatus) {
       suppressAutoStatus = ctx.tui.registerStatusItem({
-        id: 'flect.permission.auto.status',
+        id: 'deep-tui.permission.auto.status',
         priority: 10_000,
         render: () => undefined,
       })
@@ -60,14 +60,14 @@ export function apply(ctx: Context, config: PlanModeConfig = {}): void {
   }
 
   ctx.prompts.register({
-    id: 'flect.mode.plan.prompt',
+    id: 'deep-tui.mode.plan.prompt',
     order: 1_000,
     placement: 'context',
     render: () => enabled ? (config.prompt ?? defaultPrompt) : inactivePrompt,
   })
 
   ctx.permissions.register({
-    id: 'flect.mode.plan.permissions',
+    id: 'deep-tui.mode.plan.permissions',
     priority: 2_000,
     decide(request) {
       return enabled && blockedRisks.has(request.risk) ? 'deny' : 'abstain'
@@ -75,7 +75,7 @@ export function apply(ctx: Context, config: PlanModeConfig = {}): void {
   })
 
   ctx.tui.registerStatusItem({
-    id: 'flect.mode.plan.status',
+    id: 'deep-tui.mode.plan.status',
     priority: 200,
     render(render) {
       return enabled ? render.style('PLAN', 'accent', true) : undefined
@@ -83,7 +83,7 @@ export function apply(ctx: Context, config: PlanModeConfig = {}): void {
   })
 
   ctx.tui.registerSlashCommand({
-    id: 'flect.mode.plan.command',
+    id: 'deep-tui.mode.plan.command',
     name: 'plan',
     description: 'Enter read-only planning mode.',
     usage: '/plan [on|off|status]',
@@ -107,7 +107,7 @@ export function apply(ctx: Context, config: PlanModeConfig = {}): void {
           title: 'Plan mode',
           tone: enabled ? 'accent' : 'muted',
           lines: [
-            enabled ? 'On for this Flect session.' : 'Off.',
+            enabled ? 'On for this Deep TUI session.' : 'Off.',
             `Blocked risk classes: ${[...blockedRisks].join(', ') || 'none'}`,
             'Read-only workspace tools remain available.',
             'Auto approval is overridden while plan mode is active.',

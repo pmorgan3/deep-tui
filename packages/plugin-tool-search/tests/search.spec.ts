@@ -3,7 +3,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { ToolService, WorkspaceService } from '@flect/sdk'
+import { ToolService, WorkspaceService } from '@deep-tui/sdk'
 import workspace from '../../plugin-workspace-local/src/index.js'
 import search from '../src/index.js'
 
@@ -12,7 +12,7 @@ afterEach(async () => Promise.all(directories.splice(0).map(directory => rm(dire
 
 describe('search tools', () => {
   it('finds bounded Unicode/CRLF matches and skips ignored/binary files', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-search-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-search-'))
     directories.push(root)
     await mkdir(path.join(root, 'src'))
     await mkdir(path.join(root, '.git'))

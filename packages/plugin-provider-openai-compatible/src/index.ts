@@ -7,9 +7,9 @@ import type {
   ModelResponse,
   ModelStreamEvent,
   ToolCall,
-} from '@flect/sdk'
-import { assertRecord } from '@flect/sdk'
-import { stableJsonStringify } from '@flect/sdk'
+} from '@deep-tui/sdk'
+import { assertRecord } from '@deep-tui/sdk'
+import { stableJsonStringify } from '@deep-tui/sdk'
 import { readSseData } from './sse.js'
 
 export interface OpenAiCompatibleConfig {

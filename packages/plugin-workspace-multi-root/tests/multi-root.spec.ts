@@ -17,7 +17,7 @@ import {
   type TuiOverlay,
   type TuiRenderContext,
   type TuiState,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 import localWorkspace from '../../plugin-workspace-local/src/index.js'
 import workspaceTools from '../../plugin-tool-workspace/src/index.js'
 import searchTools from '../../plugin-tool-search/src/index.js'
@@ -33,7 +33,7 @@ afterEach(async () => {
 })
 
 async function projectFolders(): Promise<{ container: string; primary: string; api: string; docs: string; outside: string }> {
-  const container = await mkdtemp(path.join(os.tmpdir(), 'flect-multi-root-'))
+  const container = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-multi-root-'))
   temporaryDirectories.push(container)
   const primary = path.join(container, 'primary')
   const api = path.join(container, 'api')
@@ -171,7 +171,7 @@ describe('multi-root workspace plugin', () => {
     }, execution) as { code: number; stdout: string }
     expect(ran).toMatchObject({ code: 0, stdout: `${api}\n` })
 
-    const sidebar = ctx.tui.listSidebarSections().find(section => section.id === 'flect.sidebar.folders')
+    const sidebar = ctx.tui.listSidebarSections().find(section => section.id === 'deep-tui.sidebar.folders')
     const rows = sidebar?.render(renderContext(state(primary)))?.rows.map(row => row.text).join('\n')
     expect(rows).toContain('@api · read-write')
     const capture = { notifications: [] as string[], overlays: [] as TuiOverlay[] }
@@ -213,7 +213,7 @@ describe('multi-root workspace plugin', () => {
     await first.ctx.commands.execute('folders', ['add', '../api', 'server', '--read-only'], commandEnvironment(primary, output))
     expect(output.join('')).toContain('Mounted @server')
     await expect(first.ctx.commands.execute('folders', ['add', '.', 'nested'], commandEnvironment(primary, []))).rejects.toThrow('overlaps')
-    expect(JSON.parse(await readFile(path.join(primary, '.flect', 'folders.json'), 'utf8'))).toMatchObject({
+    expect(JSON.parse(await readFile(path.join(primary, '.deep-tui', 'folders.json'), 'utf8'))).toMatchObject({
       version: 1, folders: [{ alias: 'server', access: 'read-only' }],
     })
     await first.close()
@@ -237,7 +237,7 @@ describe('multi-root workspace plugin', () => {
     await expect(second.ctx.tui.executeSlash('/folders add ../docs other', actions(state(primary, '', true), capture))).rejects.toThrow('current agent run')
     await second.ctx.tui.executeSlash('/folders remove @server', ready)
     expect(capture.notifications).toContain('removed @server')
-    expect(JSON.parse(await readFile(path.join(primary, '.flect', 'folders.json'), 'utf8'))).toMatchObject({ folders: [] })
+    expect(JSON.parse(await readFile(path.join(primary, '.deep-tui', 'folders.json'), 'utf8'))).toMatchObject({ folders: [] })
     await second.close()
 
     const third = await composition(primary)

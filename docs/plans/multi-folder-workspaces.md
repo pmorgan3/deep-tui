@@ -2,14 +2,14 @@
 
 ## Outcome
 
-One Flect process can work across a primary project and multiple explicitly
+One Deep TUI process can work across a primary project and multiple explicitly
 trusted local folders without teaching individual tools about filesystem
 mounts. The feature remains optional and decomposes into ordinary plugins.
 
 ## Addressing and ownership
 
-- The project containing `flect.config.json` remains the primary root, session
-  anchor, and `.flect` state owner.
+- The project containing `deep-tui.config.json` remains the primary root, session
+  anchor, and `.deep-tui` state owner.
 - Existing unprefixed paths keep their meaning in the primary root.
 - Every additional root has a case-insensitively unique alias and is addressed
   as `@alias/path`.
@@ -22,9 +22,9 @@ mounts. The feature remains optional and decomposes into ordinary plugins.
 
 | Package | Responsibility |
 | --- | --- |
-| `@flect/plugin-workspace-local` | Single-root fallback and reusable local containment/walk primitives |
-| `@flect/plugin-workspace-multi-root` | Alias routing, root metadata, access policy, persistence, prompt context, `/folders`, and `flect folders` |
-| `@flect/plugin-sidebar-folders` | Optional live TUI presentation of root state |
+| `@deep-tui/plugin-workspace-local` | Single-root fallback and reusable local containment/walk primitives |
+| `@deep-tui/plugin-workspace-multi-root` | Alias routing, root metadata, access policy, persistence, prompt context, `/folders`, and `deep-tui folders` |
+| `@deep-tui/plugin-sidebar-folders` | Optional live TUI presentation of root state |
 | Tool plugins | Consume only `WorkspaceService`; no mount-specific branches |
 
 The multi-root provider has higher priority than the local provider. Cordis
@@ -32,8 +32,8 @@ disposal therefore restores single-root behavior automatically.
 
 ## State and lifecycle
 
-`/folders add <path> [alias] [--read-only]` and `flect folders add` persist
-runtime additions in the primary project's `.flect/folders.json`. Writes use a
+`/folders add <path> [alias] [--read-only]` and `deep-tui folders add` persist
+runtime additions in the primary project's `.deep-tui/folders.json`. Writes use a
 temporary file and atomic rename. Configuration-defined roots are immutable at
 runtime, while persisted roots can be removed. Missing roots stay in metadata
 as unavailable and are refreshed by status operations.

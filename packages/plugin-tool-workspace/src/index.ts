@@ -1,6 +1,6 @@
 import { readFile, stat, writeFile } from 'node:fs/promises'
 import type { Context } from 'cordis'
-import { assertRecord, createUnifiedDiff, type JsonObject } from '@flect/sdk'
+import { assertRecord, createUnifiedDiff, type JsonObject } from '@deep-tui/sdk'
 
 export interface WorkspaceToolsConfig {
   maxReadBytes?: number

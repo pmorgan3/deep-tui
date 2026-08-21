@@ -1,8 +1,8 @@
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import type { Context } from 'cordis'
-import type { PermissionRule } from '@flect/sdk'
-import { formatUnknownError } from '@flect/sdk'
+import type { PermissionRule } from '@deep-tui/sdk'
+import { formatUnknownError } from '@deep-tui/sdk'
 
 export interface PermissionRulesConfig {
   persist?: boolean
@@ -60,7 +60,7 @@ export async function apply(ctx: Context, config: PermissionRulesConfig = {}): P
   await load(ctx, config)
   ctx.permissionRules.registerWriter(rules => save(ctx, config, rules))
   ctx.permissions.register({
-    id: 'flect.permission.rules',
+    id: 'deep-tui.permission.rules',
     priority: 1_000,
     decide(request, context) {
       if (config.allowRead !== false && request.risk === 'read' && request.capability === 'fs.read') {
@@ -71,7 +71,7 @@ export async function apply(ctx: Context, config: PermissionRulesConfig = {}): P
     },
   })
   ctx.tui.registerSlashCommand({
-    id: 'flect.permissions.manage', name: 'permissions', aliases: ['perms'],
+    id: 'deep-tui.permissions.manage', name: 'permissions', aliases: ['perms'],
     description: 'List or revoke remembered permission rules.', usage: '/permissions [revoke <id>]', priority: -40,
     complete({ args, query }) {
       if (args[0] !== 'revoke') return [{ value: 'revoke ', label: 'revoke', description: 'Remove a remembered rule.' }]

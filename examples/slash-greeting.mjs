@@ -1,4 +1,4 @@
-// Add this in one command: flect plugin add ./examples/slash-greeting.mjs
+// Add this in one command: deep-tui plugin add ./examples/slash-greeting.mjs
 export const name = 'slash-greeting-example'
 export const inject = ['tui']
 

@@ -8,14 +8,14 @@ import type {
   WorkspaceProvider,
   WorkspaceRoot,
   WorkspaceWalkOptions,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 import {
   isWithinRoot,
   portablePath,
   resolveLocalRead,
   resolveLocalWrite,
   walkLocalWorkspace,
-} from '@flect/plugin-workspace-local'
+} from '@deep-tui/plugin-workspace-local'
 
 export interface ConfiguredFolder {
   alias: string
@@ -284,7 +284,7 @@ async function* interleavedWalk(
 
 function provider(manager: FolderManager, config: MultiRootWorkspaceConfig): WorkspaceProvider {
   return {
-    id: 'flect.multi-root-workspace', priority: 500,
+    id: 'deep-tui.multi-root-workspace', priority: 500,
     async resolveRead(requested, _context) {
       const selected = address(manager, requested)
       requireAvailable(selected.root)
@@ -328,7 +328,7 @@ export async function apply(ctx: Context, config: MultiRootWorkspaceConfig = {})
   ctx.workspace.register(provider(manager, config))
 
   ctx.prompts.register({
-    id: 'flect.workspace.multi-root.prompt', order: 10, placement: 'context',
+    id: 'deep-tui.workspace.multi-root.prompt', order: 10, placement: 'context',
     render() {
       const additional = manager.roots().filter(root => !root.primary && root.available)
       if (!additional.length) return [
@@ -344,7 +344,7 @@ export async function apply(ctx: Context, config: MultiRootWorkspaceConfig = {})
   })
 
   ctx.tui.registerSlashCommand({
-    id: 'flect.workspace.folders.command', name: 'folders', aliases: ['folder'],
+    id: 'deep-tui.workspace.folders.command', name: 'folders', aliases: ['folder'],
     description: 'List, add, or remove workspace folders.',
     usage: '/folders [add <path> [alias] [--read-only]|remove <alias>|status]',
     complete({ args, query }) {
@@ -391,7 +391,7 @@ export async function apply(ctx: Context, config: MultiRootWorkspaceConfig = {})
       const action = args[0]?.toLowerCase() ?? 'list'
       if (action === 'add') {
         const pathname = args[1]
-        if (!pathname) throw new Error('usage: flect folders add <path> [alias] [--read-only]')
+        if (!pathname) throw new Error('usage: deep-tui folders add <path> [alias] [--read-only]')
         const mounted = await manager.add(
           pathname,
           args.slice(2).find(value => value !== '--read-only'),
@@ -401,12 +401,12 @@ export async function apply(ctx: Context, config: MultiRootWorkspaceConfig = {})
         return
       }
       if (action === 'remove') {
-        if (!args[1] || args.length > 2) throw new Error('usage: flect folders remove <alias>')
+        if (!args[1] || args.length > 2) throw new Error('usage: deep-tui folders remove <alias>')
         const removed = await manager.remove(args[1])
         environment.stdout.write(`Removed ${removed.prefix}\n`)
         return
       }
-      if (action !== 'list' && action !== 'status') throw new Error('usage: flect folders <list|add|remove>')
+      if (action !== 'list' && action !== 'status') throw new Error('usage: deep-tui folders <list|add|remove>')
       environment.stdout.write(`${rootLines(await manager.refresh()).join('\n')}\n`)
     },
   })

@@ -1,15 +1,16 @@
-# The Flect name
+# The Deep TUI name
 
-The project is named **Flect**: a short form inspired by *inflect* and
-*deflect*—software intentionally bent into the shape its user wants.
+The project is named **Deep TUI**: a direct description of a terminal-native
+agent harness designed for deep, sustained work. The name keeps the primary
+interface obvious without tying the runtime to one model provider.
 
 The public surface follows the name consistently:
 
-- CLI executable: `flect`
-- project composition: `flect.config.json`
-- local project data and plugins: `.flect/`
-- npm package family: `@flect/*`
+- CLI executable: `deep-tui`
+- project composition: `deep-tui.config.json`
+- local project data and plugins: `.deep-tui/`
+- npm package family: `@deep-tui/*`
 
 The name does not imply that the project is maintained by the Cordis authors.
-Before a public release, the project still needs to secure the npm organization,
-repository organization, domain, and appropriate trademark clearance.
+The `@deep-tui` npm organization is secured. Before a public release, the
+repository identity and appropriate name clearance still need to be confirmed.

@@ -8,7 +8,7 @@ describe('Zellij title controller', () => {
   it('animates while running and settles on the session title', () => {
     const writes: string[] = []
     const controller = new ZellijTitleController({ write: value => writes.push(value) }, {
-      label: 'Flect', spinnerFrames: ['a', 'b'], intervalMs: 100,
+      label: 'Deep TUI', spinnerFrames: ['a', 'b'], intervalMs: 100,
     })
 
     controller.start('Repair mouse input')
@@ -16,9 +16,9 @@ describe('Zellij title controller', () => {
     controller.finish('complete')
 
     expect(writes).toEqual([
-      '\u001b]0;a Flect · Repair mouse input\u0007',
-      '\u001b]0;b Flect · Repair mouse input\u0007',
-      '\u001b]0;Flect · Repair mouse input\u0007',
+      '\u001b]0;a Deep TUI · Repair mouse input\u0007',
+      '\u001b]0;b Deep TUI · Repair mouse input\u0007',
+      '\u001b]0;Deep TUI · Repair mouse input\u0007',
     ])
     controller.dispose()
   })
@@ -27,6 +27,6 @@ describe('Zellij title controller', () => {
     const writes: string[] = []
     const controller = new ZellijTitleController({ write: value => writes.push(value) })
     controller.idle('safe\u001b]0;hijack\u0007 title')
-    expect(writes.at(-1)).toBe('\u001b]0;Flect · safe ]0;hijack title\u0007')
+    expect(writes.at(-1)).toBe('\u001b]0;Deep TUI · safe ]0;hijack title\u0007')
   })
 })

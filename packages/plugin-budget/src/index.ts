@@ -5,7 +5,7 @@ import type {
   AgentLifecycleRunContext,
   AgentLifecycleStepContext,
   ModelUsage,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 
 export interface BudgetConfig {
   enabled?: boolean
@@ -188,7 +188,7 @@ export const inject = ['agentHooks', 'tui']
 export function apply(ctx: Context, config: BudgetConfig = {}): void {
   const controller = new BudgetController(ctx, resolveLimits(config), config.enabled !== false)
   ctx.agentHooks.register({
-    id: 'flect.budget.policy',
+    id: 'deep-tui.budget.policy',
     priority: 100,
     beforeRun: context => controller.beforeRun(context),
     beforeStep: context => controller.beforeStep(context),
@@ -197,7 +197,7 @@ export function apply(ctx: Context, config: BudgetConfig = {}): void {
   })
 
   ctx.tui.registerStatusItem({
-    id: 'flect.budget.status', priority: 180,
+    id: 'deep-tui.budget.status', priority: 180,
     render(render) {
       if (!controller.enabled) return render.style('BUDGET OFF', 'warning', true)
       const current = controller.current()
@@ -207,7 +207,7 @@ export function apply(ctx: Context, config: BudgetConfig = {}): void {
   })
 
   ctx.tui.registerSlashCommand({
-    id: 'flect.budget.command', name: 'budget', description: 'Inspect or toggle per-run safety budgets.',
+    id: 'deep-tui.budget.command', name: 'budget', description: 'Inspect or toggle per-run safety budgets.',
     usage: '/budget [status|on|off]',
     complete({ query }) {
       return ['status', 'on', 'off'].filter(value => value.startsWith(query.toLowerCase())).map(value => ({ value }))
@@ -222,9 +222,9 @@ export function apply(ctx: Context, config: BudgetConfig = {}): void {
       }
       const current = controller.current() ?? controller.latest()
       actions.showOverlay({
-        id: 'flect.budget.status', title: 'Run budget', tone: controller.enabled ? 'accent' : 'warning',
+        id: 'deep-tui.budget.status', title: 'Run budget', tone: controller.enabled ? 'accent' : 'warning',
         lines: [
-          controller.enabled ? 'Enabled.' : 'Disabled for this Flect process.',
+          controller.enabled ? 'Enabled.' : 'Disabled for this Deep TUI process.',
           '',
           formatLimit('model steps', controller.limits.maxSteps),
           formatLimit('duration', controller.limits.maxDurationMs, 'ms'),

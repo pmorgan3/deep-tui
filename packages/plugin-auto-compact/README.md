@@ -1,4 +1,4 @@
-# @flect/plugin-auto-compact
+# @deep-tui/plugin-auto-compact
 
 Compacts a durable conversation before the next agent run when its model-facing
 surface approaches the configured context window. It uses provider-reported
@@ -6,7 +6,7 @@ context usage when available and a conservative character estimate otherwise.
 
 ```json
 {
-  "use": "@flect/plugin-auto-compact",
+  "use": "@deep-tui/plugin-auto-compact",
   "config": {
     "threshold": 0.8,
     "contextWindows": {

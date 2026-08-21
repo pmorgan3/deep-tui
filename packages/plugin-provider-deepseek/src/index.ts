@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import { OpenAiCompatibleProvider } from '@flect/plugin-provider-openai-compatible'
+import { OpenAiCompatibleProvider } from '@deep-tui/plugin-provider-openai-compatible'
 import type {
   BillingBalance,
   BillingProvider,
@@ -8,7 +8,7 @@ import type {
   ModelResponse,
   ModelUsage,
   ModelStreamEvent,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 
 export type DeepSeekModelAlias = 'pro' | 'flash'
 export type DeepSeekModelId = 'deepseek-v4-pro' | 'deepseek-v4-flash'

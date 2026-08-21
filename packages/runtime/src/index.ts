@@ -15,9 +15,9 @@ import {
   ToolService,
   UiService,
   WorkspaceService,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 
-export const name = 'flect-runtime'
+export const name = 'deep-tui-runtime'
 
 export function apply(ctx: Context): void {
   if (!ctx.get('project')) ctx.plugin(ProjectService)

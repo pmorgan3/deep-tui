@@ -1,6 +1,6 @@
-# @flect/plugin-compact
+# @deep-tui/plugin-compact
 
-Adds `/compact` (alias `/summarize`) for the Flect TUI.
+Adds `/compact` (alias `/summarize`) to Deep TUI.
 
 `/compact` asks the configured model for a checkpoint and appends that
 checkpoint to the active conversation. The summarizer replays the selected
@@ -29,7 +29,7 @@ Configure the summarizer model separately from the main agent:
 
 ```json
 {
-  "use": "@flect/plugin-compact",
+  "use": "@deep-tui/plugin-compact",
   "config": {
     "provider": "deepseek",
     "model": "pro",

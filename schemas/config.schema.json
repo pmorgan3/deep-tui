@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "flect.config.schema.json",
-  "title": "Flect composition",
+  "$id": "deep-tui.config.schema.json",
+  "title": "Deep TUI composition",
   "type": "object",
   "required": ["version", "plugins"],
   "additionalProperties": false,

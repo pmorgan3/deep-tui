@@ -1,6 +1,6 @@
-# @flect/plugin-render-run-command
+# @deep-tui/plugin-render-run-command
 
-Renders `run_command` activity in Flect's TUI as a compact Claude-style block.
+Renders `run_command` activity in Deep TUI's TUI as a compact Claude-style block.
 The command is shell-highlighted and wrapped, while output keeps a short
 head/tail preview, omitted-line count, failure status, and elapsed time:
 

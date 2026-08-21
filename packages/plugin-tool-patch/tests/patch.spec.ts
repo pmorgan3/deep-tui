@@ -3,7 +3,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { ToolService, WorkspaceService, type ToolPresentation } from '@flect/sdk'
+import { ToolService, WorkspaceService, type ToolPresentation } from '@deep-tui/sdk'
 import workspace from '../../plugin-workspace-local/src/index.js'
 import patchPlugin from '../src/index.js'
 
@@ -12,7 +12,7 @@ afterEach(async () => Promise.all(directories.splice(0).map(directory => rm(dire
 
 describe('apply_patch tool', () => {
   it('creates and modifies exact-context files', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-patch-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-patch-'))
     directories.push(root)
     await mkdir(path.join(root, 'src'))
     await writeFile(path.join(root, 'src', 'a.txt'), 'old\n', 'utf8')
@@ -37,7 +37,7 @@ describe('apply_patch tool', () => {
   })
 
   it('changes nothing when a later file has a context mismatch', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-patch-atomic-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-patch-atomic-'))
     directories.push(root)
     await writeFile(path.join(root, 'a.txt'), 'old\n', 'utf8')
     await writeFile(path.join(root, 'b.txt'), 'actual\n', 'utf8')
@@ -50,7 +50,7 @@ describe('apply_patch tool', () => {
   })
 
   it('keeps deletion and rename opt-in', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-patch-move-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-patch-move-'))
     directories.push(root)
     await writeFile(path.join(root, 'old.txt'), 'old\n', 'utf8')
     const { ctx, close } = await composition({ allowRenames: true })
@@ -62,7 +62,7 @@ describe('apply_patch tool', () => {
   })
 
   it('preserves CRLF line endings', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-patch-crlf-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-patch-crlf-'))
     directories.push(root)
     await writeFile(path.join(root, 'a.txt'), 'one\r\ntwo\r\n', 'utf8')
     const { ctx, close } = await composition()
@@ -72,7 +72,7 @@ describe('apply_patch tool', () => {
   })
 
   it('preserves an explicit missing newline at EOF', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-patch-eof-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-patch-eof-'))
     directories.push(root)
     const { ctx, close } = await composition()
     await ctx.tools.get('apply_patch')?.execute({ patch: '--- /dev/null\n+++ b/a.txt\n@@ -0,0 +1,1 @@\n+no newline\n\\ No newline at end of file\n' }, { cwd: root })

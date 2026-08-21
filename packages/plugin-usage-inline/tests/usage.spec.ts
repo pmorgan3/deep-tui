@@ -5,7 +5,7 @@ import {
   type Theme,
   type TuiRenderContext,
   type TuiState,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 import inlineUsage, { formatMessageUsage, formatSessionCost } from '../src/index.js'
 
 const theme: Theme = {

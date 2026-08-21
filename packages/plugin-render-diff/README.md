@@ -1,4 +1,4 @@
-# @flect/plugin-render-diff
+# @deep-tui/plugin-render-diff
 
 Renders successful file changes inline as theme-aware unified diffs. Added
 lines use the active theme's success color, removed lines use danger, and hunk

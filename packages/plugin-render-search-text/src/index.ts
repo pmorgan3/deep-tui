@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { TuiRenderContext } from '@flect/sdk'
+import type { TuiRenderContext } from '@deep-tui/sdk'
 
 export interface SearchTextRendererConfig {
   /** Show match previews in the transcript. Defaults to false for a compact exploration log. */
@@ -167,7 +167,7 @@ export const inject = ['tui']
 export function apply(ctx: Context, config: SearchTextRendererConfig = {}): void {
   const maxLineLength = boundedInteger(config.maxLineLength, 1_000, 40)
   ctx.tui.registerEventRenderer({
-    id: 'flect.search-text.tool-call',
+    id: 'deep-tui.search-text.tool-call',
     priority: 180,
     render(event, render) {
       if (event.type !== 'tool-call' || event.call.name !== 'search_text') return undefined
@@ -181,7 +181,7 @@ export function apply(ctx: Context, config: SearchTextRendererConfig = {}): void
   })
 
   ctx.tui.registerEventRenderer({
-    id: 'flect.search-text.tool-result',
+    id: 'deep-tui.search-text.tool-result',
     priority: 180,
     render(event, render) {
       if (event.type !== 'tool-result' || event.call.name !== 'search_text') return undefined

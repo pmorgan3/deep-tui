@@ -1,7 +1,7 @@
 import type { Context } from 'cordis'
 import { createHighlighter, type BundledLanguage, type ThemeRegistration } from 'shiki'
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
-import type { Theme } from '@flect/sdk'
+import type { Theme } from '@deep-tui/sdk'
 
 export interface ShikiHighlighterConfig {
   languages?: BundledLanguage[]
@@ -20,7 +20,7 @@ function syntaxTheme(theme: Theme): ThemeRegistration {
   const syntax = theme.tokens.syntax ?? {}
   const color = (name: keyof NonNullable<Theme['tokens']['syntax']>, fallback: string) => syntax[name] ?? fallback
   return {
-    name: `flect-${theme.id}`,
+    name: `deep-tui-${theme.id}`,
     type: 'dark',
     colors: { 'editor.foreground': colors.foreground, 'editor.background': colors.background },
     settings: [
@@ -56,12 +56,12 @@ export async function apply(ctx: Context, config: ShikiHighlighterConfig = {}): 
   const cacheLimit = Math.max(1, Math.floor(config.maxCacheEntries ?? 512))
   ctx.effect(() => () => highlighter.dispose(), 'shiki highlighter')
   ctx.tui.registerCodeHighlighter({
-    id: 'flect.shiki',
+    id: 'deep-tui.shiki',
     priority: 50,
     highlight(code, language, render) {
       const lang = (language || 'text').toLowerCase() as BundledLanguage | 'text'
       if (lang !== 'text' && !highlighter.getLoadedLanguages().includes(lang)) return undefined
-      const theme = `flect-${render.theme.id}`
+      const theme = `deep-tui-${render.theme.id}`
       if (!highlighter.getLoadedThemes().includes(theme)) return undefined
       const key = `${theme}\u0000${lang}\u0000${code}`
       const cached = cache.get(key)

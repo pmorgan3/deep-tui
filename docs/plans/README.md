@@ -1,4 +1,4 @@
-# Flect daily-driver implementation plans
+# Deep TUI daily-driver implementation plans
 
 These plans defined the first daily-driver milestone. All eight tracks are now
 implemented; the documents remain the design and regression contract for
@@ -57,5 +57,5 @@ Before any new public contract is called stable:
 
 The milestone is complete when a user can hold a long, streaming, formatted
 conversation; safely approve recurring operations; search, patch, and execute
-within a workspace; close and resume that conversation; and inspect what Flect
+within a workspace; close and resume that conversation; and inspect what Deep TUI
 did—all while replacing each default through ordinary plugins.

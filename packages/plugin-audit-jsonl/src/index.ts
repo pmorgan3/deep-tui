@@ -2,7 +2,7 @@ import { appendFile, mkdir, readFile, readdir, stat, unlink } from 'node:fs/prom
 import { createHash } from 'node:crypto'
 import path from 'node:path'
 import type { Context } from 'cordis'
-import type { AuditEvent, AuditSink } from '@flect/sdk'
+import type { AuditEvent, AuditSink } from '@deep-tui/sdk'
 
 export interface JsonlAuditConfig {
   directory?: string
@@ -23,7 +23,7 @@ function digest(event: AuditEvent, previousHash: string | undefined): string {
 }
 
 export class JsonlAuditSink implements AuditSink {
-  readonly id = 'flect.audit.jsonl'
+  readonly id = 'deep-tui.audit.jsonl'
   readonly priority = 0
   private queue = Promise.resolve()
   private readonly tails = new Map<string, string | undefined>()
@@ -154,9 +154,9 @@ export function apply(ctx: Context, config: JsonlAuditConfig = {}): void {
   const sink = new JsonlAuditSink(directory, config)
   ctx.audit.registerSink(sink)
   ctx.effect(() => () => ctx.audit.flush(), 'audit flush')
-  ctx.tui.registerSessionHook({ id: 'flect.audit.flush', priority: -100, start() {}, stop: () => ctx.audit.flush() })
+  ctx.tui.registerSessionHook({ id: 'deep-tui.audit.flush', priority: -100, start() {}, stop: () => ctx.audit.flush() })
   ctx.tui.registerSlashCommand({
-    id: 'flect.audit.show', name: 'audit', description: 'Show recent redacted model, permission, and tool events.',
+    id: 'deep-tui.audit.show', name: 'audit', description: 'Show recent redacted model, permission, and tool events.',
     async run(args, actions) {
       const events = await readAuditEvents(directory, 200)
       if (args[0] === 'show') {

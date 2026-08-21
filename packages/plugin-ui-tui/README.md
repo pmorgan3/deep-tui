@@ -1,6 +1,6 @@
-# @flect/plugin-ui-tui
+# @deep-tui/plugin-ui-tui
 
-Flect's full-screen terminal interface. Running `flect` launches it when this
+Deep TUI's full-screen terminal interface. Running `deep-tui` launches it when this
 plugin is active. `Ctrl+P` cycles the configured models (DeepSeek `flash` and
 `pro` by default). While a run is active, the composer and status line animate
 with the current phase, tool name, and elapsed time.
@@ -25,7 +25,7 @@ The shell, named visual slots, keybindings, and slash commands are prioritized C
 contributions. A plugin can replace a default without copying this package:
 
 ```js
-export const name = 'compact-flect-header'
+export const name = 'compact-deep-tui-header'
 export const inject = ['tui']
 
 export function apply(ctx) {
@@ -34,7 +34,7 @@ export function apply(ctx) {
     slot: 'header',
     priority: 10,
     render({ state, style }) {
-      return [`${style('flect', 'accent', true)} · ${state.model} · ${state.cwd}`]
+      return [`${style('deep-tui', 'accent', true)} · ${state.model} · ${state.cwd}`]
     },
   })
 }
@@ -45,8 +45,8 @@ header becomes active again on the next frame.
 
 Type `/` to open live command discovery. Built-ins include `/thinking`,
 `/context`, `/cost`, `/model`, `/plugins`, `/help`, `/clear`, and `/exit`; `/theme` is added by
-`@flect/plugin-slash-theme`, and `/auto` by
-`@flect/plugin-permission-auto`. Third-party commands use
+`@deep-tui/plugin-slash-theme`, and `/auto` by
+`@deep-tui/plugin-permission-auto`. Third-party commands use
 the exact same registry:
 
 ```js
@@ -71,11 +71,11 @@ contributions. The default composition layers safe Markdown and Shiki over the
 plain fallback, so unloading either plugin reveals the next renderer live.
 Renderers may instead use `mode: 'prepend'` or `mode: 'append'` to decorate the
 winning renderer. Status items similarly add footer information without
-replacing the default status component; `@flect/plugin-usage-inline` uses both
+replacing the default status component; `@deep-tui/plugin-usage-inline` uses both
 contracts.
 
 The default sidebar is deliberately not built into this shell. The standalone
-`@flect/plugin-sidebar` package composes structured `registerSidebarSection()`
+`@deep-tui/plugin-sidebar` package composes structured `registerSidebarSection()`
 contributions and owns Ctrl+B, focus, selection, responsive compact/full rows,
 mouse-drag resizing, and empty-section hiding. First-party sidebar data sources are separate
 packages, so any section can be removed or replaced without replacing the TUI.

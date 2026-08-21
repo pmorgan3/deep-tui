@@ -1,7 +1,7 @@
 {
-  "name": "@flect/plugin-render-run-command",
-  "version": "0.0.0",
-  "description": "Prettified run_command output rendering for Flect's TUI.",
+  "name": "@deep-tui/plugin-render-run-command",
+  "version": "0.1.0",
+  "description": "Prettified run_command output rendering for Deep TUI's TUI.",
   "license": "MIT",
   "publishConfig": { "access": "public" },
   "type": "module",
@@ -10,5 +10,5 @@
   "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
   "files": ["dist", "README.md"],
   "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc -p tsconfig.json --noEmit" },
-  "dependencies": { "@flect/sdk": "workspace:*", "cordis": "^4.0.0-rc.8" }
+  "dependencies": { "@deep-tui/sdk": "workspace:*", "cordis": "^4.0.0-rc.8" }
 }

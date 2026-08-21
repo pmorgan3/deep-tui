@@ -7,8 +7,8 @@ import type {
   TuiService,
   TuiState,
   TuiViewportMetrics,
-} from '@flect/sdk'
-import { describeToolCall } from '@flect/sdk'
+} from '@deep-tui/sdk'
+import { describeToolCall } from '@deep-tui/sdk'
 import { fit, renderRichText, style, visibleWidth, wrap, wrapAnsi } from './ansi.js'
 
 const activityFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏']
@@ -273,7 +273,7 @@ export function layoutTuiFrame(
     transcriptWidth = mainWidth
     const transcriptLines = renderSlot(tui, 'transcript', state, theme, mainWidth, bodyHeight, color)
     const candidate = transcriptSnapshots.get(state as object)
-    transcriptSnapshot = tui.component('transcript')?.id === 'flect.default.transcript'
+    transcriptSnapshot = tui.component('transcript')?.id === 'deep-tui.default.transcript'
       && candidate?.events === state.events && candidate.width === mainWidth && candidate.height === bodyHeight
       ? candidate
       : undefined
@@ -291,7 +291,7 @@ export function layoutTuiFrame(
     transcriptWidth = width
     const transcriptLines = renderSlot(tui, 'transcript', state, theme, width, bodyHeight, color)
     const candidate = transcriptSnapshots.get(state as object)
-    transcriptSnapshot = tui.component('transcript')?.id === 'flect.default.transcript'
+    transcriptSnapshot = tui.component('transcript')?.id === 'deep-tui.default.transcript'
       && candidate?.events === state.events && candidate.width === width && candidate.height === bodyHeight
       ? candidate
       : undefined
@@ -428,18 +428,18 @@ export function defaultComponents(tui: TuiService): TuiComponent[] {
 
   return [
     {
-      id: 'flect.default.header',
+      id: 'deep-tui.default.header',
       slot: 'header',
       priority: -100,
       render(ctx) {
-        const brand = ctx.style('flect', 'accent', true)
+        const brand = ctx.style('deep-tui', 'accent', true)
         const model = ctx.style(`${ctx.state.provider}/${ctx.state.model}`, 'muted')
         const cwd = ctx.style(ctx.state.cwd, 'muted')
         return [...sides(` ${brand}  ${cwd}`, model, ctx.width), ctx.style('─'.repeat(ctx.width), 'muted')]
       },
     },
     {
-      id: 'flect.default.transcript',
+      id: 'deep-tui.default.transcript',
       slot: 'transcript',
       priority: -100,
       render(ctx) {
@@ -500,7 +500,7 @@ export function defaultComponents(tui: TuiService): TuiComponent[] {
       },
     },
     {
-      id: 'flect.default.composer',
+      id: 'deep-tui.default.composer',
       slot: 'composer',
       priority: -100,
       render(ctx) {
@@ -541,7 +541,7 @@ export function defaultComponents(tui: TuiService): TuiComponent[] {
       },
     },
     {
-      id: 'flect.default.status',
+      id: 'deep-tui.default.status',
       slot: 'status',
       priority: -100,
       render(ctx) {
@@ -565,7 +565,7 @@ export function defaultComponents(tui: TuiService): TuiComponent[] {
       },
     },
     {
-      id: 'flect.default.autocomplete',
+      id: 'deep-tui.default.autocomplete',
       slot: 'autocomplete',
       priority: -100,
       render(ctx) {
@@ -594,7 +594,7 @@ export function defaultComponents(tui: TuiService): TuiComponent[] {
       },
     },
     {
-      id: 'flect.default.permission-modal',
+      id: 'deep-tui.default.permission-modal',
       slot: 'modal',
       priority: -100,
       render(ctx) {
@@ -642,7 +642,7 @@ export function defaultComponents(tui: TuiService): TuiComponent[] {
 export function defaultEventRenderers(): TuiEventRenderer[] {
   return [
     {
-      id: 'flect.default.event.start', priority: -100,
+      id: 'deep-tui.default.event.start', priority: -100,
       render(event, ctx) {
         if (event.type !== 'start') return undefined
         const prefix = `${ctx.style('›', 'accent', true)} `
@@ -652,7 +652,7 @@ export function defaultEventRenderers(): TuiEventRenderer[] {
       },
     },
     {
-      id: 'flect.default.event.assistant', priority: -100,
+      id: 'deep-tui.default.event.assistant', priority: -100,
       render(event, ctx) {
         if (event.type !== 'assistant' && event.type !== 'assistant-finish') return undefined
         return event.text
@@ -661,13 +661,13 @@ export function defaultEventRenderers(): TuiEventRenderer[] {
       },
     },
     {
-      id: 'flect.default.event.reasoning', mode: 'prepend', priority: -100,
+      id: 'deep-tui.default.event.reasoning', mode: 'prepend', priority: -100,
       render(event, ctx) {
         return reasoningDisclosure(event, ctx)
       },
     },
     {
-      id: 'flect.default.event.tool-call', priority: -100,
+      id: 'deep-tui.default.event.tool-call', priority: -100,
       render(event, ctx) {
         if (event.type !== 'tool-call') return undefined
         const label = describeToolCall(event.call)
@@ -680,14 +680,14 @@ export function defaultEventRenderers(): TuiEventRenderer[] {
       },
     },
     {
-      id: 'flect.default.event.tool-result', priority: -100,
+      id: 'deep-tui.default.event.tool-result', priority: -100,
       render(event, ctx) {
         if (event.type !== 'tool-result') return undefined
         return [ctx.style(`  └ ✓ ${describeToolCall(event.call)}`, 'success')]
       },
     },
     {
-      id: 'flect.default.event.finish', priority: -100,
+      id: 'deep-tui.default.event.finish', priority: -100,
       render(event, ctx) {
         if (event.type !== 'finish') return undefined
         if (event.status === 'limit-reached') {

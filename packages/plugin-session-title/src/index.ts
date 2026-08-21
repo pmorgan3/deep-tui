@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import { fallbackConversationTitle, type AgentRunMetadata } from '@flect/sdk'
+import { fallbackConversationTitle, type AgentRunMetadata } from '@deep-tui/sdk'
 
 export interface SessionTitleConfig {
   provider?: string

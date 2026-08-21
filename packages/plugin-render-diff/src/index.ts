@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { TuiRenderContext } from '@flect/sdk'
+import type { TuiRenderContext } from '@deep-tui/sdk'
 
 export interface DiffRendererConfig {
   maxLines?: number
@@ -62,7 +62,7 @@ export const inject = ['tui']
 
 export function apply(ctx: Context, config: DiffRendererConfig = {}): void {
   ctx.tui.registerEventRenderer({
-    id: 'flect.diff.tool-call',
+    id: 'deep-tui.diff.tool-call',
     priority: 150,
     render(event, render) {
       if (event.type !== 'tool-call' || (event.call.name !== 'apply_patch' && event.call.name !== 'write_file')) return undefined
@@ -72,7 +72,7 @@ export function apply(ctx: Context, config: DiffRendererConfig = {}): void {
     },
   })
   ctx.tui.registerEventRenderer({
-    id: 'flect.diff.tool-result',
+    id: 'deep-tui.diff.tool-result',
     priority: 150,
     render(event, render) {
       if (event.type !== 'tool-result' || event.presentation?.type !== 'diff') return undefined

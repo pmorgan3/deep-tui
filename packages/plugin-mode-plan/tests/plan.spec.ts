@@ -6,7 +6,7 @@ import {
   TuiService,
   type TuiActions,
   type TuiRenderContext,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 import autoPermission from '../../plugin-permission-auto/src/index.js'
 import planMode from '../src/index.js'
 
@@ -32,9 +32,9 @@ describe('plan mode', () => {
     } as unknown as TuiActions
     const render = { style: (text: string) => text } as TuiRenderContext
     const autoStatus = () => ctx.tui.listStatusItems()
-      .find(item => item.id === 'flect.permission.auto.status')?.render(render)
+      .find(item => item.id === 'deep-tui.permission.auto.status')?.render(render)
     const planStatus = () => ctx.tui.listStatusItems()
-      .find(item => item.id === 'flect.mode.plan.status')?.render(render)
+      .find(item => item.id === 'deep-tui.mode.plan.status')?.render(render)
 
     await ctx.tui.executeSlash('/auto on', actions)
     await expect(ctx.permissions.authorize(request('write'))).resolves.toMatchObject({ decision: 'allow' })
@@ -45,7 +45,7 @@ describe('plan mode', () => {
     expect(await ctx.prompts.render({ cwd: '.', model: 'm' })).toContain('PLAN MODE IS ACTIVE')
     expect((await ctx.prompts.assemble({ cwd: '.', model: 'm' })).system).toBe('')
     expect((await ctx.prompts.assemble({ cwd: '.', model: 'm' })).contexts).toMatchObject([
-      { id: 'flect.mode.plan.prompt', text: expect.stringContaining('PLAN MODE IS ACTIVE') },
+      { id: 'deep-tui.mode.plan.prompt', text: expect.stringContaining('PLAN MODE IS ACTIVE') },
     ])
     await expect(ctx.permissions.authorize(request('read'))).resolves.toMatchObject({ decision: 'allow' })
     await expect(ctx.permissions.authorize(request('write'))).rejects.toThrow('permission denied')

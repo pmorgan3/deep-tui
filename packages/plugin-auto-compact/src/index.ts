@@ -1,11 +1,11 @@
 import type { Context } from 'cordis'
-import { compactConversation, type CompactConfig } from '@flect/plugin-compact'
+import { compactConversation, type CompactConfig } from '@deep-tui/plugin-compact'
 import {
   conversationSurface,
   type AgentLifecycleRunContext,
   type ConversationRecord,
   type ConversationSurfaceRecord,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 
 export interface AutoCompactConfig extends CompactConfig {
   enabled?: boolean
@@ -146,13 +146,13 @@ export function apply(ctx: Context, config: AutoCompactConfig = {}): void {
   }
 
   ctx.agentHooks.register({
-    id: 'flect.auto-compact.policy',
+    id: 'deep-tui.auto-compact.policy',
     priority: 1_000,
     beforeRun: evaluate,
   })
 
   ctx.tui.registerSlashCommand({
-    id: 'flect.auto-compact.command', name: 'autocompact', description: 'Inspect or toggle automatic context compaction.',
+    id: 'deep-tui.auto-compact.command', name: 'autocompact', description: 'Inspect or toggle automatic context compaction.',
     usage: '/autocompact [status|on|off]',
     complete({ query }) {
       return ['status', 'on', 'off'].filter(value => value.startsWith(query.toLowerCase())).map(value => ({ value }))
@@ -166,7 +166,7 @@ export function apply(ctx: Context, config: AutoCompactConfig = {}): void {
         return
       }
       const lines = [
-        enabled ? 'Enabled.' : 'Disabled for this Flect process.',
+        enabled ? 'Enabled.' : 'Disabled for this Deep TUI process.',
         `Trigger threshold: ${(threshold * 100).toFixed(0)}%`,
         `Minimum history: ${minimumRecords.toLocaleString('en-US')} records · ${minimumTokens.toLocaleString('en-US')} tokens`,
       ]
@@ -177,7 +177,7 @@ export function apply(ctx: Context, config: AutoCompactConfig = {}): void {
         ...(status.compactedAt ? [`Compacted: ${status.compactedAt}`] : []),
         ...(status.error ? [`Error: ${status.error}`] : []),
       )
-      actions.showOverlay({ id: 'flect.auto-compact.status', title: 'Automatic compaction', tone: status?.error ? 'warning' : 'accent', lines })
+      actions.showOverlay({ id: 'deep-tui.auto-compact.status', title: 'Automatic compaction', tone: status?.error ? 'warning' : 'accent', lines })
     },
   })
 }

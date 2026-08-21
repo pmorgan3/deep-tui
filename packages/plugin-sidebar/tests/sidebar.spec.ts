@@ -7,7 +7,7 @@ import {
   type TuiKeyEvent,
   type TuiRenderContext,
   type TuiState,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 import sidebar from '../src/index.js'
 import changes from '../../plugin-sidebar-changes/src/index.js'
 import contextSection, { cacheHitPercentage } from '../../plugin-sidebar-context/src/index.js'
@@ -139,9 +139,9 @@ describe('composable sidebar plugins', () => {
       { type: 'tool-result', call: { id: 'test', name: 'run_command', arguments: {} }, output: { code: 0, timedOut: false } },
     ]
     const sections = Object.fromEntries(ctx.tui.listSidebarSections().map(section => [section.id, section]))
-    const changed = sections['flect.sidebar.changes']?.render(render(value))
-    const checked = sections['flect.sidebar.verification']?.render(render(value))
-    const usage = sections['flect.sidebar.context']?.render(render(value))
+    const changed = sections['deep-tui.sidebar.changes']?.render(render(value))
+    const checked = sections['deep-tui.sidebar.verification']?.render(render(value))
+    const usage = sections['deep-tui.sidebar.context']?.render(render(value))
     expect(changed?.rows[0]?.text).toContain('src/a.ts +2 -1')
     expect(checked?.rows[0]?.text).toContain('✓ pnpm test')
     expect(usage?.rows.map(row => row.text).join('\n')).toContain('cost $0.001234')

@@ -2,7 +2,7 @@
 
 ## Outcome
 
-Flect gains the minimum credible coding toolset: fast bounded file discovery
+Deep TUI gains the minimum credible coding toolset: fast bounded file discovery
 and text search, safe multi-file patch application, and cancellable argv-based
 subprocess execution. Each capability is an independently installable plugin
 with narrow permissions.
@@ -10,7 +10,7 @@ with narrow permissions.
 ## Shared workspace service
 
 First extract the path and traversal protections currently private to
-`@flect/plugin-tool-workspace` into a public `WorkspaceService` contribution:
+`@deep-tui/plugin-tool-workspace` into a public `WorkspaceService` contribution:
 
 ```ts
 interface WorkspaceService {
@@ -28,7 +28,7 @@ read/list/write tools migrate without behavior changes. Tool plugins inject
 
 ## Search plugin
 
-Create `@flect/plugin-tool-search` with two tools:
+Create `@deep-tui/plugin-tool-search` with two tools:
 
 - `find_files`: include/exclude globs, type filter, result limit.
 - `search_text`: fixed-string or regular-expression query, globs, case mode,
@@ -47,7 +47,7 @@ safe regex engine only after measuring real need.
 
 ## Patch plugin
 
-Create `@flect/plugin-tool-patch` with `apply_patch` accepting a documented
+Create `@deep-tui/plugin-tool-patch` with `apply_patch` accepting a documented
 unified-diff subset. Parse first, then validate every target before writing.
 
 Required behavior:
@@ -70,7 +70,7 @@ independent of Cordis.
 
 ## Subprocess plugin
 
-Create `@flect/plugin-tool-process` with `run_command`:
+Create `@deep-tui/plugin-tool-process` with `run_command`:
 
 ```json
 {

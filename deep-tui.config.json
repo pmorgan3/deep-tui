@@ -1,0 +1,176 @@
+{
+  "version": 2,
+  "plugins": [
+    {
+      "use": "@deep-tui/runtime"
+    },
+    {
+      "use": "@deep-tui/plugin-agent",
+      "config": {
+        "provider": "deepseek",
+        "model": "flash"
+      }
+    },
+    {
+      "use": "@deep-tui/plugin-budget"
+    },
+    {
+      "use": "@deep-tui/plugin-provider-deepseek"
+    },
+    {
+      "use": "@deep-tui/plugin-model-persist"
+    },
+    {
+      "use": "@deep-tui/plugin-session-title"
+    },
+    {
+      "use": "@deep-tui/plugin-prompt-coding"
+    },
+    {
+      "use": "@deep-tui/plugin-theme-default"
+    },
+    {
+      "use": "@deep-tui/plugin-theme-gruvbox"
+    },
+    {
+      "use": "@deep-tui/plugin-theme-catppuccin"
+    },
+    {
+      "use": "@deep-tui/plugin-theme-kanagawa"
+    },
+    {
+      "use": "@deep-tui/plugin-theme-nord"
+    },
+    {
+      "use": "@deep-tui/plugin-theme-monokai-pro"
+    },
+    {
+      "use": "@deep-tui/plugin-slash-theme"
+    },
+    {
+      "use": "@deep-tui/plugin-permission-rules"
+    },
+    {
+      "use": "@deep-tui/plugin-permission-auto"
+    },
+    {
+      "use": "@deep-tui/plugin-mode-plan"
+    },
+    {
+      "use": "@deep-tui/plugin-compact"
+    },
+    {
+      "use": "@deep-tui/plugin-auto-compact"
+    },
+    {
+      "use": "@deep-tui/plugin-workspace-local"
+    },
+    {
+      "use": "@deep-tui/plugin-workspace-multi-root"
+    },
+    {
+      "use": "@deep-tui/plugin-workspace-ignore"
+    },
+    {
+      "use": "@deep-tui/plugin-tool-workspace"
+    },
+    {
+      "use": "@deep-tui/plugin-tool-search"
+    },
+    {
+      "use": "@deep-tui/plugin-tool-patch"
+    },
+    {
+      "use": "@deep-tui/plugin-tool-process"
+    },
+    {
+      "use": "@deep-tui/plugin-git"
+    },
+    {
+      "use": "@deep-tui/plugin-audit-redact-default"
+    },
+    {
+      "use": "@deep-tui/plugin-audit-jsonl"
+    },
+    {
+      "use": "@deep-tui/plugin-session-files"
+    },
+    {
+      "use": "@deep-tui/plugin-highlight-shiki"
+    },
+    {
+      "use": "@deep-tui/plugin-render-markdown"
+    },
+    {
+      "use": "@deep-tui/plugin-render-read-file"
+    },
+    {
+      "use": "@deep-tui/plugin-render-files"
+    },
+    {
+      "use": "@deep-tui/plugin-render-search-text"
+    },
+    {
+      "use": "@deep-tui/plugin-render-run-command"
+    },
+    {
+      "use": "@deep-tui/plugin-render-diff"
+    },
+    {
+      "use": "@deep-tui/plugin-render-diff-pretty"
+    },
+    {
+      "use": "@deep-tui/plugin-usage-inline"
+    },
+    {
+      "use": "@deep-tui/plugin-sidebar"
+    },
+    {
+      "use": "@deep-tui/plugin-sidebar-plan"
+    },
+    {
+      "use": "@deep-tui/plugin-sidebar-changes"
+    },
+    {
+      "use": "@deep-tui/plugin-sidebar-context"
+    },
+    {
+      "use": "@deep-tui/plugin-sidebar-activity"
+    },
+    {
+      "use": "@deep-tui/plugin-sidebar-verification"
+    },
+    {
+      "use": "@deep-tui/plugin-sidebar-session"
+    },
+    {
+      "use": "@deep-tui/plugin-sidebar-folders"
+    },
+    {
+      "use": "@deep-tui/plugin-sidebar-modes"
+    },
+    {
+      "use": "@deep-tui/plugin-sidebar-permissions"
+    },
+    {
+      "use": "@deep-tui/plugin-zellij-title"
+    },
+    {
+      "use": "@deep-tui/plugin-ui-terminal"
+    },
+    {
+      "use": "@deep-tui/plugin-welcome-brand"
+    },
+    {
+      "use": "@deep-tui/plugin-welcome-prompt"
+    },
+    {
+      "use": "@deep-tui/plugin-ui-tui",
+      "config": {
+        "provider": "deepseek",
+        "model": "flash",
+        "models": ["flash", "pro"]
+      }
+    }
+  ]
+}

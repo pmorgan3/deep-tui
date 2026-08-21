@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { ThemeTokens } from '@flect/sdk'
+import type { ThemeTokens } from '@deep-tui/sdk'
 
 export interface DefaultThemeConfig {
   id?: string

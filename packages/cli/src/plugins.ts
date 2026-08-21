@@ -67,7 +67,7 @@ export async function addPlugin(
   options: { configPath?: string; install?: boolean; scope?: ConfigScope } = {},
 ): Promise<{ configPath: string; entry: PluginEntry }> {
   const configPath = await mutationConfig(cwd, options.configPath, options.scope ?? 'project')
-  if (!configPath) throw new Error(`no ${CONFIG_FILENAME} found; run "flect init" first`)
+  if (!configPath) throw new Error(`no ${CONFIG_FILENAME} found; run "deep-tui init" first`)
   const config = await readConfig(configPath)
   const remote = parseGitHubPluginSpecifier(specifier)
   const local = specifier.startsWith('.') || specifier.startsWith('/') || specifier.startsWith('file:')
@@ -117,15 +117,15 @@ export async function createPlugin(
   scope: ConfigScope = 'project',
 ): Promise<string> {
   const filename = await mutationConfig(cwd, configPath, scope)
-  if (!filename) throw new Error(`no ${CONFIG_FILENAME} found; run "flect init" first`)
+  if (!filename) throw new Error(`no ${CONFIG_FILENAME} found; run "deep-tui init" first`)
   const name = sanitizeName(requestedName)
-  const directory = scope === 'user' ? userDataPath('plugins') : path.join(path.dirname(filename), '.flect', 'plugins')
+  const directory = scope === 'user' ? userDataPath('plugins') : path.join(path.dirname(filename), '.deep-tui', 'plugins')
   const pluginPath = path.join(directory, `${name}.mjs`)
   if (await isFile(pluginPath)) throw new Error(`plugin already exists: ${pluginPath}`)
 
   await mkdir(directory, { recursive: true })
   const source = template === 'slash'
-    ? `// Created by Flect. This is an ordinary Cordis plugin.\n` +
+    ? `// Created by Deep TUI. This is an ordinary Cordis plugin.\n` +
       `export const name = ${JSON.stringify(name)}\n` +
       `export const inject = ['tui']\n\n` +
       `export function apply(ctx) {\n` +
@@ -142,7 +142,7 @@ export async function createPlugin(
       `    },\n` +
       `  })\n` +
       `}\n`
-    : `// Created by Flect. This is an ordinary Cordis plugin.\n` +
+    : `// Created by Deep TUI. This is an ordinary Cordis plugin.\n` +
       `export const name = ${JSON.stringify(name)}\n` +
       `export const inject = ['prompts']\n\n` +
       `export function apply(ctx) {\n` +

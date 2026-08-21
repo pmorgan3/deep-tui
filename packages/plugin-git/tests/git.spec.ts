@@ -5,7 +5,7 @@ import path from 'node:path'
 import { promisify } from 'node:util'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { ToolService, WorkspaceService } from '@flect/sdk'
+import { ToolService, WorkspaceService } from '@deep-tui/sdk'
 import localWorkspace from '../../plugin-workspace-local/src/index.js'
 import gitPlugin, { parsePorcelainStatus } from '../src/index.js'
 
@@ -25,12 +25,12 @@ describe('git tools', () => {
   })
 
   it('returns bounded structured status, diff, log, and show output', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-git-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-git-'))
     directories.push(root)
     await execute('git', ['init', '-q', root])
     await writeFile(path.join(root, 'tracked.txt'), 'one\n', 'utf8')
     await execute('git', ['-C', root, 'add', 'tracked.txt'])
-    await execute('git', ['-C', root, '-c', 'user.name=Flect Test', '-c', 'user.email=flect@example.test', 'commit', '-q', '-m', 'initial'])
+    await execute('git', ['-C', root, '-c', 'user.name=Deep TUI Test', '-c', 'user.email=deep-tui@example.test', 'commit', '-q', '-m', 'initial'])
     await writeFile(path.join(root, 'tracked.txt'), 'one\ntwo\n', 'utf8')
     await writeFile(path.join(root, 'untracked.txt'), 'loose\n', 'utf8')
 

@@ -1,7 +1,7 @@
 {
-  "name": "@flect/plugin-ui-tui",
-  "version": "0.0.0",
-  "description": "Composable full-screen terminal UI for Flect.",
+  "name": "@deep-tui/plugin-ui-tui",
+  "version": "0.1.0",
+  "description": "Composable full-screen terminal UI for Deep TUI.",
   "license": "MIT",
   "publishConfig": { "access": "public" },
   "type": "module",
@@ -14,7 +14,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@flect/sdk": "workspace:*",
+    "@deep-tui/sdk": "workspace:*",
     "cordis": "^4.0.0-rc.8"
   }
 }

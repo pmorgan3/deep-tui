@@ -1,7 +1,7 @@
 {
-  "name": "@flect/plugin-welcome-brand",
-  "version": "0.0.0",
-  "description": "Flect wordmark and tagline for the empty TUI transcript.",
+  "name": "@deep-tui/plugin-welcome-brand",
+  "version": "0.1.0",
+  "description": "Deep TUI wordmark and tagline for the empty TUI transcript.",
   "license": "MIT",
   "publishConfig": { "access": "public" },
   "type": "module",
@@ -14,7 +14,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@flect/sdk": "workspace:*",
+    "@deep-tui/sdk": "workspace:*",
     "cordis": "^4.0.0-rc.8"
   }
 }

@@ -1,6 +1,6 @@
-# @flect/plugin-render-read-file
+# @deep-tui/plugin-render-read-file
 
-Renders `read_file` activity in Flect's TUI. By default, reads join the compact
+Renders `read_file` activity in Deep TUI's TUI. By default, reads join the compact
 Claude-style exploration log and file contents stay out of the transcript:
 
 ```text
@@ -24,7 +24,7 @@ The plugin is a pure TUI event renderer. It replaces only successful
 `read_file` tool-result events whose output is a string. Read errors and other
 tools fall through to the default renderer. Syntax highlighting is provided by
 the existing TUI code-highlighter contract (for example
-`@flect/plugin-highlight-shiki`); without a registered highlighter, the file
+`@deep-tui/plugin-highlight-shiki`); without a registered highlighter, the file
 renders as plain text with line numbers.
 
 The bundled `read_file` tool also attaches `type: "read-file"` presentation

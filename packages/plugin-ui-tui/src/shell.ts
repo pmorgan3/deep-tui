@@ -17,8 +17,8 @@ import {
   type TuiState,
   type TuiViewportMetrics,
   type ModelUsage,
-} from '@flect/sdk'
-import { conversationSurface, formatCheckpoint } from '@flect/sdk'
+} from '@deep-tui/sdk'
+import { conversationSurface, formatCheckpoint } from '@deep-tui/sdk'
 import { background, TuiInputDecoder } from './ansi.js'
 import { layoutTuiFrame } from './frame.js'
 
@@ -130,7 +130,7 @@ export function unaccountedUsage(total: ModelUsage | undefined, accounted: Model
 }
 
 export class DefaultTuiShell implements TuiShell {
-  readonly id = 'flect.default-shell'
+  readonly id = 'deep-tui.default-shell'
   readonly priority = -100
   private active: TuiSession | undefined
 
@@ -145,7 +145,7 @@ export class DefaultTuiShell implements TuiShell {
     const input = environment.stdin as RawInput
     const output = environment.stdout as ScreenOutput
     if (this.config.requireTty && (!input.isTTY || !output.isTTY)) {
-      throw new Error('the TUI requires an interactive terminal; use "flect run" for pipes and scripts')
+      throw new Error('the TUI requires an interactive terminal; use "deep-tui run" for pipes and scripts')
     }
     const session = new TuiSession(this.ctx, this.theme, this.config, environment, options)
     this.active = session
@@ -241,7 +241,7 @@ class TuiSession implements TuiActions {
       this.output.on?.('resize', resize)
       this.input.setRawMode?.(true)
       this.input.resume?.()
-      this.output.write(`\u001b[?1049h\u001b[?25l${this.config.mouse ? '\u001b[?1003h\u001b[?1006h' : ''}\u001b[2J\u001b[H\u001b]0;Flect\u0007`)
+      this.output.write(`\u001b[?1049h\u001b[?25l${this.config.mouse ? '\u001b[?1003h\u001b[?1006h' : ''}\u001b[2J\u001b[H\u001b]0;Deep TUI\u0007`)
       this.screenActive = true
       this.render()
       if (this.state.input.trim()) void this.submit()

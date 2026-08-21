@@ -1,4 +1,4 @@
-# @flect/plugin-git
+# @deep-tui/plugin-git
 
 Adds bounded, read-only `git_status`, `git_diff`, `git_log`, and `git_show`
 tools. Commands are spawned with an argument array, never a shell, with pagers,
@@ -10,7 +10,7 @@ configured workspace. Diff and show output is size- and time-bounded.
 
 ```json
 {
-  "use": "@flect/plugin-git",
+  "use": "@deep-tui/plugin-git",
   "config": { "timeoutMs": 10000, "maxOutputBytes": 2000000 }
 }
 ```

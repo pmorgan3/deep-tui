@@ -1,6 +1,6 @@
 {
-  "name": "@flect/plugin-welcome-prompt",
-  "version": "0.0.0",
+  "name": "@deep-tui/plugin-welcome-prompt",
+  "version": "0.1.0",
   "description": "Everything-is-a-plugin call to action for the empty TUI transcript.",
   "license": "MIT",
   "publishConfig": { "access": "public" },
@@ -14,7 +14,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@flect/sdk": "workspace:*",
+    "@deep-tui/sdk": "workspace:*",
     "cordis": "^4.0.0-rc.8"
   }
 }

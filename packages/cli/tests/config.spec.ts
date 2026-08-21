@@ -13,24 +13,24 @@ async function json(filename: string, value: unknown): Promise<void> {
 
 describe('layered configuration', () => {
   it('uses global configuration without changing the working project root', async () => {
-    const directory = await mkdtemp(path.join(os.tmpdir(), 'flect-global-config-'))
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-global-config-'))
     temporaryDirectories.push(directory)
     const user = path.join(directory, 'user.json')
     await json(user, { version: 2, plugins: [] })
 
     expect(await selectConfig(directory, undefined, user)).toEqual({ filename: user, userOnly: true })
 
-    const project = path.join(directory, 'flect.config.json')
+    const project = path.join(directory, 'deep-tui.config.json')
     await json(project, { version: 2, plugins: [] })
     expect(await selectConfig(directory, undefined, user)).toEqual({ filename: project })
   })
 
   it('merges user, extends, project, and explicit layers with provenance', async () => {
-    const directory = await mkdtemp(path.join(os.tmpdir(), 'flect-config-'))
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-config-'))
     temporaryDirectories.push(directory)
     const user = path.join(directory, 'user.json')
     const shared = path.join(directory, 'shared.json')
-    const project = path.join(directory, 'flect.config.json')
+    const project = path.join(directory, 'deep-tui.config.json')
     const explicit = path.join(directory, 'explicit.json')
     await json(user, { version: 2, plugins: [{ id: 'agent', use: 'agent-a', config: { nested: { a: 1 }, list: [1], apiKey: 'secret' } }] })
     await json(shared, { version: 2, plugins: [{ id: 'tools', use: 'tools-a', config: { read: true } }] })
@@ -49,7 +49,7 @@ describe('layered configuration', () => {
   })
 
   it('detects an extends cycle with the source chain', async () => {
-    const directory = await mkdtemp(path.join(os.tmpdir(), 'flect-cycle-'))
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-cycle-'))
     temporaryDirectories.push(directory)
     const first = path.join(directory, 'first.json')
     const second = path.join(directory, 'second.json')

@@ -1,4 +1,4 @@
-# @flect/plugin-welcome-prompt
+# @deep-tui/plugin-welcome-prompt
 
 Contributes the empty-transcript call to action:
 

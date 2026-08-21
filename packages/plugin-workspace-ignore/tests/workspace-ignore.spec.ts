@@ -3,7 +3,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { WorkspaceService } from '@flect/sdk'
+import { WorkspaceService } from '@deep-tui/sdk'
 import localWorkspace from '../../plugin-workspace-local/src/index.js'
 import ignorePlugin, { parseIgnoreFile } from '../src/index.js'
 
@@ -33,7 +33,7 @@ describe('workspace ignore', () => {
   })
 
   it('combines root, nested, ignore, and git-info rules without changing path resolution', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-ignore-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-ignore-'))
     directories.push(root)
     await mkdir(path.join(root, 'src', 'generated'), { recursive: true })
     await mkdir(path.join(root, 'build'), { recursive: true })

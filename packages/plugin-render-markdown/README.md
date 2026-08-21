@@ -1,4 +1,4 @@
-# @flect/plugin-render-markdown
+# @deep-tui/plugin-render-markdown
 
 Adds safe CommonMark/GFM rendering for assistant messages. Fenced code asks the
 active `TuiCodeHighlighter` contribution for tokens and falls back to plain

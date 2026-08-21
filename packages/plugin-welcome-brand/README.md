@@ -1,6 +1,6 @@
-# @flect/plugin-welcome-brand
+# @deep-tui/plugin-welcome-brand
 
-Contributes the empty-transcript Flect wordmark and tagline:
+Contributes the empty-transcript Deep TUI wordmark and tagline:
 
 ```text
 F L E C T

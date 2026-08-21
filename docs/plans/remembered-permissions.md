@@ -76,10 +76,10 @@ policy converts the response into a stored rule before returning `allow`.
 
 ## First-party plugin
 
-Create `@flect/plugin-permission-rules` with:
+Create `@deep-tui/plugin-permission-rules` with:
 
 - an in-memory session-rule store keyed by TUI/headless session ID;
-- a project store at `.flect/permissions.json` by default;
+- a project store at `.deep-tui/permissions.json` by default;
 - a priority-1000 permission policy that checks the narrowest matching active
   rule before interactive policies;
 - default approval for built-in `fs.read` requests, configurable with

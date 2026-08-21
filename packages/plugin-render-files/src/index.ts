@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { TuiRenderContext } from '@flect/sdk'
+import type { TuiRenderContext } from '@deep-tui/sdk'
 
 export interface FilesRendererConfig {
   /** Show discovered entries in the transcript. Defaults to false for a compact exploration log. */
@@ -149,7 +149,7 @@ export const inject = ['tui']
 export function apply(ctx: Context, config: FilesRendererConfig = {}): void {
   const maxLineLength = boundedInteger(config.maxLineLength, 4_000, 40)
   ctx.tui.registerEventRenderer({
-    id: 'flect.files.tool-call',
+    id: 'deep-tui.files.tool-call',
     priority: 180,
     render(event, render) {
       if (event.type !== 'tool-call') return undefined
@@ -168,7 +168,7 @@ export function apply(ctx: Context, config: FilesRendererConfig = {}): void {
   })
 
   ctx.tui.registerEventRenderer({
-    id: 'flect.files.tool-result',
+    id: 'deep-tui.files.tool-result',
     priority: 180,
     render(event, render) {
       if (event.type !== 'tool-result') return undefined

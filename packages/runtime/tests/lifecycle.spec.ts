@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { PromptService } from '@flect/sdk'
+import { PromptService } from '@deep-tui/sdk'
 
 describe('Cordis contribution lifecycle', () => {
   it('removes a contribution when its plugin unloads', async () => {

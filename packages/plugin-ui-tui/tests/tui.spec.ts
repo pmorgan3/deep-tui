@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { TuiService, type Theme, type TuiActions, type TuiRenderContext, type TuiState } from '@flect/sdk'
+import { TuiService, type Theme, type TuiActions, type TuiRenderContext, type TuiState } from '@deep-tui/sdk'
 import {
   activityLabel,
   coalesceMouseMoves,
@@ -187,7 +187,7 @@ describe('composable TUI contracts', () => {
   })
 
   it('renders configured step-budget exhaustion as stopped rather than finished', () => {
-    const renderer = defaultEventRenderers().find(item => item.id === 'flect.default.event.finish')
+    const renderer = defaultEventRenderers().find(item => item.id === 'deep-tui.default.event.finish')
     const rendered = renderer?.render(
       { type: 'finish', text: '', steps: 12, status: 'limit-reached' },
       {
@@ -203,7 +203,7 @@ describe('composable TUI contracts', () => {
   })
 
   it('renders model reasoning as a collapsed block that can be expanded', () => {
-    const renderer = defaultEventRenderers().find(item => item.id === 'flect.default.event.reasoning')
+    const renderer = defaultEventRenderers().find(item => item.id === 'deep-tui.default.event.reasoning')
     const state = baseState()
     const event = {
       type: 'assistant-finish' as const,
@@ -360,8 +360,8 @@ describe('composable TUI contracts', () => {
   })
 
   it('renders read_file tool calls as a friendly reading message', () => {
-    const toolCall = defaultEventRenderers().find(item => item.id === 'flect.default.event.tool-call')
-    const toolResult = defaultEventRenderers().find(item => item.id === 'flect.default.event.tool-result')
+    const toolCall = defaultEventRenderers().find(item => item.id === 'deep-tui.default.event.tool-call')
+    const toolResult = defaultEventRenderers().find(item => item.id === 'deep-tui.default.event.tool-result')
     const context = () => ({
       state: baseState(), theme, width: 80, height: 24, color: false,
       style: (text: string) => text,
@@ -380,7 +380,7 @@ describe('composable TUI contracts', () => {
   })
 
   it('keeps raw arguments for tools without a friendly label', () => {
-    const toolCall = defaultEventRenderers().find(item => item.id === 'flect.default.event.tool-call')
+    const toolCall = defaultEventRenderers().find(item => item.id === 'deep-tui.default.event.tool-call')
     expect(toolCall?.render(
       { type: 'tool-call', call: { id: '2', name: 'run_command', arguments: { argv: ['pnpm', 'test'] } } },
       {
@@ -443,7 +443,7 @@ describe('composable TUI contracts', () => {
   })
 
   it('wraps long user messages in the transcript', () => {
-    const renderer = defaultEventRenderers().find(item => item.id === 'flect.default.event.start')
+    const renderer = defaultEventRenderers().find(item => item.id === 'deep-tui.default.event.start')
     const context = {
       state: baseState(), theme, width: 40, height: 24, color: false,
       style: (text: string) => text,

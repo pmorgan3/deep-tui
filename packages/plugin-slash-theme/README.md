@@ -1,9 +1,9 @@
-# @flect/plugin-slash-theme
+# @deep-tui/plugin-slash-theme
 
 Adds a discoverable `/theme` command and, by default, mounts the first-party
 Gruvbox, Catppuccin, Kanagawa, Nord, and Monokai Pro theme plugins. Theme
 plugins remain ordinary Cordis children: unloading this plugin unloads its
-bundled palettes, and Flect falls back to the next available theme.
+bundled palettes, and Deep TUI falls back to the next available theme.
 
 ```text
 /theme
@@ -16,7 +16,7 @@ bundled palettes, and Flect falls back to the next available theme.
 
 Running `/theme` with no ID opens an interactive picker. Up/Down previews each
 palette immediately, Enter accepts it, and Escape restores the previous theme.
-Accepted themes are saved per project in `.flect/theme.json` and restored before
+Accepted themes are saved per project in `.deep-tui/theme.json` and restored before
 the next TUI session draws its first frame.
 
 Set `loadBuiltins: false` when the palette plugins are mounted separately. Any

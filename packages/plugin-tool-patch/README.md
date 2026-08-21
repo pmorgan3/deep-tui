@@ -1,4 +1,4 @@
-# @flect/plugin-tool-patch
+# @deep-tui/plugin-tool-patch
 
 Adds an exact-context, workspace-contained `apply_patch` unified-diff tool.
 

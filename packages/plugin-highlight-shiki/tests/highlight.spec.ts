@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { ThemeService, TuiService, type Theme, type TuiRenderContext, type TuiState } from '@flect/sdk'
+import { ThemeService, TuiService, type Theme, type TuiRenderContext, type TuiState } from '@deep-tui/sdk'
 import shiki from '../src/index.js'
 
 const makeTheme = (id: string, keyword: string): Theme => ({

@@ -1,4 +1,4 @@
-# @flect/plugin-tool-search
+# @deep-tui/plugin-tool-search
 
 Adds bounded `find_files` and `search_text` tools without following symlinks.
 

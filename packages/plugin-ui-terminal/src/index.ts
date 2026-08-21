@@ -7,9 +7,9 @@ import type {
   PermissionResponse,
   Theme,
   UiRenderer,
-} from '@flect/sdk'
-import { describeToolCall, formatUnknownError } from '@flect/sdk'
-import { fallbackConversationTitle } from '@flect/sdk'
+} from '@deep-tui/sdk'
+import { describeToolCall, formatUnknownError } from '@deep-tui/sdk'
+import { fallbackConversationTitle } from '@deep-tui/sdk'
 
 export interface TerminalUiConfig {
   renderer?: string

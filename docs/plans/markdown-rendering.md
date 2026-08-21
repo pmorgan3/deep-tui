@@ -4,7 +4,7 @@
 
 Assistant messages render as safe CommonMark/GFM with headings, emphasis,
 lists, quotes, links, tables, task lists, inline code, and fenced code blocks.
-Code uses language-aware highlighting whose colors follow the active Flect
+Code uses language-aware highlighting whose colors follow the active Deep TUI
 theme. Plain text, Markdown, and syntax highlighting are separate replaceable
 contributions.
 
@@ -53,7 +53,7 @@ from bypassing width calculations or terminal sanitization.
 
 ## Packages
 
-### `@flect/plugin-render-markdown`
+### `@deep-tui/plugin-render-markdown`
 
 - Parses assistant text with `mdast-util-from-markdown`.
 - Enables GFM with `micromark-extension-gfm` and `mdast-util-gfm`.
@@ -68,7 +68,7 @@ typed CommonMark AST and official GFM extensions cover the syntax users expect
 from coding responses. Raw HTML nodes are displayed as inert text in the TUI;
 they are never executed or interpreted.
 
-### `@flect/plugin-highlight-shiki`
+### `@deep-tui/plugin-highlight-shiki`
 
 - Uses Shiki's core token API with its JavaScript regex engine under Node 22+.
 - Preloads a documented default language set: shell, C/C++, CSS, diff,
@@ -80,7 +80,7 @@ they are never executed or interpreted.
   waits on network or dynamically downloads a grammar.
 
 Pin the tested Shiki major in the lockfile. Use the core/token API rather than
-HTML output so Flect retains control of ANSI encoding, backgrounds, width, and
+HTML output so Deep TUI retains control of ANSI encoding, backgrounds, width, and
 theme hot-swaps.
 
 ## Theme integration
@@ -129,7 +129,7 @@ text on a `muted` background.
 ## Default TUI refactor
 
 Move event-specific formatting out of `default.transcript` into low-priority
-plain event renderers registered by `@flect/plugin-ui-tui`. The transcript
+plain event renderers registered by `@deep-tui/plugin-ui-tui`. The transcript
 component becomes a coordinator that asks `tui.renderEvent()` for each event.
 Unloading Markdown therefore reveals plain assistant rendering immediately;
 unloading Shiki retains Markdown with plain code blocks.

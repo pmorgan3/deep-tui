@@ -1,4 +1,4 @@
-# @flect/plugin-permission-auto
+# @deep-tui/plugin-permission-auto
 
 Adds explicit, session-only auto approval through `/auto`.
 
@@ -9,6 +9,6 @@ footer. Network requests continue to ask by default.
 
 Tool containment and validation still apply: auto mode skips the approval
 dialog, not workspace path checks, patch validation, or process safeguards.
-The choice is intentionally not persisted between Flect processes. Configure
+The choice is intentionally not persisted between Deep TUI processes. Configure
 `enabled: true` only when a composition should opt into auto mode at startup,
 and set `risks` to change the approved risk classes.

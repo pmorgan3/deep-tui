@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { AgentEvent } from '@flect/sdk'
+import type { AgentEvent } from '@deep-tui/sdk'
 
 export const name = 'sidebar-activity'
 export const inject = ['tui']
@@ -9,7 +9,7 @@ export function apply(ctx: Context): void {
   let toolIndex = -1
   let finish: Extract<AgentEvent, { type: 'finish' }> | undefined
   ctx.tui.registerSidebarSection({
-    id: 'flect.sidebar.activity', title: 'Activity', order: 30,
+    id: 'deep-tui.sidebar.activity', title: 'Activity', order: 30,
     render(render) {
       if (!render.state.busy && !render.state.events.length) return undefined
       if (source !== render.state.events) {
@@ -29,7 +29,7 @@ export function apply(ctx: Context): void {
       const statusRow = { text: status, tone: render.state.busy ? 'warning' as const : 'success' as const }
       const toolRow = toolName ? {
         id: `activity:${toolIndex}`, text: `${render.state.busy ? 'current' : 'last'} ${toolName}`,
-        activate: (actions: import('@flect/sdk').TuiActions) => actions.revealEvent(toolIndex),
+        activate: (actions: import('@deep-tui/sdk').TuiActions) => actions.revealEvent(toolIndex),
       } : undefined
       const rows = [statusRow, ...(toolRow ? [toolRow] : []),
         ...(finish?.type === 'finish' ? [{ text: `${finish.steps} step${finish.steps === 1 ? '' : 's'}`, tone: 'muted' as const }] : [])]

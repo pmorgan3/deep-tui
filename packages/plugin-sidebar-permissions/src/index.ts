@@ -1,6 +1,6 @@
 import path from 'node:path'
 import type { Context } from 'cordis'
-import type { TuiActions } from '@flect/sdk'
+import type { TuiActions } from '@deep-tui/sdk'
 
 export const name = 'sidebar-permissions'
 export const inject = ['permissionRules', 'tui']
@@ -8,7 +8,7 @@ export const inject = ['permissionRules', 'tui']
 export function apply(ctx: Context): void {
   const manage = async (actions: TuiActions) => { await ctx.tui.executeSlash('/permissions', actions) }
   ctx.tui.registerSidebarSection({
-    id: 'flect.sidebar.permissions', title: 'Permissions', order: 70,
+    id: 'deep-tui.sidebar.permissions', title: 'Permissions', order: 70,
     render(render) {
       const projectRoot = path.resolve(render.state.cwd)
       const rules = ctx.permissionRules.list().filter(rule => path.resolve(rule.projectRoot) === projectRoot)

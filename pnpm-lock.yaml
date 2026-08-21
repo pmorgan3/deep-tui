@@ -20,169 +20,169 @@ importers:
 
   packages/cli:
     dependencies:
-      '@flect/plugin-agent':
+      '@deep-tui/plugin-agent':
         specifier: workspace:*
         version: link:../plugin-agent
-      '@flect/plugin-audit-jsonl':
+      '@deep-tui/plugin-audit-jsonl':
         specifier: workspace:*
         version: link:../plugin-audit-jsonl
-      '@flect/plugin-audit-redact-default':
+      '@deep-tui/plugin-audit-redact-default':
         specifier: workspace:*
         version: link:../plugin-audit-redact-default
-      '@flect/plugin-auto-compact':
+      '@deep-tui/plugin-auto-compact':
         specifier: workspace:*
         version: link:../plugin-auto-compact
-      '@flect/plugin-budget':
+      '@deep-tui/plugin-budget':
         specifier: workspace:*
         version: link:../plugin-budget
-      '@flect/plugin-compact':
+      '@deep-tui/plugin-compact':
         specifier: workspace:*
         version: link:../plugin-compact
-      '@flect/plugin-git':
+      '@deep-tui/plugin-git':
         specifier: workspace:*
         version: link:../plugin-git
-      '@flect/plugin-highlight-shiki':
+      '@deep-tui/plugin-highlight-shiki':
         specifier: workspace:*
         version: link:../plugin-highlight-shiki
-      '@flect/plugin-mode-plan':
+      '@deep-tui/plugin-mode-plan':
         specifier: workspace:*
         version: link:../plugin-mode-plan
-      '@flect/plugin-model-persist':
+      '@deep-tui/plugin-model-persist':
         specifier: workspace:*
         version: link:../plugin-model-persist
-      '@flect/plugin-permission-auto':
+      '@deep-tui/plugin-permission-auto':
         specifier: workspace:*
         version: link:../plugin-permission-auto
-      '@flect/plugin-permission-rules':
+      '@deep-tui/plugin-permission-rules':
         specifier: workspace:*
         version: link:../plugin-permission-rules
-      '@flect/plugin-prompt-coding':
+      '@deep-tui/plugin-prompt-coding':
         specifier: workspace:*
         version: link:../plugin-prompt-coding
-      '@flect/plugin-provider-deepseek':
+      '@deep-tui/plugin-provider-deepseek':
         specifier: workspace:*
         version: link:../plugin-provider-deepseek
-      '@flect/plugin-render-diff':
+      '@deep-tui/plugin-render-diff':
         specifier: workspace:*
         version: link:../plugin-render-diff
-      '@flect/plugin-render-diff-pretty':
+      '@deep-tui/plugin-render-diff-pretty':
         specifier: workspace:*
         version: link:../plugin-render-diff-pretty
-      '@flect/plugin-render-files':
+      '@deep-tui/plugin-render-files':
         specifier: workspace:*
         version: link:../plugin-render-files
-      '@flect/plugin-render-markdown':
+      '@deep-tui/plugin-render-markdown':
         specifier: workspace:*
         version: link:../plugin-render-markdown
-      '@flect/plugin-render-read-file':
+      '@deep-tui/plugin-render-read-file':
         specifier: workspace:*
         version: link:../plugin-render-read-file
-      '@flect/plugin-render-run-command':
+      '@deep-tui/plugin-render-run-command':
         specifier: workspace:*
         version: link:../plugin-render-run-command
-      '@flect/plugin-render-search-text':
+      '@deep-tui/plugin-render-search-text':
         specifier: workspace:*
         version: link:../plugin-render-search-text
-      '@flect/plugin-session-files':
+      '@deep-tui/plugin-session-files':
         specifier: workspace:*
         version: link:../plugin-session-files
-      '@flect/plugin-session-title':
+      '@deep-tui/plugin-session-title':
         specifier: workspace:*
         version: link:../plugin-session-title
-      '@flect/plugin-sidebar':
+      '@deep-tui/plugin-sidebar':
         specifier: workspace:*
         version: link:../plugin-sidebar
-      '@flect/plugin-sidebar-activity':
+      '@deep-tui/plugin-sidebar-activity':
         specifier: workspace:*
         version: link:../plugin-sidebar-activity
-      '@flect/plugin-sidebar-changes':
+      '@deep-tui/plugin-sidebar-changes':
         specifier: workspace:*
         version: link:../plugin-sidebar-changes
-      '@flect/plugin-sidebar-context':
+      '@deep-tui/plugin-sidebar-context':
         specifier: workspace:*
         version: link:../plugin-sidebar-context
-      '@flect/plugin-sidebar-folders':
+      '@deep-tui/plugin-sidebar-folders':
         specifier: workspace:*
         version: link:../plugin-sidebar-folders
-      '@flect/plugin-sidebar-modes':
+      '@deep-tui/plugin-sidebar-modes':
         specifier: workspace:*
         version: link:../plugin-sidebar-modes
-      '@flect/plugin-sidebar-permissions':
+      '@deep-tui/plugin-sidebar-permissions':
         specifier: workspace:*
         version: link:../plugin-sidebar-permissions
-      '@flect/plugin-sidebar-plan':
+      '@deep-tui/plugin-sidebar-plan':
         specifier: workspace:*
         version: link:../plugin-sidebar-plan
-      '@flect/plugin-sidebar-session':
+      '@deep-tui/plugin-sidebar-session':
         specifier: workspace:*
         version: link:../plugin-sidebar-session
-      '@flect/plugin-sidebar-verification':
+      '@deep-tui/plugin-sidebar-verification':
         specifier: workspace:*
         version: link:../plugin-sidebar-verification
-      '@flect/plugin-slash-theme':
+      '@deep-tui/plugin-slash-theme':
         specifier: workspace:*
         version: link:../plugin-slash-theme
-      '@flect/plugin-theme-catppuccin':
+      '@deep-tui/plugin-theme-catppuccin':
         specifier: workspace:*
         version: link:../plugin-theme-catppuccin
-      '@flect/plugin-theme-default':
+      '@deep-tui/plugin-theme-default':
         specifier: workspace:*
         version: link:../plugin-theme-default
-      '@flect/plugin-theme-gruvbox':
+      '@deep-tui/plugin-theme-gruvbox':
         specifier: workspace:*
         version: link:../plugin-theme-gruvbox
-      '@flect/plugin-theme-kanagawa':
+      '@deep-tui/plugin-theme-kanagawa':
         specifier: workspace:*
         version: link:../plugin-theme-kanagawa
-      '@flect/plugin-theme-monokai-pro':
+      '@deep-tui/plugin-theme-monokai-pro':
         specifier: workspace:*
         version: link:../plugin-theme-monokai-pro
-      '@flect/plugin-theme-nord':
+      '@deep-tui/plugin-theme-nord':
         specifier: workspace:*
         version: link:../plugin-theme-nord
-      '@flect/plugin-tool-patch':
+      '@deep-tui/plugin-tool-patch':
         specifier: workspace:*
         version: link:../plugin-tool-patch
-      '@flect/plugin-tool-process':
+      '@deep-tui/plugin-tool-process':
         specifier: workspace:*
         version: link:../plugin-tool-process
-      '@flect/plugin-tool-search':
+      '@deep-tui/plugin-tool-search':
         specifier: workspace:*
         version: link:../plugin-tool-search
-      '@flect/plugin-tool-workspace':
+      '@deep-tui/plugin-tool-workspace':
         specifier: workspace:*
         version: link:../plugin-tool-workspace
-      '@flect/plugin-ui-terminal':
+      '@deep-tui/plugin-ui-terminal':
         specifier: workspace:*
         version: link:../plugin-ui-terminal
-      '@flect/plugin-ui-tui':
+      '@deep-tui/plugin-ui-tui':
         specifier: workspace:*
         version: link:../plugin-ui-tui
-      '@flect/plugin-usage-inline':
+      '@deep-tui/plugin-usage-inline':
         specifier: workspace:*
         version: link:../plugin-usage-inline
-      '@flect/plugin-welcome-brand':
+      '@deep-tui/plugin-welcome-brand':
         specifier: workspace:*
         version: link:../plugin-welcome-brand
-      '@flect/plugin-welcome-prompt':
+      '@deep-tui/plugin-welcome-prompt':
         specifier: workspace:*
         version: link:../plugin-welcome-prompt
-      '@flect/plugin-workspace-ignore':
+      '@deep-tui/plugin-workspace-ignore':
         specifier: workspace:*
         version: link:../plugin-workspace-ignore
-      '@flect/plugin-workspace-local':
+      '@deep-tui/plugin-workspace-local':
         specifier: workspace:*
         version: link:../plugin-workspace-local
-      '@flect/plugin-workspace-multi-root':
+      '@deep-tui/plugin-workspace-multi-root':
         specifier: workspace:*
         version: link:../plugin-workspace-multi-root
-      '@flect/plugin-zellij-title':
+      '@deep-tui/plugin-zellij-title':
         specifier: workspace:*
         version: link:../plugin-zellij-title
-      '@flect/runtime':
+      '@deep-tui/runtime':
         specifier: workspace:*
         version: link:../runtime
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -191,7 +191,7 @@ importers:
 
   packages/plugin-agent:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -200,7 +200,7 @@ importers:
 
   packages/plugin-audit-jsonl:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -209,7 +209,7 @@ importers:
 
   packages/plugin-audit-redact-default:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -218,10 +218,10 @@ importers:
 
   packages/plugin-auto-compact:
     dependencies:
-      '@flect/plugin-compact':
+      '@deep-tui/plugin-compact':
         specifier: workspace:*
         version: link:../plugin-compact
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -230,7 +230,7 @@ importers:
 
   packages/plugin-budget:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -239,7 +239,7 @@ importers:
 
   packages/plugin-compact:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -248,7 +248,7 @@ importers:
 
   packages/plugin-git:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -257,7 +257,7 @@ importers:
 
   packages/plugin-highlight-shiki:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -269,7 +269,7 @@ importers:
 
   packages/plugin-mode-plan:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -278,7 +278,7 @@ importers:
 
   packages/plugin-model-persist:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -287,7 +287,7 @@ importers:
 
   packages/plugin-permission-auto:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -296,7 +296,7 @@ importers:
 
   packages/plugin-permission-rules:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -305,7 +305,7 @@ importers:
 
   packages/plugin-prompt-coding:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -314,10 +314,10 @@ importers:
 
   packages/plugin-provider-deepseek:
     dependencies:
-      '@flect/plugin-provider-openai-compatible':
+      '@deep-tui/plugin-provider-openai-compatible':
         specifier: workspace:*
         version: link:../plugin-provider-openai-compatible
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -326,7 +326,7 @@ importers:
 
   packages/plugin-provider-openai-compatible:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -335,7 +335,7 @@ importers:
 
   packages/plugin-render-diff:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -344,7 +344,7 @@ importers:
 
   packages/plugin-render-diff-pretty:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -353,7 +353,7 @@ importers:
 
   packages/plugin-render-files:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -362,7 +362,7 @@ importers:
 
   packages/plugin-render-markdown:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       '@types/mdast':
@@ -383,7 +383,7 @@ importers:
 
   packages/plugin-render-read-file:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -392,7 +392,7 @@ importers:
 
   packages/plugin-render-run-command:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -401,7 +401,7 @@ importers:
 
   packages/plugin-render-search-text:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -410,7 +410,7 @@ importers:
 
   packages/plugin-session-files:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -419,7 +419,7 @@ importers:
 
   packages/plugin-session-title:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -428,7 +428,7 @@ importers:
 
   packages/plugin-sidebar:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -437,7 +437,7 @@ importers:
 
   packages/plugin-sidebar-activity:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -446,7 +446,7 @@ importers:
 
   packages/plugin-sidebar-changes:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -455,7 +455,7 @@ importers:
 
   packages/plugin-sidebar-context:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -464,7 +464,7 @@ importers:
 
   packages/plugin-sidebar-folders:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -473,7 +473,7 @@ importers:
 
   packages/plugin-sidebar-modes:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -482,7 +482,7 @@ importers:
 
   packages/plugin-sidebar-permissions:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -491,7 +491,7 @@ importers:
 
   packages/plugin-sidebar-plan:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -500,7 +500,7 @@ importers:
 
   packages/plugin-sidebar-session:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -509,7 +509,7 @@ importers:
 
   packages/plugin-sidebar-verification:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -518,22 +518,22 @@ importers:
 
   packages/plugin-slash-theme:
     dependencies:
-      '@flect/plugin-theme-catppuccin':
+      '@deep-tui/plugin-theme-catppuccin':
         specifier: workspace:*
         version: link:../plugin-theme-catppuccin
-      '@flect/plugin-theme-gruvbox':
+      '@deep-tui/plugin-theme-gruvbox':
         specifier: workspace:*
         version: link:../plugin-theme-gruvbox
-      '@flect/plugin-theme-kanagawa':
+      '@deep-tui/plugin-theme-kanagawa':
         specifier: workspace:*
         version: link:../plugin-theme-kanagawa
-      '@flect/plugin-theme-monokai-pro':
+      '@deep-tui/plugin-theme-monokai-pro':
         specifier: workspace:*
         version: link:../plugin-theme-monokai-pro
-      '@flect/plugin-theme-nord':
+      '@deep-tui/plugin-theme-nord':
         specifier: workspace:*
         version: link:../plugin-theme-nord
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -542,7 +542,7 @@ importers:
 
   packages/plugin-theme-catppuccin:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -551,7 +551,7 @@ importers:
 
   packages/plugin-theme-default:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -560,7 +560,7 @@ importers:
 
   packages/plugin-theme-gruvbox:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -569,7 +569,7 @@ importers:
 
   packages/plugin-theme-kanagawa:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -578,7 +578,7 @@ importers:
 
   packages/plugin-theme-monokai-pro:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -587,7 +587,7 @@ importers:
 
   packages/plugin-theme-nord:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -596,7 +596,7 @@ importers:
 
   packages/plugin-tool-patch:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -605,7 +605,7 @@ importers:
 
   packages/plugin-tool-process:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -614,7 +614,7 @@ importers:
 
   packages/plugin-tool-search:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -623,7 +623,7 @@ importers:
 
   packages/plugin-tool-workspace:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -632,7 +632,7 @@ importers:
 
   packages/plugin-ui-terminal:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -641,7 +641,7 @@ importers:
 
   packages/plugin-ui-tui:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -650,7 +650,7 @@ importers:
 
   packages/plugin-usage-inline:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -659,7 +659,7 @@ importers:
 
   packages/plugin-welcome-brand:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -668,7 +668,7 @@ importers:
 
   packages/plugin-welcome-prompt:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -677,7 +677,7 @@ importers:
 
   packages/plugin-workspace-ignore:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -686,7 +686,7 @@ importers:
 
   packages/plugin-workspace-local:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -695,10 +695,10 @@ importers:
 
   packages/plugin-workspace-multi-root:
     dependencies:
-      '@flect/plugin-workspace-local':
+      '@deep-tui/plugin-workspace-local':
         specifier: workspace:*
         version: link:../plugin-workspace-local
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -707,7 +707,7 @@ importers:
 
   packages/plugin-zellij-title:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:
@@ -716,7 +716,7 @@ importers:
 
   packages/runtime:
     dependencies:
-      '@flect/sdk':
+      '@deep-tui/sdk':
         specifier: workspace:*
         version: link:../sdk
       cordis:

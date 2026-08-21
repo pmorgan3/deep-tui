@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { Theme } from '@flect/sdk'
+import type { Theme } from '@deep-tui/sdk'
 
 const common = {
   fontFamily: 'JetBrains Mono, ui-monospace, monospace',

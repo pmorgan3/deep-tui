@@ -171,7 +171,7 @@ async function packageMetadata(directory: string): Promise<Record<string, unknow
 
 function declaredEntry(metadata: Record<string, unknown> | undefined): string | undefined {
   if (!metadata) return undefined
-  if (typeof metadata.flect === 'string') return metadata.flect
+  if (typeof metadata['deep-tui'] === 'string') return metadata['deep-tui']
   const exports = record(metadata.exports)
   const exported = conditionalExport(exports?.['.'] ?? metadata.exports)
   if (exported) return exported
@@ -200,7 +200,7 @@ async function resolveEntryFile(directory: string): Promise<string> {
     }
     return resolvedFile
   }
-  throw new Error(`GitHub plugin has no loadable entry; declare "flect", "exports", "module", or "main" in package.json, or provide index.mjs`)
+  throw new Error(`GitHub plugin has no loadable entry; declare "deep-tui", "exports", "module", or "main" in package.json, or provide index.mjs`)
 }
 
 function hasProductionDependencies(metadata: Record<string, unknown> | undefined): boolean {

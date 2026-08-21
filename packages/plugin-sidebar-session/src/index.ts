@@ -1,6 +1,6 @@
 import path from 'node:path'
 import type { Context } from 'cordis'
-import type { TuiActions } from '@flect/sdk'
+import type { TuiActions } from '@deep-tui/sdk'
 
 function duration(startedAt: number): string {
   const seconds = Math.max(0, Math.floor((Date.now() - startedAt) / 1_000))
@@ -18,7 +18,7 @@ export function apply(ctx: Context): void {
     await ctx.tui.executeSlash('/sessions', actions)
   }
   ctx.tui.registerSidebarSection({
-    id: 'flect.sidebar.session', title: 'Session', order: 50,
+    id: 'deep-tui.sidebar.session', title: 'Session', order: 50,
     render(render) {
       const title = render.state.conversationTitle ?? 'New conversation'
       const titleRow = { id: 'session:current', text: title, bold: true, activate: openSessions }

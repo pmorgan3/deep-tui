@@ -1,12 +1,12 @@
-# Flect
+# Deep TUI
 
-Flect is a plugin-first coding-agent harness built on
+Deep TUI is a plugin-first coding-agent harness built on
 [Cordis](https://github.com/cordiverse/cordis). Providers, tools, prompts,
 permissions, storage, themes, commands, renderers, and the agent loop are all
 replaceable plugins. The CLI only discovers configuration, loads plugins, and
 dispatches commands.
 
-Flect is pre-alpha. Its contracts and configuration may change.
+Deep TUI is pre-alpha. Its contracts and configuration may change.
 
 ## Quick start
 
@@ -19,7 +19,7 @@ export DEEPSEEK_API_KEY=your-key
 pnpm dev
 ```
 
-`pnpm dev` opens the default TUI using [flect.config.json](flect.config.json).
+`pnpm dev` opens the default TUI using [deep-tui.config.json](deep-tui.config.json).
 Type a prompt and press Enter. Type `/` to browse commands.
 
 Run without the TUI:
@@ -45,12 +45,12 @@ pnpm pack:check     # verify publishable package contents
 Run one package or test while iterating:
 
 ```sh
-pnpm --filter @flect/plugin-ui-tui run typecheck
+pnpm --filter @deep-tui/plugin-ui-tui run typecheck
 pnpm exec vitest run packages/plugin-ui-tui/tests/tui.spec.ts
 ```
 
 Add behavior as a plugin unless it is required to locate, load, or repair
-plugins. Public contracts belong in `@flect/sdk`; implementations belong in
+plugins. Public contracts belong in `@deep-tui/sdk`; implementations belong in
 `packages/plugin-*`.
 
 ### Repository layout
@@ -67,27 +67,27 @@ plugins. Public contracts belong in `@flect/sdk`; implementations belong in
 
 ## Composition
 
-The active product is the plugin list in `flect.config.json`:
+The active product is the plugin list in `deep-tui.config.json`:
 
 ```json
 {
   "$schema": "./schemas/config.schema.json",
   "version": 2,
   "plugins": [
-    { "use": "@flect/runtime" },
+    { "use": "@deep-tui/runtime" },
     {
-      "use": "@flect/plugin-agent",
+      "use": "@deep-tui/plugin-agent",
       "config": { "provider": "deepseek", "model": "flash" }
     },
-    { "use": "@flect/plugin-provider-deepseek" },
-    { "use": "@flect/plugin-tool-workspace" },
-    { "use": "@flect/plugin-ui-tui" }
+    { "use": "@deep-tui/plugin-provider-deepseek" },
+    { "use": "@deep-tui/plugin-tool-workspace" },
+    { "use": "@deep-tui/plugin-ui-tui" }
   ]
 }
 ```
 
 This abbreviated example shows the shape, not the full default composition.
-See [flect.config.json](flect.config.json) for the runnable configuration.
+See [deep-tui.config.json](deep-tui.config.json) for the runnable configuration.
 
 A plugin declares required services through `inject`. Cordis mounts it when
 those services exist and disposes its registrations when it unloads. Plugin
@@ -100,7 +100,7 @@ the resolved result before starting the UI:
 ```sh
 pnpm dev config paths
 pnpm dev config show
-pnpm dev config explain @flect/plugin-agent
+pnpm dev config explain @deep-tui/plugin-agent
 pnpm dev config validate
 ```
 
@@ -115,7 +115,7 @@ pnpm dev plugin create concise-prompt
 pnpm dev plugin create my-command --template slash
 ```
 
-Local plugins are created under `.flect/plugins/` and added to the active
+Local plugins are created under `.deep-tui/plugins/` and added to the active
 composition. A minimal plugin looks like this:
 
 ```js
@@ -139,11 +139,11 @@ Plugins can be loaded from npm, a local path, or a pinned GitHub URL:
 
 ```sh
 pnpm dev plugin add ./examples/slash-greeting.mjs
-pnpm dev plugin add https://github.com/example/flect-plugin#v1.0.0 --scope user
+pnpm dev plugin add https://github.com/example/deep-tui-plugin#v1.0.0 --scope user
 pnpm dev plugin sync --scope user
 ```
 
-Plugins execute with the same operating-system privileges as Flect. Install
+Plugins execute with the same operating-system privileges as Deep TUI. Install
 only code you trust. Model tool permissions do not sandbox plugin code. GitHub
 plugins must commit a runnable ESM entry; dependency lifecycle scripts are
 disabled during installation.
@@ -184,13 +184,13 @@ management (`/compact`, `/autocompact`, `/budget`), and project tooling
 
 ## State and safety
 
-Project state is stored under `.flect/`:
+Project state is stored under `.deep-tui/`:
 
-- `.flect/sessions/` contains append-only conversation records;
-- `.flect/audit/` contains redacted audit events;
-- `.flect/permissions.json` contains remembered project grants;
-- `.flect/folders.json` contains additional workspace roots;
-- `.flect/theme.json` contains the selected project theme.
+- `.deep-tui/sessions/` contains append-only conversation records;
+- `.deep-tui/audit/` contains redacted audit events;
+- `.deep-tui/permissions.json` contains remembered project grants;
+- `.deep-tui/folders.json` contains additional workspace roots;
+- `.deep-tui/theme.json` contains the selected project theme.
 
 Workspace reads are allowed by default. Writes and processes pass through the
 permission service. `/auto` is session-only and `/plan` denies writes,

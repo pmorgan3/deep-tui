@@ -8,13 +8,13 @@ import type {
   ModelMessage,
   ModelTool,
   NewConversationRecord,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 import {
   conversationSurface,
   createModelEnvelope,
   formatCheckpoint,
   formatRuntimeContext,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 
 export interface CompactConfig {
   /** Provider used to generate the summary. Defaults to the active TUI provider. */
@@ -312,7 +312,7 @@ export function apply(ctx: Context, config: CompactConfig = {}): void {
   boundedInteger(config.retainRecentRecords, defaultRetainRecentRecords, 0, 10_000, 'compact retainRecentRecords')
 
   ctx.tui.registerSlashCommand({
-    id: 'flect.compact.command',
+    id: 'deep-tui.compact.command',
     name: 'compact',
     aliases: ['summarize'],
     description: 'Summarize this conversation and start a compacted continuation.',
@@ -327,7 +327,7 @@ export function apply(ctx: Context, config: CompactConfig = {}): void {
 
       const focus = args.join(' ').trim()
       actions.showOverlay({
-        id: 'flect.compact.loading',
+        id: 'deep-tui.compact.loading',
         title: 'Compacting conversation',
         lines: [
           'Replaying the warm prefix and preparing an in-place checkpoint',

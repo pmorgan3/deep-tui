@@ -9,7 +9,7 @@ import {
   TuiService,
   conversationSurface,
   type ConversationRecord,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 import autoCompactPlugin, { decideAutoCompact } from '../src/index.js'
 
 async function collect<T>(iterable: AsyncIterable<T>): Promise<T[]> {

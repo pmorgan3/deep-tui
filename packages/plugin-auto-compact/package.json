@@ -1,7 +1,7 @@
 {
-  "name": "@flect/plugin-auto-compact",
-  "version": "0.0.0",
-  "description": "Threshold-based automatic conversation compaction for Flect.",
+  "name": "@deep-tui/plugin-auto-compact",
+  "version": "0.1.0",
+  "description": "Threshold-based automatic conversation compaction for Deep TUI.",
   "license": "MIT",
   "publishConfig": { "access": "public" },
   "type": "module",
@@ -11,8 +11,8 @@
   "files": ["dist", "README.md"],
   "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc -p tsconfig.json --noEmit" },
   "dependencies": {
-    "@flect/plugin-compact": "workspace:*",
-    "@flect/sdk": "workspace:*",
+    "@deep-tui/plugin-compact": "workspace:*",
+    "@deep-tui/sdk": "workspace:*",
     "cordis": "^4.0.0-rc.8"
   }
 }

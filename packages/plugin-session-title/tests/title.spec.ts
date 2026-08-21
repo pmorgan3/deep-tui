@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { ConversationService, fallbackConversationTitle, ModelService } from '@flect/sdk'
+import { ConversationService, fallbackConversationTitle, ModelService } from '@deep-tui/sdk'
 import { generateSessionTitle, normalizeGeneratedTitle } from '../src/index.js'
 
 describe('session title plugin', () => {

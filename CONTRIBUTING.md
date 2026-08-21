@@ -15,7 +15,7 @@ prompt, permission, or UI concept directly into the CLI microkernel, explain
 why it cannot live behind a service.
 
 Pull requests should include tests for lifecycle cleanup and replacement where
-relevant. Public contracts belong in `@flect/sdk`; implementations
+relevant. Public contracts belong in `@deep-tui/sdk`; implementations
 belong in plugins.
 
 ## Design proposals

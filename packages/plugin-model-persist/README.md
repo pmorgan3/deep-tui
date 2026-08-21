@@ -1,7 +1,7 @@
-# @flect/plugin-model-persist
+# @deep-tui/plugin-model-persist
 
 Remembers the active model for the current project. Switching models with
-`/model <name>` or Ctrl+P writes the choice to `.flect/model.json` (next to the
+`/model <name>` or Ctrl+P writes the choice to `.deep-tui/model.json` (next to the
 theme preference), and the next TUI session restores it before the first frame
 draws.
 

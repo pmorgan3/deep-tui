@@ -1,10 +1,10 @@
-# @flect/plugin-sidebar-folders
+# @deep-tui/plugin-sidebar-folders
 
 Shows primary, additional, read-only, and unavailable workspace roots in
-Flect's composable sidebar. Selecting the section opens `/folders status`.
+Deep TUI's composable sidebar. Selecting the section opens `/folders status`.
 
 ```json
-{ "use": "@flect/plugin-sidebar-folders" }
+{ "use": "@deep-tui/plugin-sidebar-folders" }
 ```
 
 This package only presents data from the public workspace service. It neither

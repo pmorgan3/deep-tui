@@ -3,7 +3,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { AuditService, type AuditEvent } from '@flect/sdk'
+import { AuditService, type AuditEvent } from '@deep-tui/sdk'
 import redaction from '../../plugin-audit-redact-default/src/index.js'
 import { JsonlAuditSink, readAuditEvents } from '../src/index.js'
 
@@ -16,7 +16,7 @@ function event(id: string, data: Record<string, unknown> = {}): AuditEvent {
 
 describe('redacted JSONL audit history', () => {
   it('removes secrets and controls before restrictive persistent storage', async () => {
-    const directory = await mkdtemp(path.join(os.tmpdir(), 'flect-audit-'))
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-audit-'))
     directories.push(directory)
     const ctx = new Context()
     const service = await ctx.plugin(AuditService, { failureMode: 'fail-closed' })
@@ -39,7 +39,7 @@ describe('redacted JSONL audit history', () => {
   })
 
   it('rotates, tolerates only a partial tail, and detects hash-chain edits', async () => {
-    const directory = await mkdtemp(path.join(os.tmpdir(), 'flect-audit-chain-'))
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-audit-chain-'))
     directories.push(directory)
     const sink = new JsonlAuditSink(directory, { maxFileBytes: 1 })
     await sink.record(event('one'))

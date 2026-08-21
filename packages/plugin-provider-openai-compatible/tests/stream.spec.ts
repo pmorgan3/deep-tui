@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { collectModelStream } from '@flect/sdk'
+import { collectModelStream } from '@deep-tui/sdk'
 import { OpenAiCompatibleProvider } from '../src/index.js'
 import { readSseData } from '../src/sse.js'
 

@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { RichTextLine, RichTextSpan, RichTextStyle, TuiRenderContext } from '@flect/sdk'
+import type { RichTextLine, RichTextSpan, RichTextStyle, TuiRenderContext } from '@deep-tui/sdk'
 
 export interface PrettyDiffRendererConfig {
   /** Per-file cap on rendered body lines (hunk headers and content). Default 120. */
@@ -515,7 +515,7 @@ export const inject = ['tui']
 
 export function apply(ctx: Context, config: PrettyDiffRendererConfig = {}): void {
   ctx.tui.registerEventRenderer({
-    id: 'flect.diff-pretty.tool-call',
+    id: 'deep-tui.diff-pretty.tool-call',
     priority: 200,
     render(event, render) {
       if (event.type !== 'tool-call') return undefined
@@ -541,7 +541,7 @@ export function apply(ctx: Context, config: PrettyDiffRendererConfig = {}): void
   })
 
   ctx.tui.registerEventRenderer({
-    id: 'flect.diff-pretty.tool-result',
+    id: 'deep-tui.diff-pretty.tool-result',
     priority: 200,
     render(event, render) {
       if (event.type !== 'tool-result' || event.presentation?.type !== 'diff') return undefined

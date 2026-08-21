@@ -1,6 +1,6 @@
-# @flect/plugin-render-files
+# @deep-tui/plugin-render-files
 
-Renders `list_files` and `find_files` activity in Flect's compact exploration
+Renders `list_files` and `find_files` activity in Deep TUI's compact exploration
 log. Set `showResults: true` to show result boxes with directory/file glyphs,
 counts, search context, and explicit renderer/tool truncation notices.
 

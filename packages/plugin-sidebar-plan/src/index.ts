@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { AgentEvent, TuiRenderContext, TuiSidebarRow } from '@flect/sdk'
+import type { AgentEvent, TuiRenderContext, TuiSidebarRow } from '@deep-tui/sdk'
 
 interface PlanItem {
   text: string
@@ -9,7 +9,7 @@ interface PlanItem {
 
 function planActive(ctx: Context, render: TuiRenderContext): boolean {
   return ctx.tui.listStatusItems().some(item =>
-    item.id === 'flect.mode.plan.status' && Boolean(item.render(render)))
+    item.id === 'deep-tui.mode.plan.status' && Boolean(item.render(render)))
 }
 
 function collect(events: readonly AgentEvent[]): PlanItem[] {
@@ -32,7 +32,7 @@ export function apply(ctx: Context): void {
   let source: readonly AgentEvent[] | undefined
   let cached: PlanItem[] = []
   ctx.tui.registerSidebarSection({
-    id: 'flect.sidebar.plan', title: 'Plan', order: 5,
+    id: 'deep-tui.sidebar.plan', title: 'Plan', order: 5,
     render(render) {
       if (source !== render.state.events) {
         source = render.state.events
@@ -57,7 +57,7 @@ export function apply(ctx: Context): void {
           ...(objectiveIndex >= 0 ? { id: `plan:objective:${objectiveIndex}` } : {}),
           text: objective,
           tone: 'accent',
-          ...(objectiveIndex >= 0 ? { activate: (actions: import('@flect/sdk').TuiActions) => actions.revealEvent(objectiveIndex) } : {}),
+          ...(objectiveIndex >= 0 ? { activate: (actions: import('@deep-tui/sdk').TuiActions) => actions.revealEvent(objectiveIndex) } : {}),
         }]
       }
       return { rows, compactRows: rows.slice(0, 3) }

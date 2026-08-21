@@ -1,7 +1,7 @@
 {
-  "name": "@flect/plugin-slash-theme",
-  "version": "0.0.0",
-  "description": "Live /theme switching and bundled theme loading for Flect.",
+  "name": "@deep-tui/plugin-slash-theme",
+  "version": "0.1.0",
+  "description": "Live /theme switching and bundled theme loading for Deep TUI.",
   "license": "MIT",
   "publishConfig": { "access": "public" },
   "type": "module",
@@ -11,12 +11,12 @@
   "files": ["dist", "README.md"],
   "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc -p tsconfig.json --noEmit" },
   "dependencies": {
-    "@flect/plugin-theme-catppuccin": "workspace:*",
-    "@flect/plugin-theme-gruvbox": "workspace:*",
-    "@flect/plugin-theme-kanagawa": "workspace:*",
-    "@flect/plugin-theme-monokai-pro": "workspace:*",
-    "@flect/plugin-theme-nord": "workspace:*",
-    "@flect/sdk": "workspace:*",
+    "@deep-tui/plugin-theme-catppuccin": "workspace:*",
+    "@deep-tui/plugin-theme-gruvbox": "workspace:*",
+    "@deep-tui/plugin-theme-kanagawa": "workspace:*",
+    "@deep-tui/plugin-theme-monokai-pro": "workspace:*",
+    "@deep-tui/plugin-theme-nord": "workspace:*",
+    "@deep-tui/sdk": "workspace:*",
     "cordis": "^4.0.0-rc.8"
   }
 }

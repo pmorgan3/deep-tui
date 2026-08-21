@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { ProjectService, TuiService, type TuiActions, type TuiState } from '@flect/sdk'
+import { ProjectService, TuiService, type TuiActions, type TuiState } from '@deep-tui/sdk'
 import modelPersist from '../src/index.js'
 
 const directories: string[] = []
@@ -79,7 +79,7 @@ async function press(ctx: Context, name: string, actions: TuiActions): Promise<v
 
 describe('model persistence plugin', () => {
   it('persists /model switches and restores them before the next session draws', async () => {
-    const cwd = await mkdtemp(path.join(tmpdir(), 'flect-model-'))
+    const cwd = await mkdtemp(path.join(tmpdir(), 'deep-tui-model-'))
     directories.push(cwd)
     const first = await mountModelContext({}, cwd)
     const firstSession = makeActions(cwd, ['flash', 'pro'])
@@ -88,7 +88,7 @@ describe('model persistence plugin', () => {
 
     await first.ctx.tui.executeSlash('/model pro', firstSession.actions)
     expect(firstSession.state.model).toBe('pro')
-    expect(JSON.parse(await readFile(path.join(cwd, '.flect/model.json'), 'utf8'))).toEqual({ model: 'pro' })
+    expect(JSON.parse(await readFile(path.join(cwd, '.deep-tui/model.json'), 'utf8'))).toEqual({ model: 'pro' })
 
     await first.ctx.tui.stopSession(firstSession.actions)
     await first.dispose()
@@ -102,7 +102,7 @@ describe('model persistence plugin', () => {
   })
 
   it('persists Ctrl+P model cycling', async () => {
-    const cwd = await mkdtemp(path.join(tmpdir(), 'flect-model-cycle-'))
+    const cwd = await mkdtemp(path.join(tmpdir(), 'deep-tui-model-cycle-'))
     directories.push(cwd)
     const mounted = await mountModelContext({}, cwd)
     const session = makeActions(cwd, ['flash', 'pro'])
@@ -110,27 +110,27 @@ describe('model persistence plugin', () => {
 
     await press(mounted.ctx, 'ctrl+p', session.actions)
     expect(session.state.model).toBe('pro')
-    expect(JSON.parse(await readFile(path.join(cwd, '.flect/model.json'), 'utf8'))).toEqual({ model: 'pro' })
+    expect(JSON.parse(await readFile(path.join(cwd, '.deep-tui/model.json'), 'utf8'))).toEqual({ model: 'pro' })
 
     await mounted.ctx.tui.stopSession(session.actions)
     await mounted.dispose()
   })
 
   it('keeps model selection session-only when persist is disabled', async () => {
-    const cwd = await mkdtemp(path.join(tmpdir(), 'flect-model-ephemeral-'))
+    const cwd = await mkdtemp(path.join(tmpdir(), 'deep-tui-model-ephemeral-'))
     directories.push(cwd)
     const mounted = await mountModelContext({ persist: false }, cwd)
     const session = makeActions(cwd, ['flash', 'pro'])
 
     await mounted.ctx.tui.executeSlash('/model pro', session.actions)
     expect(session.state.model).toBe('pro')
-    await expect(readFile(path.join(cwd, '.flect/model.json'), 'utf8')).rejects.toMatchObject({ code: 'ENOENT' })
+    await expect(readFile(path.join(cwd, '.deep-tui/model.json'), 'utf8')).rejects.toMatchObject({ code: 'ENOENT' })
 
     await mounted.dispose()
   })
 
   it('rejects unknown models without writing state', async () => {
-    const cwd = await mkdtemp(path.join(tmpdir(), 'flect-model-unknown-'))
+    const cwd = await mkdtemp(path.join(tmpdir(), 'deep-tui-model-unknown-'))
     directories.push(cwd)
     const mounted = await mountModelContext({}, cwd)
     const session = makeActions(cwd, ['flash', 'pro'])
@@ -138,16 +138,16 @@ describe('model persistence plugin', () => {
     await mounted.ctx.tui.executeSlash('/model claude', session.actions)
     expect(session.state.model).toBe('flash')
     expect(session.state.overlay?.id).toBe('model-not-found')
-    await expect(readFile(path.join(cwd, '.flect/model.json'), 'utf8')).rejects.toMatchObject({ code: 'ENOENT' })
+    await expect(readFile(path.join(cwd, '.deep-tui/model.json'), 'utf8')).rejects.toMatchObject({ code: 'ENOENT' })
 
     await mounted.dispose()
   })
 
   it('warns when the saved model is no longer configured', async () => {
-    const cwd = await mkdtemp(path.join(tmpdir(), 'flect-model-stale-'))
+    const cwd = await mkdtemp(path.join(tmpdir(), 'deep-tui-model-stale-'))
     directories.push(cwd)
-    await mkdir(path.join(cwd, '.flect'), { recursive: true })
-    await writeFile(path.join(cwd, '.flect/model.json'), `${JSON.stringify({ model: 'retired' }, null, 2)}\n`, 'utf8')
+    await mkdir(path.join(cwd, '.deep-tui'), { recursive: true })
+    await writeFile(path.join(cwd, '.deep-tui/model.json'), `${JSON.stringify({ model: 'retired' }, null, 2)}\n`, 'utf8')
     const mounted = await mountModelContext({}, cwd)
     const session = makeActions(cwd, ['flash', 'pro'])
 

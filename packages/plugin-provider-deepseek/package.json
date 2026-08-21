@@ -1,7 +1,7 @@
 {
-  "name": "@flect/plugin-provider-deepseek",
-  "version": "0.0.0",
-  "description": "DeepSeek V4 Pro and Flash provider plugin for Flect.",
+  "name": "@deep-tui/plugin-provider-deepseek",
+  "version": "0.1.0",
+  "description": "DeepSeek V4 Pro and Flash provider plugin for Deep TUI.",
   "license": "MIT",
   "publishConfig": { "access": "public" },
   "type": "module",
@@ -19,8 +19,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@flect/plugin-provider-openai-compatible": "workspace:*",
-    "@flect/sdk": "workspace:*",
+    "@deep-tui/plugin-provider-openai-compatible": "workspace:*",
+    "@deep-tui/sdk": "workspace:*",
     "cordis": "^4.0.0-rc.8"
   }
 }

@@ -3,7 +3,7 @@ import { stat } from 'node:fs/promises'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
 import type { Context } from 'cordis'
-import { assertRecord, type JsonObject } from '@flect/sdk'
+import { assertRecord, type JsonObject } from '@deep-tui/sdk'
 
 export interface ProcessToolConfig {
   timeoutMs?: number

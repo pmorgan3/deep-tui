@@ -1,14 +1,14 @@
-# @flect/cli
+# @deep-tui/cli
 
-The Flect command-line host and `flect` executable. Flect is a plugin-first
+The Deep TUI command-line host and `deep-tui` executable. Deep TUI is a plugin-first
 coding-agent harness built on Cordis.
 
 After installation, initialize a project composition and start the default UI:
 
 ```sh
-flect init
+deep-tui init
 export DEEPSEEK_API_KEY=your-key
-flect
+deep-tui
 ```
 
 Plugins may be installed from npm, loaded from local files, or declared as a

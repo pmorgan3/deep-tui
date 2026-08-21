@@ -1,8 +1,8 @@
 # Packaging and releases
 
-Flect's first distribution target is npm. `@flect/cli` owns the `flect`
+Deep TUI's first distribution target is npm. `@deep-tui/cli` owns the `deep-tui`
 executable, while the SDK, runtime, and first-party features remain ordinary
-`@flect/*` packages so users can compose only the pieces they want.
+`@deep-tui/*` packages so users can compose only the pieces they want.
 
 ## Release shape
 
@@ -14,16 +14,14 @@ executable, while the SDK, runtime, and first-party features remain ordinary
   package versioning can wait until the SDK compatibility policy is stable.
 - A source release must pass `pnpm check` and `pnpm pack:check` before publish.
 
-The repository intentionally remains at version `0.0.0` until the `@flect` npm
-scope, GitHub organization, and name clearance called out in
-[`naming.md`](naming.md) are secured. Do not publish placeholder `0.0.0`
-artifacts to the public registry.
+The `@deep-tui` npm scope is secured and the workspace is synchronized at its
+first development version, `0.1.0`. Do not publish until the repository identity
+and remaining name clearance called out in [`naming.md`](naming.md) are complete.
 
 ## Initial release checklist
 
-1. Secure the npm scope and repository identity.
-2. Choose the first pre-1.0 version and apply it consistently to every public
-   workspace package.
+1. Confirm the repository identity and trusted-publishing target.
+2. Confirm every public workspace package remains synchronized at `0.1.0`.
 3. Confirm every tarball contains its compiled entry, declarations, README,
    and MIT license.
 4. Run `pnpm install --frozen-lockfile`, `pnpm check`, and `pnpm pack:check` on

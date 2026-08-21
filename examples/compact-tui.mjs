@@ -1,4 +1,4 @@
-// Add this in one command: flect plugin add ./examples/compact-tui.mjs
+// Add this in one command: deep-tui plugin add ./examples/compact-tui.mjs
 export const name = 'compact-tui-example'
 export const inject = ['tui']
 
@@ -9,7 +9,7 @@ export function apply(ctx) {
     priority: 10,
     render({ state, style }) {
       return [
-        `${style('flect', 'accent', true)}  ${state.provider}/${state.model}`,
+        `${style('deep-tui', 'accent', true)}  ${state.provider}/${state.model}`,
         style(state.cwd, 'muted'),
       ]
     },

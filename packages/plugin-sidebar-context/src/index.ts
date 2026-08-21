@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { ModelUsage, TuiRenderContext } from '@flect/sdk'
+import type { ModelUsage, TuiRenderContext } from '@deep-tui/sdk'
 
 function integer(value: number | undefined): string {
   return Math.max(0, value ?? 0).toLocaleString('en-US')
@@ -24,7 +24,7 @@ export const inject = ['tui']
 
 export function apply(ctx: Context): void {
   ctx.tui.registerSidebarSection({
-    id: 'flect.sidebar.context', title: 'Context & cost', order: 20,
+    id: 'deep-tui.sidebar.context', title: 'Context & cost', order: 20,
     render(render: TuiRenderContext) {
       const usage = render.state.usage
       const latest = render.state.latestUsage

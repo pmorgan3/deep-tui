@@ -1,4 +1,4 @@
-import type { BillingService, TuiService, TuiSlashCommand } from '@flect/sdk'
+import type { BillingService, TuiService, TuiSlashCommand } from '@deep-tui/sdk'
 
 function integer(value: number | undefined): string {
   return Math.max(0, value ?? 0).toLocaleString('en-US')
@@ -13,7 +13,7 @@ function dollars(value: number): string {
 export function defaultSlashCommands(tui: TuiService, billing?: BillingService): TuiSlashCommand[] {
   return [
     {
-      id: 'flect.default.slash.thinking',
+      id: 'deep-tui.default.slash.thinking',
       name: 'thinking',
       aliases: ['reasoning', 'thoughts'],
       description: 'Expand or collapse the latest model reasoning.',
@@ -23,7 +23,7 @@ export function defaultSlashCommands(tui: TuiService, billing?: BillingService):
       },
     },
     {
-      id: 'flect.default.slash.context',
+      id: 'deep-tui.default.slash.context',
       name: 'context',
       aliases: ['ctx'],
       description: 'Show current context-window and token usage.',
@@ -61,7 +61,7 @@ export function defaultSlashCommands(tui: TuiService, billing?: BillingService):
       },
     },
     {
-      id: 'flect.default.slash.cost',
+      id: 'deep-tui.default.slash.cost',
       name: 'cost',
       description: 'Show billable tokens, calculated charges, and live balance.',
       priority: -100,
@@ -125,7 +125,7 @@ export function defaultSlashCommands(tui: TuiService, billing?: BillingService):
       },
     },
     {
-      id: 'flect.default.slash.model',
+      id: 'deep-tui.default.slash.model',
       name: 'model',
       aliases: ['models'],
       description: 'Show or switch the active model.',
@@ -171,7 +171,7 @@ export function defaultSlashCommands(tui: TuiService, billing?: BillingService):
       },
     },
     {
-      id: 'flect.default.slash.help',
+      id: 'deep-tui.default.slash.help',
       name: 'help',
       aliases: ['commands'],
       description: 'List slash commands contributed by active plugins.',
@@ -189,7 +189,7 @@ export function defaultSlashCommands(tui: TuiService, billing?: BillingService):
       },
     },
     {
-      id: 'flect.default.slash.plugins',
+      id: 'deep-tui.default.slash.plugins',
       name: 'plugins',
       description: 'Show active TUI contribution counts.',
       priority: -100,
@@ -207,7 +207,7 @@ export function defaultSlashCommands(tui: TuiService, billing?: BillingService):
       },
     },
     {
-      id: 'flect.default.slash.clear',
+      id: 'deep-tui.default.slash.clear',
       name: 'clear',
       aliases: ['new'],
       description: 'Clear the visible transcript while keeping session totals.',
@@ -217,7 +217,7 @@ export function defaultSlashCommands(tui: TuiService, billing?: BillingService):
       },
     },
     {
-      id: 'flect.default.slash.exit',
+      id: 'deep-tui.default.slash.exit',
       name: 'exit',
       aliases: ['quit'],
       description: 'Exit the TUI.',

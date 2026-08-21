@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { Theme } from '@flect/sdk'
+import type { Theme } from '@deep-tui/sdk'
 
 export const nordTheme: Theme = {
   id: 'nord',

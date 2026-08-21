@@ -1,8 +1,8 @@
 {
-  "name": "flect-monorepo",
-  "version": "0.0.0",
+  "name": "deep-tui-monorepo",
+  "version": "0.1.0",
   "private": true,
-  "description": "Flect: a plugin-first agentic harness built on Cordis.",
+  "description": "Deep TUI: a plugin-first agentic harness built on Cordis.",
   "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@10.33.0",

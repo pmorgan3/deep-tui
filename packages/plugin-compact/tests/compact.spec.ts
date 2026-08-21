@@ -11,7 +11,7 @@ import {
   type ModelRequest,
   type TuiActions,
   type TuiState,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 import compactPlugin, { buildCompactionTranscript, compactConversation } from '../src/index.js'
 
 async function collect<T>(iterable: AsyncIterable<T>): Promise<T[]> {

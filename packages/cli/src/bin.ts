@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import path from 'node:path'
-import { formatUnknownError } from '@flect/sdk'
+import { createRequire } from 'node:module'
+import { formatUnknownError } from '@deep-tui/sdk'
 import {
   CONFIG_FILENAME, configPaths, findConfig, initializeConfig, readConfig, readLayeredConfig,
   initializeConfigFile, redactConfiguration, selectConfig, userConfigPath,
@@ -9,20 +10,21 @@ import { loadComposition } from './composition.js'
 import { addPlugin, createPlugin, removePlugin } from './plugins.js'
 import { parseGitHubPluginSpecifier, syncGitHubPlugins } from './remote-plugins.js'
 
-const VERSION = '0.0.0'
+const packageJson = createRequire(import.meta.url)('../package.json') as { version?: unknown }
+const VERSION = typeof packageJson.version === 'string' ? packageJson.version : 'unknown'
 
 function bootstrapHelp(): string {
-  return `Flect\n\n` +
+  return `Deep TUI\n\n` +
     `Usage:\n` +
-    `  flect init\n` +
-    `  flect plugin add <package-path-or-github-url>\n` +
-    `  flect plugin create <name> [--template prompt|slash]\n` +
-    `  flect plugin remove <package-or-id>\n` +
-    `  flect plugin list\n` +
-    `  flect plugin sync [github-url-or-id]\n` +
-    `  flect plugin update [github-url-or-id]\n` +
-    `  flect config paths|show|explain|validate|init\n` +
-    `  flect <plugin-contributed-command> [...args]\n\n` +
+    `  deep-tui init\n` +
+    `  deep-tui plugin add <package-path-or-github-url>\n` +
+    `  deep-tui plugin create <name> [--template prompt|slash]\n` +
+    `  deep-tui plugin remove <package-or-id>\n` +
+    `  deep-tui plugin list\n` +
+    `  deep-tui plugin sync [github-url-or-id]\n` +
+    `  deep-tui plugin update [github-url-or-id]\n` +
+    `  deep-tui config paths|show|explain|validate|init\n` +
+    `  deep-tui <plugin-contributed-command> [...args]\n\n` +
     `Global options:\n` +
     `  --config <path>  Use an explicit composition\n` +
     `  --isolated-config Load only the selected composition\n` +
@@ -76,7 +78,7 @@ async function bootstrapConfig(args: string[], cwd: string, explicit?: string, i
     process.stdout.write(`Valid: ${layered.plugins.length} plugins from ${layered.sources.length} configuration file(s).\n`)
     return 0
   }
-  throw new Error('usage: flect config <paths|show|explain|validate|init>')
+  throw new Error('usage: deep-tui config <paths|show|explain|validate|init>')
 }
 
 function extractConfig(args: string[]): { args: string[]; configPath?: string; isolated: boolean } {
@@ -150,7 +152,7 @@ async function bootstrapPlugin(args: string[], cwd: string, configPath?: string)
     for (const plugin of installed) process.stdout.write(`${plugin.status}  ${plugin.source.specifier}\n`)
     return 0
   }
-  throw new Error('usage: flect plugin <add|create|remove|list|sync|update> [value] [--template prompt|slash] [--scope user|project]')
+  throw new Error('usage: deep-tui plugin <add|create|remove|list|sync|update> [value] [--template prompt|slash] [--scope user|project]')
 }
 
 export async function main(argv = process.argv.slice(2), cwd = process.cwd()): Promise<number> {

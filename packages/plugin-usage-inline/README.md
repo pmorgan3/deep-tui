@@ -1,4 +1,4 @@
-# @flect/plugin-usage-inline
+# @deep-tui/plugin-usage-inline
 
 Appends a compact usage line to every completed assistant response:
 

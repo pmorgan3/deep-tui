@@ -11,7 +11,7 @@ import {
   type AgentEvent,
   type ModelRequest,
   type ModelResponse,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 import { DefaultAgentService, TOOL_ORDER_REST } from '../src/index.js'
 
 async function collect(generator: AsyncGenerator<AgentEvent, string>): Promise<{ events: AgentEvent[]; result: string }> {

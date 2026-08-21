@@ -471,11 +471,11 @@ export class ProjectService extends Service<ProjectContextConfig> {
   }
 
   statePath(...segments: string[]): string {
-    const base = path.join(this.root, '.flect')
+    const base = path.join(this.root, '.deep-tui')
     const resolved = path.resolve(base, ...segments)
     const relative = path.relative(base, resolved)
     if (relative === '..' || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {
-      throw new Error('project state path escapes .flect')
+      throw new Error('project state path escapes .deep-tui')
     }
     return resolved
   }

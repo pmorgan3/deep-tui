@@ -2,7 +2,7 @@
 
 ## Outcome
 
-Users can answer “what did Flect do, why was it allowed, and what happened?”
+Users can answer “what did Deep TUI do, why was it allowed, and what happened?”
 for model runs, permission decisions, and tool executions. Audit capture,
 redaction, storage, and presentation are independent plugins with safe
 defaults.
@@ -74,7 +74,7 @@ but the typed audit service becomes the canonical structured stream.
 
 ## Redaction
 
-Create `@flect/plugin-audit-redact-default` with:
+Create `@deep-tui/plugin-audit-redact-default` with:
 
 - recursive key-based removal for authorization, token, secret, password,
   cookie, and configured keys;
@@ -93,10 +93,10 @@ starter composition.
 
 ## Filesystem sink
 
-Create `@flect/plugin-audit-jsonl`:
+Create `@deep-tui/plugin-audit-jsonl`:
 
 ```text
-.flect/audit/
+.deep-tui/audit/
   2026-08-17.jsonl
 ```
 
@@ -120,7 +120,7 @@ Add plugin-provided commands:
 - `/audit permissions`: recent requests/decisions and remembered rule IDs.
 - `/audit tools`: tool name, status, duration, and result summary.
 - `/audit show <event-id>`: redacted structured detail.
-- `flect audit list|show|export|prune [--json]` for headless use.
+- `deep-tui audit list|show|export|prune [--json]` for headless use.
 
 The TUI list is a scrollable picker using the generic viewport/overlay
 contracts. It never displays raw secrets even if a custom sink retained them.

@@ -4,7 +4,7 @@ import path from 'node:path'
 import type { Context } from 'cordis'
 import type {
   Conversation, ConversationRecord, ConversationStore, CreateConversation, NewConversationRecord, TuiActions,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 
 interface IndexFile { version: 1; conversations: Conversation[] }
 
@@ -18,7 +18,7 @@ export interface FilesystemSessionConfig {
 }
 
 export class FileConversationStore implements ConversationStore {
-  readonly id = 'flect.files'
+  readonly id = 'deep-tui.files'
   readonly priority = 100
   readonly durable = true
   private queue = Promise.resolve()
@@ -42,7 +42,7 @@ export class FileConversationStore implements ConversationStore {
       if (!(typeof error === 'object' && error !== null && 'code' in error && error.code === 'EEXIST')) throw error
       const age = Date.now() - (await stat(filename)).mtimeMs
       throw new Error(age > (this.config.staleLockMs ?? 300_000)
-        ? `stale session lock detected at ${filename}; remove it after confirming no Flect process is using it`
+        ? `stale session lock detected at ${filename}; remove it after confirming no Deep TUI process is using it`
         : `conversation store is locked by another process: ${filename}`)
     }
     try { return await work() } finally { await handle.close(); await unlink(filename).catch(() => undefined) }
@@ -56,7 +56,7 @@ export class FileConversationStore implements ConversationStore {
       if (typeof error === 'object' && error !== null && 'code' in error && error.code === 'ENOENT') {
         let logs: string[] = []
         try { logs = (await readdir(this.directory)).filter(file => file.endsWith('.jsonl')) } catch {}
-        if (logs.length) throw new Error('session index is missing; run "flect sessions repair"')
+        if (logs.length) throw new Error('session index is missing; run "deep-tui sessions repair"')
         return { version: 1, conversations: [] }
       }
       throw error
@@ -227,14 +227,14 @@ export function apply(ctx: Context, config: FilesystemSessionConfig = {}): void 
   refresh()
   ctx.effect(() => ctx.conversations.subscribe(refresh), 'session completion cache')
   ctx.tui.registerSlashCommand({
-    id: 'flect.sessions.new', name: 'new', description: 'Start a new conversation.', usage: '/new [title]',
+    id: 'deep-tui.sessions.new', name: 'new', description: 'Start a new conversation.', usage: '/new [title]',
     run: (args, actions) => {
       const title = args.join(' ').trim()
       return title ? actions.newConversation(title) : actions.newConversation()
     },
   })
   ctx.tui.registerSlashCommand({
-    id: 'flect.sessions.list', name: 'sessions', description: 'List durable conversations.',
+    id: 'deep-tui.sessions.list', name: 'sessions', description: 'List durable conversations.',
     async run(_args, actions) {
       const conversations = await ctx.conversations.list()
       const items = [...conversations]
@@ -244,31 +244,31 @@ export function apply(ctx: Context, config: FilesystemSessionConfig = {}): void 
     },
   })
   ctx.tui.registerKeybinding({
-    id: 'flect.sessions.picker-up', keys: ['up'], description: 'Select the previous conversation.', priority: 20,
+    id: 'deep-tui.sessions.picker-up', keys: ['up'], description: 'Select the previous conversation.', priority: 20,
     handle(_event, actions) { const picker = pickers.get(actions); if (actions.state.overlay?.id !== 'session-picker' || !picker?.items.length) return false; picker.index = (picker.index - 1 + picker.items.length) % picker.items.length; showPicker(actions); return true },
   })
   ctx.tui.registerKeybinding({
-    id: 'flect.sessions.picker-down', keys: ['down'], description: 'Select the next conversation.', priority: 20,
+    id: 'deep-tui.sessions.picker-down', keys: ['down'], description: 'Select the next conversation.', priority: 20,
     handle(_event, actions) { const picker = pickers.get(actions); if (actions.state.overlay?.id !== 'session-picker' || !picker?.items.length) return false; picker.index = (picker.index + 1) % picker.items.length; showPicker(actions); return true },
   })
   ctx.tui.registerKeybinding({
-    id: 'flect.sessions.picker-accept', keys: ['enter'], description: 'Resume the selected conversation.', priority: 20,
+    id: 'deep-tui.sessions.picker-accept', keys: ['enter'], description: 'Resume the selected conversation.', priority: 20,
     async handle(_event, actions) { const picker = pickers.get(actions); const selected = picker?.items[picker.index]; if (actions.state.overlay?.id !== 'session-picker' || !selected) return false; pickers.delete(actions); actions.closeOverlay(); await actions.openConversation(selected.id); return true },
   })
   ctx.tui.registerKeybinding({
-    id: 'flect.sessions.picker-cancel', keys: ['escape'], description: 'Cancel conversation selection.', priority: 20,
+    id: 'deep-tui.sessions.picker-cancel', keys: ['escape'], description: 'Cancel conversation selection.', priority: 20,
     handle(_event, actions) { if (actions.state.overlay?.id !== 'session-picker') return false; pickers.delete(actions); actions.closeOverlay(); return true },
   })
   ctx.tui.registerSlashCommand({
-    id: 'flect.sessions.resume', name: 'resume', description: 'Resume a durable conversation.', usage: '/resume <id>',
+    id: 'deep-tui.sessions.resume', name: 'resume', description: 'Resume a durable conversation.', usage: '/resume <id>',
     complete({ query }) { return recentConversations.filter(item => item.id.startsWith(query) || item.title.toLowerCase().includes(query.toLowerCase())).map(item => ({ value: item.id, label: item.title, description: `${item.id} · ${item.model}` })) },
     async run(args, actions) { if (!args[0]) throw new Error('/resume requires an id'); await actions.openConversation(args[0]) },
   })
-  ctx.tui.registerSlashCommand({ id: 'flect.sessions.fork', name: 'fork', description: 'Fork the active conversation.', usage: '/fork [sequence]',
+  ctx.tui.registerSlashCommand({ id: 'deep-tui.sessions.fork', name: 'fork', description: 'Fork the active conversation.', usage: '/fork [sequence]',
     run: (args, actions) => { const sequence = args[0] === undefined ? undefined : Number(args[0]); if (sequence !== undefined && (!Number.isInteger(sequence) || sequence < 0)) throw new Error('fork sequence must be a non-negative integer'); return actions.forkConversation(sequence) } })
-  ctx.tui.registerSlashCommand({ id: 'flect.sessions.rename', name: 'rename', description: 'Rename the active conversation.', usage: '/rename <title>',
+  ctx.tui.registerSlashCommand({ id: 'deep-tui.sessions.rename', name: 'rename', description: 'Rename the active conversation.', usage: '/rename <title>',
     run: (args, actions) => { const title = args.join(' ').trim(); if (!title) throw new Error('/rename requires a title'); return actions.renameConversation(title) } })
-  ctx.tui.registerSlashCommand({ id: 'flect.sessions.current', name: 'session', description: 'Show the active conversation.',
+  ctx.tui.registerSlashCommand({ id: 'deep-tui.sessions.current', name: 'session', description: 'Show the active conversation.',
     run(_args, actions) { actions.showOverlay({ id: 'session', title: 'Conversation', lines: [
       actions.state.conversationTitle ?? 'Ephemeral', actions.state.conversationId ?? 'No durable ID',
       `${actions.state.provider}/${actions.state.model} · ${actions.state.conversationPersistence ?? 'ephemeral'}`,

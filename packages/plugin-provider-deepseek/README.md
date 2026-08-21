@@ -1,20 +1,20 @@
-# @flect/plugin-provider-deepseek
+# @deep-tui/plugin-provider-deepseek
 
-First-party DeepSeek provider for Flect. It reads `DEEPSEEK_API_KEY` from the
+First-party DeepSeek provider for Deep TUI. It reads `DEEPSEEK_API_KEY` from the
 process environment when a request starts; secrets do not belong in
-`flect.config.json`.
+`deep-tui.config.json`.
 
 The model aliases map to DeepSeek's official API identifiers:
 
-| Flect model | DeepSeek API model |
+| Deep TUI model | DeepSeek API model |
 | --- | --- |
 | `flash` | `deepseek-v4-flash` |
 | `pro` | `deepseek-v4-pro` |
 
 ```sh
 export DEEPSEEK_API_KEY="your-key"
-flect run --model flash "Quick task"
-flect run --model pro "Hard reasoning task"
+deep-tui run --model flash "Quick task"
+deep-tui run --model pro "Hard reasoning task"
 ```
 
 The full API identifiers are also accepted.

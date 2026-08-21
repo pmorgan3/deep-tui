@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { AgentEvent, ToolCall, TuiSidebarRow } from '@flect/sdk'
+import type { AgentEvent, ToolCall, TuiSidebarRow } from '@deep-tui/sdk'
 
 interface Check {
   call: ToolCall
@@ -52,7 +52,7 @@ export function apply(ctx: Context): void {
   let source: readonly AgentEvent[] | undefined
   let cached: Check[] = []
   ctx.tui.registerSidebarSection({
-    id: 'flect.sidebar.verification', title: 'Verification', order: 40,
+    id: 'deep-tui.sidebar.verification', title: 'Verification', order: 40,
     render(render) {
       if (source !== render.state.events) {
         source = render.state.events

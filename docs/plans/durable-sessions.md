@@ -83,10 +83,10 @@ it ephemeral rather than pretending it can resume.
 
 ## Filesystem store plugin
 
-Create `@flect/plugin-session-files` using the project-path service:
+Create `@deep-tui/plugin-session-files` using the project-path service:
 
 ```text
-.flect/sessions/
+.deep-tui/sessions/
   index.json
   <conversation-id>.jsonl
 ```
@@ -98,7 +98,7 @@ Create `@flect/plugin-session-files` using the project-path service:
   stale-lock diagnostics for cross-process writers.
 - Flush complete newline-delimited records. On load, tolerate only an
   incomplete final line caused by a crash; malformed earlier records fail.
-- Rebuild a missing/corrupt index from valid logs through `flect sessions
+- Rebuild a missing/corrupt index from valid logs through `deep-tui sessions
   repair`; do not silently discard logs.
 - Compact only through an explicit maintenance operation.
 - Fork initially copies records through the chosen sequence and records
@@ -156,9 +156,9 @@ from canonical records to event-view models; it does not persist ANSI lines.
 Headless CLI options:
 
 ```text
-flect run --session <id> "continue this"
-flect run --new-session "start this"
-flect sessions list|show|export|delete|repair
+deep-tui run --session <id> "continue this"
+deep-tui run --new-session "start this"
+deep-tui sessions list|show|export|delete|repair
 ```
 
 Deletion requires confirmation in a TTY or `--yes` in scripts. Export supports

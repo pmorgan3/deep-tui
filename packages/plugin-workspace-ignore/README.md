@@ -1,4 +1,4 @@
-# @flect/plugin-workspace-ignore
+# @deep-tui/plugin-workspace-ignore
 
 Filters `workspace.walk()` results with nested ignore files, so `list_files`,
 `find_files`, and `search_text` share the same view of the workspace. It wraps
@@ -11,9 +11,9 @@ most scanned entries are ignored.
 
 ```json
 {
-  "use": "@flect/plugin-workspace-ignore",
+  "use": "@deep-tui/plugin-workspace-ignore",
   "config": {
-    "files": [".gitignore", ".ignore", ".flectignore"],
+    "files": [".gitignore", ".ignore", ".deep-tuiignore"],
     "includeGitInfoExclude": true,
     "scanFactor": 20
   }

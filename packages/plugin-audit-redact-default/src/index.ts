@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { AuditEvent, JsonObject } from '@flect/sdk'
+import type { AuditEvent, JsonObject } from '@deep-tui/sdk'
 import { createHash } from 'node:crypto'
 
 export interface AuditRedactionConfig {
@@ -38,7 +38,7 @@ export function apply(ctx: Context, config: AuditRedactionConfig = {}): void {
     maxArrayLength: config.maxArrayLength ?? 100,
   }
   ctx.audit.registerRedactor({
-    id: 'flect.audit.redact', priority: 100,
+    id: 'deep-tui.audit.redact', priority: 100,
     redact(event) {
       const projectId = createHash('sha256').update(event.projectRoot).digest('hex').slice(0, 16)
       const cleaned = clean({ ...event, projectRoot: '.', projectId }, secrets, limits, new WeakSet()) as AuditEvent

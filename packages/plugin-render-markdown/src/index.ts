@@ -3,7 +3,7 @@ import type { PhrasingContent, Root, RootContent } from 'mdast'
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import { gfmFromMarkdown } from 'mdast-util-gfm'
 import { gfm } from 'micromark-extension-gfm'
-import type { RichTextLine, RichTextSpan, TuiRenderContext } from '@flect/sdk'
+import type { RichTextLine, RichTextSpan, TuiRenderContext } from '@deep-tui/sdk'
 
 export interface MarkdownRendererConfig {
   gfm?: boolean
@@ -142,7 +142,7 @@ export function apply(ctx: Context, config: MarkdownRendererConfig = {}): void {
     return created
   }
   ctx.tui.registerEventRenderer({
-    id: 'flect.markdown.assistant',
+    id: 'deep-tui.markdown.assistant',
     priority: 50,
     render(event, render) {
       if (event.type !== 'assistant' && event.type !== 'assistant-finish') return undefined

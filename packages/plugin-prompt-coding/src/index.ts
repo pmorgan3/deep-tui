@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import '@flect/sdk'
+import '@deep-tui/sdk'
 
 export interface CodingPromptConfig {
   text?: string

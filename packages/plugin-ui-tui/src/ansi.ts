@@ -1,4 +1,4 @@
-import type { RichTextLine, RichTextSpan, Theme, TuiKeyEvent, TuiTone } from '@flect/sdk'
+import type { RichTextLine, RichTextSpan, Theme, TuiKeyEvent, TuiTone } from '@deep-tui/sdk'
 
 const ANSI_PATTERN = /\u001b\[[0-?]*[ -/]*[@-~]/g
 

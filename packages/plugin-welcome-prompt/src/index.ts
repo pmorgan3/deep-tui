@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { TuiRenderContext } from '@flect/sdk'
+import type { TuiRenderContext } from '@deep-tui/sdk'
 
 function centered(plain: string, rendered: string, width: number): string {
   return `${' '.repeat(Math.max(2, Math.floor((width - plain.length) / 2)))}${rendered}`
@@ -10,7 +10,7 @@ export const inject = ['tui']
 
 export function apply(ctx: Context): void {
   ctx.tui.registerEmptyStateSection({
-    id: 'flect.empty.prompt',
+    id: 'deep-tui.empty.prompt',
     priority: 10,
     render(render: TuiRenderContext) {
       if (render.state.events.length) return undefined

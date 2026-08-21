@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { ModelUsage } from '@flect/sdk'
+import type { ModelUsage } from '@deep-tui/sdk'
 
 export interface InlineUsageConfig {
   inline?: boolean
@@ -45,7 +45,7 @@ export function apply(ctx: Context, config: InlineUsageConfig = {}): void {
 
   if (config.inline !== false) {
     ctx.tui.registerEventRenderer({
-      id: 'flect.usage.inline',
+      id: 'deep-tui.usage.inline',
       mode: 'append',
       priority: 100,
       render(event, render) {
@@ -57,7 +57,7 @@ export function apply(ctx: Context, config: InlineUsageConfig = {}): void {
 
   if (config.footer !== false) {
     ctx.tui.registerStatusItem({
-      id: 'flect.usage.session-cost',
+      id: 'deep-tui.usage.session-cost',
       priority: 50,
       render(render) {
         return hasUsage(render.state.usage)

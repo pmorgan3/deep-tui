@@ -1,6 +1,6 @@
-# @flect/plugin-render-search-text
+# @deep-tui/plugin-render-search-text
 
-Renders `search_text` activity in Flect's compact exploration log:
+Renders `search_text` activity in Deep TUI's compact exploration log:
 
 ```text
   • Explored

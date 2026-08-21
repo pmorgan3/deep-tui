@@ -1,6 +1,6 @@
-# @flect/plugin-permission-rules
+# @deep-tui/plugin-permission-rules
 
-Adds session/project “don't ask again” grants, `.flect/permissions.json`
+Adds session/project “don't ask again” grants, `.deep-tui/permissions.json`
 persistence, and `/permissions` inspection and revocation.
 
 Workspace reads are allowed automatically by default. Set `allowRead: false`

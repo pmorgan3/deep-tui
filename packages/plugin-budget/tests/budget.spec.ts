@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { AgentLifecycleService, TuiService, type TuiActions, type TuiState } from '@flect/sdk'
+import { AgentLifecycleService, TuiService, type TuiActions, type TuiState } from '@deep-tui/sdk'
 import budgetPlugin from '../src/index.js'
 
 function runContext(runId = 'run-1') {

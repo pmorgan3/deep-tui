@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { TuiService, createUnifiedDiff, type RichTextLine, type Theme, type TuiRenderContext, type TuiState } from '@flect/sdk'
+import { TuiService, createUnifiedDiff, type RichTextLine, type Theme, type TuiRenderContext, type TuiState } from '@deep-tui/sdk'
 import prettyRenderer, { parseUnifiedDiff, renderPrettyDiff, renderWriteFileDiff } from '../src/index.js'
 
 const theme: Theme = {

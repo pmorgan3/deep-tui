@@ -3,7 +3,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { ProjectService, type ModelMessage, type ModelRequest } from '@flect/sdk'
+import { ProjectService, type ModelMessage, type ModelRequest } from '@deep-tui/sdk'
 import runtime from '../../runtime/src/index.js'
 import { DefaultAgentService } from '../../plugin-agent/src/index.js'
 import sessionPlugin, { FileConversationStore } from '../src/index.js'
@@ -19,7 +19,7 @@ async function collect<T>(iterable: AsyncIterable<T>): Promise<T[]> {
 
 describe('filesystem conversation store', () => {
   it('persists tool presentation metadata separately from model-facing content', async () => {
-    const directory = await mkdtemp(path.join(os.tmpdir(), 'flect-sessions-presentation-'))
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-sessions-presentation-'))
     directories.push(directory)
     const store = new FileConversationStore(directory)
     const conversation = await store.create({ projectRoot: directory, provider: 'test', model: 'flash' })
@@ -35,7 +35,7 @@ describe('filesystem conversation store', () => {
   })
 
   it('survives restart, enforces optimistic sequence, and forks independently', async () => {
-    const directory = await mkdtemp(path.join(os.tmpdir(), 'flect-sessions-'))
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-sessions-'))
     directories.push(directory)
     let store = new FileConversationStore(directory)
     const conversation = await store.create({ projectRoot: directory, provider: 'test', model: 'flash', title: 'First' })
@@ -62,7 +62,7 @@ describe('filesystem conversation store', () => {
   })
 
   it('ignores only a truncated tail and repairs a missing index from valid logs', async () => {
-    const directory = await mkdtemp(path.join(os.tmpdir(), 'flect-sessions-repair-'))
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-sessions-repair-'))
     directories.push(directory)
     const store = new FileConversationStore(directory)
     const conversation = await store.create({ projectRoot: directory, provider: 'test', model: 'flash' })
@@ -76,7 +76,7 @@ describe('filesystem conversation store', () => {
   })
 
   it('diagnoses stale cross-process locks without authorizing a write', async () => {
-    const directory = await mkdtemp(path.join(os.tmpdir(), 'flect-sessions-lock-'))
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-sessions-lock-'))
     directories.push(directory)
     const store = new FileConversationStore(directory, { staleLockMs: 10 })
     const conversation = await store.create({ projectRoot: directory, provider: 'test', model: 'flash' })
@@ -89,7 +89,7 @@ describe('filesystem conversation store', () => {
   })
 
   it('replays canonical history into a fresh agent composition', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-sessions-history-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-sessions-history-'))
     directories.push(root)
     const first = await agentComposition(root, 'answer A')
     const conversation = await first.ctx.conversations.create({ projectRoot: root, provider: 'fake', model: 'm', title: 'History' })

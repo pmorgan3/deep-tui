@@ -3,7 +3,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { Context } from 'cordis'
 import { afterEach, describe, expect, it } from 'vitest'
-import { ToolService, WorkspaceService, type ToolPresentation } from '@flect/sdk'
+import { ToolService, WorkspaceService, type ToolPresentation } from '@deep-tui/sdk'
 import localWorkspace from '../../plugin-workspace-local/src/index.js'
 import workspaceTools from '../src/index.js'
 
@@ -15,7 +15,7 @@ afterEach(async () => {
 
 describe('workspace tools', () => {
   it('writes inside the workspace and rejects traversal', async () => {
-    const cwd = await mkdtemp(path.join(os.tmpdir(), 'flect-workspace-'))
+    const cwd = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-workspace-'))
     temporaryDirectories.push(cwd)
     await mkdir(path.join(cwd, 'src'))
 

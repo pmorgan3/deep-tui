@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { RichTextLine, TuiRenderContext } from '@flect/sdk'
+import type { RichTextLine, TuiRenderContext } from '@deep-tui/sdk'
 
 export interface ReadFileRendererConfig {
   /** Show file contents in the transcript. Defaults to false for a compact exploration log. */
@@ -149,7 +149,7 @@ export const inject = ['tui']
 
 export function apply(ctx: Context, config: ReadFileRendererConfig = {}): void {
   ctx.tui.registerEventRenderer({
-    id: 'flect.read-file.tool-call',
+    id: 'deep-tui.read-file.tool-call',
     priority: 150,
     render(event, render) {
       if (event.type !== 'tool-call' || event.call.name !== 'read_file') return undefined
@@ -161,7 +161,7 @@ export function apply(ctx: Context, config: ReadFileRendererConfig = {}): void {
   })
 
   ctx.tui.registerEventRenderer({
-    id: 'flect.read-file.tool-result',
+    id: 'deep-tui.read-file.tool-result',
     priority: 150,
     render(event, render) {
       if (event.type !== 'tool-result' || event.call.name !== 'read_file' || typeof event.output !== 'string') return undefined

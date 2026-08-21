@@ -1,4 +1,4 @@
-# @flect/plugin-tool-process
+# @deep-tui/plugin-tool-process
 
 Adds `run_command` with an argv array, workspace cwd, timeout, cancellation,
 bounded stdout/stderr, and no shell interpretation.

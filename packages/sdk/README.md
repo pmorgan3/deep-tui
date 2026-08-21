@@ -1,8 +1,8 @@
-# @flect/sdk
+# @deep-tui/sdk
 
 Public contracts and default service-registry implementations for harness
 plugins. Importing the SDK does not start any service; a composition must mount
-`@flect/runtime` or another plugin that provides compatible services.
+`@deep-tui/runtime` or another plugin that provides compatible services.
 
 The `tui` service exposes reversible registries for shells, visual components,
 keybindings, slash commands, event decorators, and status items. Register a `TuiSlashCommand` with

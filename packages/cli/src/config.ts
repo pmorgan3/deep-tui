@@ -4,9 +4,9 @@ import os from 'node:os'
 import { createRequire } from 'node:module'
 import { realpath } from 'node:fs/promises'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { assertRecord } from '@flect/sdk'
+import { assertRecord } from '@deep-tui/sdk'
 
-export const CONFIG_FILENAME = 'flect.config.json'
+export const CONFIG_FILENAME = 'deep-tui.config.json'
 
 export interface PluginEntry {
   id?: string
@@ -42,63 +42,63 @@ export interface LayeredConfigOptions {
 export const starterConfig: HarnessConfig = {
   version: 2,
   plugins: [
-    { use: '@flect/runtime' },
+    { use: '@deep-tui/runtime' },
     {
-      use: '@flect/plugin-agent',
+      use: '@deep-tui/plugin-agent',
       config: { provider: 'deepseek', model: 'flash' },
     },
-    { use: '@flect/plugin-budget' },
-    { use: '@flect/plugin-provider-deepseek' },
-    { use: '@flect/plugin-session-title' },
-    { use: '@flect/plugin-prompt-coding' },
-    { use: '@flect/plugin-theme-default' },
-    { use: '@flect/plugin-theme-gruvbox' },
-    { use: '@flect/plugin-theme-catppuccin' },
-    { use: '@flect/plugin-theme-kanagawa' },
-    { use: '@flect/plugin-theme-nord' },
-    { use: '@flect/plugin-theme-monokai-pro' },
-    { use: '@flect/plugin-slash-theme' },
-    { use: '@flect/plugin-permission-rules' },
-    { use: '@flect/plugin-permission-auto' },
-    { use: '@flect/plugin-mode-plan' },
-    { use: '@flect/plugin-compact' },
-    { use: '@flect/plugin-auto-compact' },
-    { use: '@flect/plugin-workspace-local' },
-    { use: '@flect/plugin-workspace-multi-root' },
-    { use: '@flect/plugin-workspace-ignore' },
-    { use: '@flect/plugin-tool-workspace' },
-    { use: '@flect/plugin-tool-search' },
-    { use: '@flect/plugin-tool-patch' },
-    { use: '@flect/plugin-tool-process' },
-    { use: '@flect/plugin-git' },
-    { use: '@flect/plugin-audit-redact-default' },
-    { use: '@flect/plugin-audit-jsonl' },
-    { use: '@flect/plugin-session-files' },
-    { use: '@flect/plugin-highlight-shiki' },
-    { use: '@flect/plugin-render-markdown' },
-    { use: '@flect/plugin-render-read-file' },
-    { use: '@flect/plugin-render-files' },
-    { use: '@flect/plugin-render-search-text' },
-    { use: '@flect/plugin-render-run-command' },
-    { use: '@flect/plugin-render-diff' },
-    { use: '@flect/plugin-render-diff-pretty' },
-    { use: '@flect/plugin-usage-inline' },
-    { use: '@flect/plugin-sidebar' },
-    { use: '@flect/plugin-sidebar-plan' },
-    { use: '@flect/plugin-sidebar-changes' },
-    { use: '@flect/plugin-sidebar-context' },
-    { use: '@flect/plugin-sidebar-activity' },
-    { use: '@flect/plugin-sidebar-verification' },
-    { use: '@flect/plugin-sidebar-session' },
-    { use: '@flect/plugin-sidebar-folders' },
-    { use: '@flect/plugin-sidebar-modes' },
-    { use: '@flect/plugin-sidebar-permissions' },
-    { use: '@flect/plugin-zellij-title' },
-    { use: '@flect/plugin-ui-terminal' },
-    { use: '@flect/plugin-welcome-brand' },
-    { use: '@flect/plugin-welcome-prompt' },
+    { use: '@deep-tui/plugin-budget' },
+    { use: '@deep-tui/plugin-provider-deepseek' },
+    { use: '@deep-tui/plugin-session-title' },
+    { use: '@deep-tui/plugin-prompt-coding' },
+    { use: '@deep-tui/plugin-theme-default' },
+    { use: '@deep-tui/plugin-theme-gruvbox' },
+    { use: '@deep-tui/plugin-theme-catppuccin' },
+    { use: '@deep-tui/plugin-theme-kanagawa' },
+    { use: '@deep-tui/plugin-theme-nord' },
+    { use: '@deep-tui/plugin-theme-monokai-pro' },
+    { use: '@deep-tui/plugin-slash-theme' },
+    { use: '@deep-tui/plugin-permission-rules' },
+    { use: '@deep-tui/plugin-permission-auto' },
+    { use: '@deep-tui/plugin-mode-plan' },
+    { use: '@deep-tui/plugin-compact' },
+    { use: '@deep-tui/plugin-auto-compact' },
+    { use: '@deep-tui/plugin-workspace-local' },
+    { use: '@deep-tui/plugin-workspace-multi-root' },
+    { use: '@deep-tui/plugin-workspace-ignore' },
+    { use: '@deep-tui/plugin-tool-workspace' },
+    { use: '@deep-tui/plugin-tool-search' },
+    { use: '@deep-tui/plugin-tool-patch' },
+    { use: '@deep-tui/plugin-tool-process' },
+    { use: '@deep-tui/plugin-git' },
+    { use: '@deep-tui/plugin-audit-redact-default' },
+    { use: '@deep-tui/plugin-audit-jsonl' },
+    { use: '@deep-tui/plugin-session-files' },
+    { use: '@deep-tui/plugin-highlight-shiki' },
+    { use: '@deep-tui/plugin-render-markdown' },
+    { use: '@deep-tui/plugin-render-read-file' },
+    { use: '@deep-tui/plugin-render-files' },
+    { use: '@deep-tui/plugin-render-search-text' },
+    { use: '@deep-tui/plugin-render-run-command' },
+    { use: '@deep-tui/plugin-render-diff' },
+    { use: '@deep-tui/plugin-render-diff-pretty' },
+    { use: '@deep-tui/plugin-usage-inline' },
+    { use: '@deep-tui/plugin-sidebar' },
+    { use: '@deep-tui/plugin-sidebar-plan' },
+    { use: '@deep-tui/plugin-sidebar-changes' },
+    { use: '@deep-tui/plugin-sidebar-context' },
+    { use: '@deep-tui/plugin-sidebar-activity' },
+    { use: '@deep-tui/plugin-sidebar-verification' },
+    { use: '@deep-tui/plugin-sidebar-session' },
+    { use: '@deep-tui/plugin-sidebar-folders' },
+    { use: '@deep-tui/plugin-sidebar-modes' },
+    { use: '@deep-tui/plugin-sidebar-permissions' },
+    { use: '@deep-tui/plugin-zellij-title' },
+    { use: '@deep-tui/plugin-ui-terminal' },
+    { use: '@deep-tui/plugin-welcome-brand' },
+    { use: '@deep-tui/plugin-welcome-prompt' },
     {
-      use: '@flect/plugin-ui-tui',
+      use: '@deep-tui/plugin-ui-tui',
       config: { provider: 'deepseek', model: 'flash', models: ['flash', 'pro'] },
     },
   ],
@@ -176,15 +176,15 @@ export async function readConfig(filename: string): Promise<HarnessConfig> {
 }
 
 export function userConfigPath(): string {
-  if (process.env.FLECT_USER_CONFIG) return path.resolve(process.env.FLECT_USER_CONFIG)
-  if (process.platform === 'win32') return path.join(process.env.APPDATA ?? path.join(os.homedir(), 'AppData', 'Roaming'), 'flect', 'config.json')
-  return path.join(process.env.XDG_CONFIG_HOME ?? path.join(os.homedir(), '.config'), 'flect', 'config.json')
+  if (process.env.DEEP_TUI_USER_CONFIG) return path.resolve(process.env.DEEP_TUI_USER_CONFIG)
+  if (process.platform === 'win32') return path.join(process.env.APPDATA ?? path.join(os.homedir(), 'AppData', 'Roaming'), 'deep-tui', 'config.json')
+  return path.join(process.env.XDG_CONFIG_HOME ?? path.join(os.homedir(), '.config'), 'deep-tui', 'config.json')
 }
 
 export function userDataPath(...segments: string[]): string {
   const root = process.platform === 'win32'
-    ? path.join(process.env.LOCALAPPDATA ?? path.join(os.homedir(), 'AppData', 'Local'), 'flect')
-    : path.join(process.env.XDG_DATA_HOME ?? path.join(os.homedir(), '.local', 'share'), 'flect')
+    ? path.join(process.env.LOCALAPPDATA ?? path.join(os.homedir(), 'AppData', 'Local'), 'deep-tui')
+    : path.join(process.env.XDG_DATA_HOME ?? path.join(os.homedir(), '.local', 'share'), 'deep-tui')
   return path.join(root, ...segments)
 }
 
@@ -196,7 +196,7 @@ export interface SelectedConfig {
 
 /** Select project/explicit configuration, falling back to the global user file. */
 export async function selectConfig(cwd: string, explicit?: string, userFile = userConfigPath()): Promise<SelectedConfig> {
-  const configured = explicit ?? process.env.FLECT_CONFIG
+  const configured = explicit ?? process.env.DEEP_TUI_CONFIG
   const projectFile = await findConfig(cwd)
   const explicitFile = configured ? await findConfig(cwd, configured) : undefined
   let fallback: string | undefined

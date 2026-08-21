@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { TuiRenderContext } from '@flect/sdk'
+import type { TuiRenderContext } from '@deep-tui/sdk'
 
 export interface RunCommandRendererConfig {
   /** Use the compact Claude-style command activity block. Default true. */
@@ -283,7 +283,7 @@ export const inject = ['tui']
 export function apply(ctx: Context, config: RunCommandRendererConfig = {}): void {
   const maxLineLength = boundedInteger(config.maxLineLength, 4_000, 40)
   ctx.tui.registerEventRenderer({
-    id: 'flect.run-command.tool-call',
+    id: 'deep-tui.run-command.tool-call',
     priority: 180,
     render(event, render) {
       if (event.type !== 'tool-call' || event.call.name !== 'run_command') return undefined
@@ -303,7 +303,7 @@ export function apply(ctx: Context, config: RunCommandRendererConfig = {}): void
   })
 
   ctx.tui.registerEventRenderer({
-    id: 'flect.run-command.tool-result',
+    id: 'deep-tui.run-command.tool-result',
     priority: 180,
     render(event, render) {
       if (event.type !== 'tool-result' || event.call.name !== 'run_command') return undefined

@@ -4,7 +4,7 @@ import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
 import runtime from '../../runtime/src/index.js'
-import { ProjectService } from '@flect/sdk'
+import { ProjectService } from '@deep-tui/sdk'
 import permissionRules from '../src/index.js'
 
 const temporaryDirectories: string[] = []
@@ -20,13 +20,13 @@ async function composition(root: string, config: Parameters<typeof permissionRul
 
 describe('remembered permissions', () => {
   it('allows workspace reads by default without creating a remembered rule', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-permissions-read-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-permissions-read-'))
     temporaryDirectories.push(root)
     const automatic = await composition(root)
     await expect(automatic.ctx.permissions.authorize({
       capability: 'fs.read', risk: 'read', description: 'Read files in this workspace',
       remember: [{ key: 'workspace.read', label: 'read files in this workspace' }],
-    }, { cwd: root })).resolves.toMatchObject({ decision: 'allow', policyId: 'flect.permission.rules' })
+    }, { cwd: root })).resolves.toMatchObject({ decision: 'allow', policyId: 'deep-tui.permission.rules' })
     expect(automatic.ctx.permissionRules.list()).toEqual([])
     await automatic.close()
 
@@ -39,15 +39,15 @@ describe('remembered permissions', () => {
   })
 
   it('persists project grants, isolates projects, and revokes immediately', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-permissions-'))
-    const other = await mkdtemp(path.join(os.tmpdir(), 'flect-permissions-other-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-permissions-'))
+    const other = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-permissions-other-'))
     temporaryDirectories.push(root, other)
     const first = await composition(root)
     const rule = first.ctx.permissionRules.add({ key: 'process.exec:git:status', label: 'git status', scope: 'project', projectRoot: root })
     await first.ctx.permissionRules.persist()
     await first.close()
 
-    const stored = await readFile(path.join(root, '.flect', 'permissions.json'), 'utf8')
+    const stored = await readFile(path.join(root, '.deep-tui', 'permissions.json'), 'utf8')
     expect(stored).toContain('process.exec:git:status')
     expect(stored).not.toContain(root)
 
@@ -73,10 +73,10 @@ describe('remembered permissions', () => {
   })
 
   it('fails closed on corrupt persistent state', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-permissions-corrupt-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-permissions-corrupt-'))
     temporaryDirectories.push(root)
-    await mkdir(path.join(root, '.flect'), { recursive: true })
-    await writeFile(path.join(root, '.flect', 'permissions.json'), '{not json', 'utf8')
+    await mkdir(path.join(root, '.deep-tui'), { recursive: true })
+    await writeFile(path.join(root, '.deep-tui', 'permissions.json'), '{not json', 'utf8')
     const ctx = new Context()
     const project = await ctx.plugin(ProjectService, { root })
     const services = await ctx.plugin(runtime)

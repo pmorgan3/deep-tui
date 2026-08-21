@@ -22,7 +22,7 @@ CLI microkernel
 
 This leaves three irreducible host responsibilities:
 
-1. discover and parse `flect.config.json`;
+1. discover and parse `deep-tui.config.json`;
 2. resolve modules and mount them into a Cordis `Context`;
 3. provide bootstrap operations (`init` and `plugin ...`) that can repair a
    composition even when its command/UI plugins do not load.
@@ -138,7 +138,7 @@ export function apply(ctx) {
 
 GitHub plugin repositories are declarative sources for the same module shape,
 not a second plugin API. The CLI clones them into the platform user-data
-directory and resolves a package.json `flect`, `exports`, `module`, or `main`
+directory and resolves a package.json `deep-tui`, `exports`, `module`, or `main`
 entry, with `index.mjs` and `index.js` fallbacks. Repositories must contain
 runnable ESM; dependency installation omits development packages and disables
 lifecycle scripts.

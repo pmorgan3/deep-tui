@@ -1,6 +1,6 @@
 {
-  "name": "@flect/plugin-provider-openai-compatible",
-  "version": "0.0.0",
+  "name": "@deep-tui/plugin-provider-openai-compatible",
+  "version": "0.1.0",
   "description": "OpenAI-compatible chat-completions provider plugin.",
   "license": "MIT",
   "publishConfig": { "access": "public" },
@@ -19,7 +19,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@flect/sdk": "workspace:*",
+    "@deep-tui/sdk": "workspace:*",
     "cordis": "^4.0.0-rc.8"
   }
 }

@@ -6,7 +6,7 @@ import type {
   WorkspaceEntry,
   WorkspaceProvider,
   WorkspaceWalkOptions,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 
 export interface LocalWorkspaceConfig {
   maxEntries?: number
@@ -106,7 +106,7 @@ export async function* walkLocalWorkspace(
 
 export function createLocalWorkspaceProvider(config: LocalWorkspaceConfig = {}): WorkspaceProvider {
   return {
-    id: 'flect.local-workspace', priority: -100,
+    id: 'deep-tui.local-workspace', priority: -100,
     resolveRead: (relative, context) => resolveLocalRead(context.cwd, relative),
     resolveWrite: (relative, context) => resolveLocalWrite(context.cwd, relative),
     walk: (options, context) => walkLocalWorkspace(context.cwd, options, config),

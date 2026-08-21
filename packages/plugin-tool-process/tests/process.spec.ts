@@ -3,7 +3,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { ToolService, WorkspaceService } from '@flect/sdk'
+import { ToolService, WorkspaceService } from '@deep-tui/sdk'
 import workspace from '../../plugin-workspace-local/src/index.js'
 import processPlugin from '../src/index.js'
 
@@ -12,12 +12,12 @@ afterEach(async () => Promise.all(directories.splice(0).map(directory => rm(dire
 
 describe('run_command tool', () => {
   it('preserves argv without a shell, bounds output, and passes safe env overrides', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-process-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-process-'))
     directories.push(root)
     const { ctx, close } = await composition({ maxOutputBytes: 20 })
     const result = await ctx.tools.get('run_command')?.execute({
-      argv: ['/bin/sh', '-c', 'printf "%s|%s" "$1" "$FLECT_TEST"; printf "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" >&2', 'flect-test', 'a;echo unsafe'],
-      env: { FLECT_TEST: 'works' },
+      argv: ['/bin/sh', '-c', 'printf "%s|%s" "$1" "$DEEP_TUI_TEST"; printf "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" >&2', 'deep-tui-test', 'a;echo unsafe'],
+      env: { DEEP_TUI_TEST: 'works' },
     }, { cwd: root }) as { code: number; stdout: string; stderrTruncated: boolean; elapsedMs: number }
     expect(result.code).toBe(0)
     expect(result.stdout).toContain('a;echo unsafe')
@@ -28,7 +28,7 @@ describe('run_command tool', () => {
   })
 
   it('force-stops commands that ignore the timeout signal', async () => {
-    const root = await mkdtemp(path.join(os.tmpdir(), 'flect-process-timeout-'))
+    const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-process-timeout-'))
     directories.push(root)
     const { ctx, close } = await composition({ timeoutMs: 30, killGraceMs: 20 })
     const result = await ctx.tools.get('run_command')?.execute({

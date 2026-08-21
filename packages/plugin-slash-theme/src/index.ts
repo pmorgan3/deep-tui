@@ -1,12 +1,12 @@
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import type { Context, Plugin } from 'cordis'
-import { formatUnknownError, type Theme, type TuiActions } from '@flect/sdk'
-import catppuccin from '@flect/plugin-theme-catppuccin'
-import gruvbox from '@flect/plugin-theme-gruvbox'
-import kanagawa from '@flect/plugin-theme-kanagawa'
-import monokaiPro from '@flect/plugin-theme-monokai-pro'
-import nord from '@flect/plugin-theme-nord'
+import { formatUnknownError, type Theme, type TuiActions } from '@deep-tui/sdk'
+import catppuccin from '@deep-tui/plugin-theme-catppuccin'
+import gruvbox from '@deep-tui/plugin-theme-gruvbox'
+import kanagawa from '@deep-tui/plugin-theme-kanagawa'
+import monokaiPro from '@deep-tui/plugin-theme-monokai-pro'
+import nord from '@deep-tui/plugin-theme-nord'
 
 export interface ThemeSlashConfig {
   /** Mount the first-party palette plugins as children of this plugin. */
@@ -22,8 +22,8 @@ interface ThemePicker {
   highlightedId: string
 }
 
-const pickerOverlayId = 'flect.theme.picker'
-const defaultStateFile = '.flect/theme.json'
+const pickerOverlayId = 'deep-tui.theme.picker'
+const defaultStateFile = '.deep-tui/theme.json'
 
 export const bundledThemePlugins: Plugin[] = [gruvbox, catppuccin, kanagawa, nord, monokaiPro]
 
@@ -96,7 +96,7 @@ export function apply(ctx: Context, config: ThemeSlashConfig = {}): void {
   const pickers = new WeakMap<TuiActions, ThemePicker>()
 
   ctx.tui.registerSessionHook({
-    id: 'flect.theme.persistence',
+    id: 'deep-tui.theme.persistence',
     priority: 50,
     start: actions => restoreTheme(ctx, actions, config),
     stop(actions) {
@@ -137,18 +137,18 @@ export function apply(ctx: Context, config: ThemeSlashConfig = {}): void {
     return true
   }
 
-  pickerBinding('flect.theme.picker.previous', ['up'], 'Preview the previous theme.',
+  pickerBinding('deep-tui.theme.picker.previous', ['up'], 'Preview the previous theme.',
     (actions, picker) => movePicker(actions, picker, -1))
-  pickerBinding('flect.theme.picker.next', ['down'], 'Preview the next theme.',
+  pickerBinding('deep-tui.theme.picker.next', ['down'], 'Preview the next theme.',
     (actions, picker) => movePicker(actions, picker, 1))
-  pickerBinding('flect.theme.picker.cancel', ['escape'], 'Cancel the theme preview.', (actions, picker) => {
+  pickerBinding('deep-tui.theme.picker.cancel', ['escape'], 'Cancel the theme preview.', (actions, picker) => {
     if (ctx.themes.get(picker.originalId)) ctx.themes.select(picker.originalId)
     pickers.delete(actions)
     actions.closeOverlay()
     actions.notify('theme change cancelled')
     return true
   })
-  pickerBinding('flect.theme.picker.accept', ['enter'], 'Accept the previewed theme.', async (actions, picker) => {
+  pickerBinding('deep-tui.theme.picker.accept', ['enter'], 'Accept the previewed theme.', async (actions, picker) => {
     const selected = ctx.themes.get(picker.highlightedId)
     if (!selected) {
       showPicker(ctx, actions, picker, 'The highlighted theme is no longer registered.')
@@ -167,7 +167,7 @@ export function apply(ctx: Context, config: ThemeSlashConfig = {}): void {
   })
 
   ctx.tui.registerSlashCommand({
-    id: 'flect.theme.select',
+    id: 'deep-tui.theme.select',
     name: 'theme',
     aliases: ['themes'],
     description: 'List or switch themes contributed by plugins.',

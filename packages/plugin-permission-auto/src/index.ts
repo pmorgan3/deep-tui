@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { PermissionRisk } from '@flect/sdk'
+import type { PermissionRisk } from '@deep-tui/sdk'
 
 export interface AutoPermissionConfig {
   /** Start in auto mode. Defaults to false. */
@@ -30,7 +30,7 @@ export function apply(ctx: Context, config: AutoPermissionConfig = {}): void {
   }
 
   ctx.permissions.register({
-    id: 'flect.permission.auto',
+    id: 'deep-tui.permission.auto',
     priority: 900,
     decide(request) {
       return enabled && risks.has(request.risk) ? 'allow' : 'abstain'
@@ -38,7 +38,7 @@ export function apply(ctx: Context, config: AutoPermissionConfig = {}): void {
   })
 
   ctx.tui.registerStatusItem({
-    id: 'flect.permission.auto.status',
+    id: 'deep-tui.permission.auto.status',
     priority: 100,
     render(render) {
       return enabled ? render.style('AUTO', 'warning', true) : undefined
@@ -46,7 +46,7 @@ export function apply(ctx: Context, config: AutoPermissionConfig = {}): void {
   })
 
   ctx.tui.registerSlashCommand({
-    id: 'flect.permission.auto.command',
+    id: 'deep-tui.permission.auto.command',
     name: 'auto',
     description: 'Toggle session-only automatic tool approval.',
     usage: '/auto [on|off|status]',
@@ -66,7 +66,7 @@ export function apply(ctx: Context, config: AutoPermissionConfig = {}): void {
           title: 'Auto mode',
           tone: enabled ? 'warning' : 'muted',
           lines: [
-            enabled ? 'On for this Flect session.' : 'Off.',
+            enabled ? 'On for this Deep TUI session.' : 'Off.',
             `Automatic risk classes: ${describe()}`,
             'Network access still asks unless explicitly configured.',
             '',

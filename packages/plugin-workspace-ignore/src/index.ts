@@ -7,7 +7,7 @@ import type {
   WorkspaceProvider,
   WorkspaceRoot,
   WorkspaceWalkOptions,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 
 export interface WorkspaceIgnoreConfig {
   /** Ignore filenames loaded in every traversed directory. */
@@ -207,7 +207,7 @@ export function createIgnoringWorkspaceProvider(
   ctx: Context,
   config: WorkspaceIgnoreConfig = {},
 ): WorkspaceProvider {
-  const id = 'flect.ignore-workspace'
+  const id = 'deep-tui.ignore-workspace'
   const files = config.files ?? ['.gitignore', '.ignore']
   if (!files.length || files.some(file => !file || file.includes('/') || file.includes('\\') || file === '.' || file === '..')) {
     throw new TypeError('workspace ignore files must be non-empty filenames without path separators')

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { TuiService, type Theme, type TuiRenderContext, type TuiState } from '@flect/sdk'
+import { TuiService, type Theme, type TuiRenderContext, type TuiState } from '@deep-tui/sdk'
 import filesRenderer, {
   parseFindFilesOutput,
   parseListFilesOutput,

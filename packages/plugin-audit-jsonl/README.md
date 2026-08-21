@@ -1,6 +1,6 @@
-# @flect/plugin-audit-jsonl
+# @deep-tui/plugin-audit-jsonl
 
-Writes redacted audit events to daily `.flect/audit/YYYY-MM-DD.jsonl` files and
+Writes redacted audit events to daily `.deep-tui/audit/YYYY-MM-DD.jsonl` files and
 adds `/audit` plus the headless `audit` command.
 
 Files rotate by size, can carry a SHA-256 hash chain for truncation/reordering

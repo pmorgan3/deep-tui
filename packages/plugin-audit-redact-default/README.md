@@ -1,4 +1,4 @@
-# @flect/plugin-audit-redact-default
+# @deep-tui/plugin-audit-redact-default
 
 Redacts common secret fields, terminal controls, and oversized audit values
 before they reach persistent sinks.

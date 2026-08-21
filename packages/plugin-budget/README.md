@@ -1,4 +1,4 @@
-# @flect/plugin-budget
+# @deep-tui/plugin-budget
 
 Adds per-run step, elapsed-time, token, and calculated-cost limits through the
 agent lifecycle extension. A reached limit stops before the next model request
@@ -7,7 +7,7 @@ usage accumulated so far.
 
 ```json
 {
-  "use": "@flect/plugin-budget",
+  "use": "@deep-tui/plugin-budget",
   "config": {
     "maxSteps": 64,
     "maxDurationMs": 1800000,
@@ -24,4 +24,4 @@ response only after the provider reports its usage. Time is checked between
 model steps; provider-level request timeouts remain a separate concern.
 
 Use `/budget`, `/budget status`, `/budget on`, or `/budget off` to inspect or
-temporarily disable the policy for the current Flect process.
+temporarily disable the policy for the current Deep TUI process.

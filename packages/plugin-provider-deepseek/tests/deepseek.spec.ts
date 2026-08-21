@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from 'cordis'
-import { BillingService, ModelService, type ModelRequest } from '@flect/sdk'
+import { BillingService, ModelService, type ModelRequest } from '@deep-tui/sdk'
 import deepseek, { resolveDeepSeekModel } from '../src/index.js'
 
 const previousApiKey = process.env.DEEPSEEK_API_KEY

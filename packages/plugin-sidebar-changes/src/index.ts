@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { AgentEvent, TuiSidebarRow } from '@flect/sdk'
+import type { AgentEvent, TuiSidebarRow } from '@deep-tui/sdk'
 
 interface Change {
   path: string
@@ -61,7 +61,7 @@ export function apply(ctx: Context): void {
   let source: readonly AgentEvent[] | undefined
   let cached: Change[] = []
   ctx.tui.registerSidebarSection({
-    id: 'flect.sidebar.changes', title: 'Changes', order: 10,
+    id: 'deep-tui.sidebar.changes', title: 'Changes', order: 10,
     render(render) {
       if (source !== render.state.events) {
         source = render.state.events

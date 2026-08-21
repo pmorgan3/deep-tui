@@ -1,6 +1,6 @@
-# @flect/plugin-render-diff-pretty
+# @deep-tui/plugin-render-diff-pretty
 
-Prettified, per-file inline diff rendering for Flect's TUI. `write_file`
+Prettified, per-file inline diff rendering for Deep TUI's TUI. `write_file`
 results use an editor-style view with line numbers and full-width tinted
 change rows:
 
@@ -43,7 +43,7 @@ restores the default rendering.
 - **Word diffs** — the changed span inside adjacent `-`/`+` line pairs is
   bolded and underlined, so a one-token edit is visible at a glance.
 - **Syntax highlighting** — code inside the diff is highlighted through the
-  TUI code-highlighter contract (e.g. `@flect/plugin-highlight-shiki`) using
+  TUI code-highlighter contract (e.g. `@deep-tui/plugin-highlight-shiki`) using
   the file extension, with the add/remove marker kept in the diff tone and a
   subtle tone-tinted background. Falls back to plain tone styling when no
   highlighter is registered or the language is unknown.
@@ -72,4 +72,4 @@ This plugin is a pure consumer of the existing `diff` presentation and the
 `tui` event-renderer registry; it changes no SDK or tool behavior. Parsing is
 display-oriented and intentionally lenient (git or plain headers, CRLF,
 `\ No newline` markers, metadata lines) — authoritative patch validation stays
-with `@flect/plugin-tool-patch`.
+with `@deep-tui/plugin-tool-patch`.

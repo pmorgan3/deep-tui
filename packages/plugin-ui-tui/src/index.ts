@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import { formatUnknownError, type Awaitable, type TuiActions, type TuiKeyEvent } from '@flect/sdk'
+import { formatUnknownError, type Awaitable, type TuiActions, type TuiKeyEvent } from '@deep-tui/sdk'
 import { defaultComponents, defaultEventRenderers, reasoningMessageAt } from './frame.js'
 import { DefaultTuiShell } from './shell.js'
 import { defaultSlashCommands } from './slash.js'
@@ -113,67 +113,67 @@ export function apply(ctx: Context, config: TuiPluginConfig = {}): void {
     priority = -100,
   ) => ctx.tui.registerKeybinding({ id, keys, description, priority, handle })
 
-  binding('flect.permission.allow', ['y', 'Y'], 'Allow the pending permission request.', (_event, actions) => {
+  binding('deep-tui.permission.allow', ['y', 'Y'], 'Allow the pending permission request.', (_event, actions) => {
     if (!actions.state.approval) return false
     actions.answerPermission('allow')
     return true
   }, -50)
-  binding('flect.permission.deny', ['n', 'N', 'escape'], 'Deny the pending permission request.', (_event, actions) => {
+  binding('deep-tui.permission.deny', ['n', 'N', 'escape'], 'Deny the pending permission request.', (_event, actions) => {
     if (!actions.state.approval) return false
     actions.answerPermission('deny')
     return true
   }, -50)
-  binding('flect.permission.session', ['s', 'S'], 'Allow this permission type for the session.', (_event, actions) => {
+  binding('deep-tui.permission.session', ['s', 'S'], 'Allow this permission type for the session.', (_event, actions) => {
     const candidates = actions.state.approval?.remember ?? []
     const candidate = candidates[(actions.state.permissionSelection ?? 0) % Math.max(1, candidates.length)]
     if (!candidate) return false
     actions.answerPermission({ decision: 'allow', remember: 'session', ruleKey: candidate.key })
     return true
   }, -50)
-  binding('flect.permission.project', ['p', 'P'], 'Allow this permission type for the project.', (_event, actions) => {
+  binding('deep-tui.permission.project', ['p', 'P'], 'Allow this permission type for the project.', (_event, actions) => {
     const candidates = actions.state.approval?.remember ?? []
     const candidate = candidates[(actions.state.permissionSelection ?? 0) % Math.max(1, candidates.length)]
     if (!candidate) return false
     actions.answerPermission({ decision: 'allow', remember: 'project', ruleKey: candidate.key })
     return true
   }, -50)
-  binding('flect.permission.candidate-next', ['tab'], 'Select the next remembered permission scope.', (_event, actions) => {
+  binding('deep-tui.permission.candidate-next', ['tab'], 'Select the next remembered permission scope.', (_event, actions) => {
     if (!actions.state.approval?.remember?.length) return false
     actions.selectPermissionCandidate(1)
     return true
   }, 0)
-  binding('flect.permission.candidate-previous', ['shift+tab'], 'Select the previous remembered permission scope.', (_event, actions) => {
+  binding('deep-tui.permission.candidate-previous', ['shift+tab'], 'Select the previous remembered permission scope.', (_event, actions) => {
     if (!actions.state.approval?.remember?.length) return false
     actions.selectPermissionCandidate(-1)
     return true
   }, 0)
-  binding('flect.slash.up', ['up'], 'Select the previous slash-command suggestion.', (_event, actions) => {
+  binding('deep-tui.slash.up', ['up'], 'Select the previous slash-command suggestion.', (_event, actions) => {
     if (!ctx.tui.slashSuggestions(actions.state.input, actions.state).length) return false
     actions.moveSlashSelection(-1)
     return true
   }, -50)
-  binding('flect.slash.down', ['down'], 'Select the next slash-command suggestion.', (_event, actions) => {
+  binding('deep-tui.slash.down', ['down'], 'Select the next slash-command suggestion.', (_event, actions) => {
     if (!ctx.tui.slashSuggestions(actions.state.input, actions.state).length) return false
     actions.moveSlashSelection(1)
     return true
   }, -50)
-  binding('flect.slash.accept', ['tab'], 'Complete the selected slash-command suggestion.', (_event, actions) => {
+  binding('deep-tui.slash.accept', ['tab'], 'Complete the selected slash-command suggestion.', (_event, actions) => {
     return actions.acceptSlashSuggestion()
   }, -50)
   const canScroll = (actions: TuiActions) => !actions.state.approval
     && !actions.state.overlay
     && !ctx.tui.slashSuggestions(actions.state.input, actions.state).length
-  binding('flect.transcript.wheel-up', ['wheel-up'], 'Scroll the transcript up.', (_event, actions) => {
+  binding('deep-tui.transcript.wheel-up', ['wheel-up'], 'Scroll the transcript up.', (_event, actions) => {
     if (!canScroll(actions)) return false
     actions.scrollViewport('transcript', -(config.scrollLines ?? 3))
     return true
   }, -75)
-  binding('flect.transcript.wheel-down', ['wheel-down'], 'Scroll the transcript down.', (_event, actions) => {
+  binding('deep-tui.transcript.wheel-down', ['wheel-down'], 'Scroll the transcript down.', (_event, actions) => {
     if (!canScroll(actions)) return false
     actions.scrollViewport('transcript', config.scrollLines ?? 3)
     return true
   }, -75)
-  binding('flect.reasoning.mouse-toggle', ['mouse-left'], 'Expand or collapse the clicked model reasoning.', (event, actions) => {
+  binding('deep-tui.reasoning.mouse-toggle', ['mouse-left'], 'Expand or collapse the clicked model reasoning.', (event, actions) => {
     const mouse = event.mouse
     if (!mouse) return false
     const target = reasoningMessageAt(
@@ -183,7 +183,7 @@ export function apply(ctx: Context, config: TuiPluginConfig = {}): void {
     actions.toggleReasoning(target)
     return true
   }, 1_000)
-  binding('flect.reasoning.mouse-hover', ['mouse-move'], 'Highlight model reasoning under the pointer.', (event, actions) => {
+  binding('deep-tui.reasoning.mouse-hover', ['mouse-move'], 'Highlight model reasoning under the pointer.', (event, actions) => {
     const mouse = event.mouse
     if (!mouse || !actions.setHoveredReasoning) return false
     const target = reasoningMessageAt(
@@ -192,37 +192,37 @@ export function apply(ctx: Context, config: TuiPluginConfig = {}): void {
     actions.setHoveredReasoning(target)
     return Boolean(target)
   }, 1_000)
-  binding('flect.transcript.page-up', ['pageup'], 'Scroll the transcript up one page.', (_event, actions) => {
+  binding('deep-tui.transcript.page-up', ['pageup'], 'Scroll the transcript up one page.', (_event, actions) => {
     if (!canScroll(actions)) return false
     actions.pageViewport('transcript', -1)
     return true
   }, -75)
-  binding('flect.transcript.page-down', ['pagedown'], 'Scroll the transcript down one page.', (_event, actions) => {
+  binding('deep-tui.transcript.page-down', ['pagedown'], 'Scroll the transcript down one page.', (_event, actions) => {
     if (!canScroll(actions)) return false
     actions.pageViewport('transcript', 1)
     return true
   }, -75)
-  binding('flect.transcript.half-page-up', ['ctrl+u'], 'Scroll the transcript up half a page.', (_event, actions) => {
+  binding('deep-tui.transcript.half-page-up', ['ctrl+u'], 'Scroll the transcript up half a page.', (_event, actions) => {
     if (!canScroll(actions)) return false
     actions.pageViewport('transcript', -0.5)
     return true
   }, -75)
-  binding('flect.transcript.half-page-down', ['ctrl+d'], 'Scroll the transcript down half a page.', (_event, actions) => {
+  binding('deep-tui.transcript.half-page-down', ['ctrl+d'], 'Scroll the transcript down half a page.', (_event, actions) => {
     if (!canScroll(actions)) return false
     actions.pageViewport('transcript', 0.5)
     return true
   }, -75)
-  binding('flect.transcript.home', ['home'], 'Jump to the first transcript line.', (_event, actions) => {
+  binding('deep-tui.transcript.home', ['home'], 'Jump to the first transcript line.', (_event, actions) => {
     if (!canScroll(actions) || actions.state.input) return false
     actions.scrollViewport('transcript', -Number.MAX_SAFE_INTEGER)
     return true
   }, -75)
-  binding('flect.transcript.follow', ['end'], 'Follow the latest transcript output.', (_event, actions) => {
+  binding('deep-tui.transcript.follow', ['end'], 'Follow the latest transcript output.', (_event, actions) => {
     if (!canScroll(actions) || actions.state.input) return false
     actions.followViewport('transcript')
     return true
   }, -75)
-  binding('flect.dismiss', ['escape'], 'Close a slash menu or overlay.', (_event, actions) => {
+  binding('deep-tui.dismiss', ['escape'], 'Close a slash menu or overlay.', (_event, actions) => {
     if (actions.state.overlay) {
       actions.closeOverlay()
       return true
@@ -231,54 +231,54 @@ export function apply(ctx: Context, config: TuiPluginConfig = {}): void {
     actions.setInput('')
     return true
   }, -100)
-  binding('flect.exit', ['ctrl+c'], 'Exit Flect.', (_event, actions) => {
+  binding('deep-tui.exit', ['ctrl+c'], 'Exit Deep TUI.', (_event, actions) => {
     if (actions.cancel()) return true
     actions.exit()
     return true
   })
-  binding('flect.clear', ['ctrl+l'], 'Clear the current transcript.', (_event, actions) => {
+  binding('deep-tui.clear', ['ctrl+l'], 'Clear the current transcript.', (_event, actions) => {
     actions.clear()
     return true
   })
-  binding('flect.model.cycle', ['ctrl+p'], 'Switch to the next configured model.', (_event, actions) => {
+  binding('deep-tui.model.cycle', ['ctrl+p'], 'Switch to the next configured model.', (_event, actions) => {
     actions.cycleModel()
     return true
   })
-  binding('flect.reasoning.toggle', ['ctrl+t'], 'Expand or collapse the latest model reasoning.', (_event, actions) => {
+  binding('deep-tui.reasoning.toggle', ['ctrl+t'], 'Expand or collapse the latest model reasoning.', (_event, actions) => {
     actions.toggleReasoning()
     return true
   })
-  binding('flect.submit', ['enter'], 'Send the current prompt.', async (_event, actions) => {
+  binding('deep-tui.submit', ['enter'], 'Send the current prompt.', async (_event, actions) => {
     await actions.submit()
     return true
   })
-  binding('flect.cursor.left', ['left'], 'Move the prompt cursor left.', (_event, actions) => {
+  binding('deep-tui.cursor.left', ['left'], 'Move the prompt cursor left.', (_event, actions) => {
     actions.setInput(actions.state.input, actions.state.cursor - 1)
     return true
   })
-  binding('flect.cursor.right', ['right'], 'Move the prompt cursor right.', (_event, actions) => {
+  binding('deep-tui.cursor.right', ['right'], 'Move the prompt cursor right.', (_event, actions) => {
     actions.setInput(actions.state.input, actions.state.cursor + 1)
     return true
   })
-  binding('flect.cursor.home', ['home'], 'Move to the start of the prompt.', (_event, actions) => {
+  binding('deep-tui.cursor.home', ['home'], 'Move to the start of the prompt.', (_event, actions) => {
     actions.setInput(actions.state.input, 0)
     return true
   })
-  binding('flect.cursor.end', ['end'], 'Move to the end of the prompt.', (_event, actions) => {
+  binding('deep-tui.cursor.end', ['end'], 'Move to the end of the prompt.', (_event, actions) => {
     actions.setInput(actions.state.input)
     return true
   })
-  binding('flect.edit.backspace', ['backspace'], 'Delete before the prompt cursor.', (_event, actions) => {
+  binding('deep-tui.edit.backspace', ['backspace'], 'Delete before the prompt cursor.', (_event, actions) => {
     const { input, cursor } = actions.state
     if (cursor > 0) actions.setInput(`${input.slice(0, cursor - 1)}${input.slice(cursor)}`, cursor - 1)
     return true
   })
-  binding('flect.edit.delete', ['delete'], 'Delete after the prompt cursor.', (_event, actions) => {
+  binding('deep-tui.edit.delete', ['delete'], 'Delete after the prompt cursor.', (_event, actions) => {
     const { input, cursor } = actions.state
     if (cursor < input.length) actions.setInput(`${input.slice(0, cursor)}${input.slice(cursor + 1)}`, cursor)
     return true
   })
-  binding('flect.edit.text', ['text'], 'Insert text into the prompt.', insertText, -200)
+  binding('deep-tui.edit.text', ['text'], 'Insert text into the prompt.', insertText, -200)
 
   ctx.permissions.register({
     id: 'tui.approval',

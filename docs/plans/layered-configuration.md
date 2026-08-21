@@ -2,7 +2,7 @@
 
 ## Outcome
 
-Flect composes deterministic defaults, user preferences, project settings, and
+Deep TUI composes deterministic defaults, user preferences, project settings, and
 an explicit CLI configuration. Users can see where every effective plugin
 entry came from, while plugin-relative paths continue to resolve against the
 file that declared them.
@@ -11,10 +11,10 @@ file that declared them.
 
 Lowest to highest priority:
 
-1. CLI starter defaults used only by `flect init`.
+1. CLI starter defaults used only by `deep-tui init`.
 2. User config.
 3. Project config discovered by walking upward.
-4. Explicit `--config` or `FLECT_CONFIG` file.
+4. Explicit `--config` or `DEEP_TUI_CONFIG` file.
 5. CLI flags for the invoked command, where that command supports overrides.
 
 `--config` adds the explicit highest file rather than silently discarding user
@@ -24,13 +24,13 @@ never place API keys in effective-config output.
 
 User config follows platform conventions through a small tested resolver:
 
-- Unix: `$XDG_CONFIG_HOME/flect/config.json`, falling back to
-  `~/.config/flect/config.json`.
-- Windows: `%APPDATA%\flect\config.json`.
+- Unix: `$XDG_CONFIG_HOME/deep-tui/config.json`, falling back to
+  `~/.config/deep-tui/config.json`.
+- Windows: `%APPDATA%\deep-tui\config.json`.
 - A test-only/configured path overrides discovery without mutating HOME.
 
 When no project or explicit composition exists, the user configuration is a
-complete composition by itself. Flect still treats the invocation directory as
+complete composition by itself. Deep TUI still treats the invocation directory as
 the project/workspace root; the location of the user JSON file never becomes a
 workspace accidentally.
 
@@ -41,11 +41,11 @@ Accept version 1 unchanged and normalize it internally. Version 2 adds:
 ```json
 {
   "version": 2,
-  "extends": ["./shared.flect.json"],
+  "extends": ["./shared.deep-tui.json"],
   "plugins": [
     {
       "id": "agent",
-      "use": "@flect/plugin-agent",
+      "use": "@deep-tui/plugin-agent",
       "enabled": true,
       "config": {}
     }
@@ -90,7 +90,7 @@ interface ProjectContext {
 ```
 
 Expose it as `ctx.project`. The CLI loader mounts the service before ordinary
-composition plugins. `statePath()` always stays beneath `<root>/.flect` unless
+composition plugins. `statePath()` always stays beneath `<root>/.deep-tui` unless
 a plugin has an explicit configured absolute path. Theme, permissions,
 sessions, and audit plugins migrate from ad hoc `actions.state.cwd` resolution
 to this service.
@@ -102,15 +102,15 @@ its own config or service contribution.
 
 Add:
 
-- `flect config paths`: ordered discovered files and project root.
-- `flect config show [--json]`: effective redacted configuration.
-- `flect config explain [plugin-id]`: field provenance and merge decisions.
-- `flect config validate`: all sources, schema errors, unresolved plugins, and
+- `deep-tui config paths`: ordered discovered files and project root.
+- `deep-tui config show [--json]`: effective redacted configuration.
+- `deep-tui config explain [plugin-id]`: field provenance and merge decisions.
+- `deep-tui config validate`: all sources, schema errors, unresolved plugins, and
   pending Cordis service dependencies without launching a UI.
-- `flect config init --scope user|project`.
+- `deep-tui config init --scope user|project`.
 
 Update `plugin add/create/remove` with `--scope user|project`; default to
-project. A local plugin created for user scope lives under the user Flect data
+project. A local plugin created for user scope lives under the user Deep TUI data
 directory, never inside an unrelated current project.
 
 ## File changes
@@ -149,7 +149,7 @@ replacement, explicit and isolated config, relative plugins from extended
 files, provenance output, redaction, and Windows/Unix path rules.
 
 Composition tests prove that merged plugin priority and Cordis disposal remain
-unchanged. Migration tests load the current v1 `flect.config.json` with an
+unchanged. Migration tests load the current v1 `deep-tui.config.json` with an
 empty user layer and produce an equivalent composition.
 
 ## Acceptance criteria

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from 'cordis'
-import { createUnifiedDiff, TuiService, type Theme, type TuiRenderContext, type TuiState } from '@flect/sdk'
+import { createUnifiedDiff, TuiService, type Theme, type TuiRenderContext, type TuiState } from '@deep-tui/sdk'
 import diffRenderer, { renderUnifiedDiff } from '../src/index.js'
 
 const theme: Theme = {

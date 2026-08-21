@@ -1,6 +1,6 @@
 import path from 'node:path'
 import type { Context } from 'cordis'
-import { fallbackConversationTitle, type AgentRunStatus } from '@flect/sdk'
+import { fallbackConversationTitle, type AgentRunStatus } from '@deep-tui/sdk'
 
 export interface ZellijTitleConfig {
   label?: string
@@ -36,7 +36,7 @@ export class ZellijTitleController {
     this.intervalMs = config.intervalMs ?? 120
     this.maxLength = config.maxLength ?? 100
     this.frames = config.spinnerFrames?.filter(Boolean) ?? defaultFrames
-    this.label = sanitize(config.label ?? 'Flect', this.maxLength) || 'Flect'
+    this.label = sanitize(config.label ?? 'Deep TUI', this.maxLength) || 'Deep TUI'
     if (!Number.isInteger(this.intervalMs) || this.intervalMs < 50 || this.intervalMs > 5_000) {
       throw new TypeError('zellij title intervalMs must be an integer from 50 through 5000')
     }

@@ -1,7 +1,7 @@
 {
-  "name": "@flect/plugin-workspace-multi-root",
-  "version": "0.0.0",
-  "description": "Persistent multi-folder workspace provider for Flect.",
+  "name": "@deep-tui/plugin-workspace-multi-root",
+  "version": "0.1.0",
+  "description": "Persistent multi-folder workspace provider for Deep TUI.",
   "license": "MIT",
   "publishConfig": { "access": "public" },
   "type": "module",
@@ -11,8 +11,8 @@
   "files": ["dist", "README.md"],
   "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc -p tsconfig.json --noEmit" },
   "dependencies": {
-    "@flect/plugin-workspace-local": "workspace:*",
-    "@flect/sdk": "workspace:*",
+    "@deep-tui/plugin-workspace-local": "workspace:*",
+    "@deep-tui/sdk": "workspace:*",
     "cordis": "^4.0.0-rc.8"
   }
 }

@@ -1,7 +1,7 @@
 import { lstat, mkdir, readFile, rename, stat, unlink, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import type { Context } from 'cordis'
-import { assertRecord, type JsonObject } from '@flect/sdk'
+import { assertRecord, type JsonObject } from '@deep-tui/sdk'
 
 export interface Hunk { oldStart: number; lines: string[]; noNewlineAtEnd?: boolean }
 export interface FilePatch { oldPath: string; newPath: string; hunks: Hunk[] }

@@ -1,7 +1,7 @@
 {
-  "name": "@flect/plugin-sidebar-folders",
-  "version": "0.0.0",
-  "description": "Mounted workspace folder section for Flect's composable sidebar.",
+  "name": "@deep-tui/plugin-sidebar-folders",
+  "version": "0.1.0",
+  "description": "Mounted workspace folder section for Deep TUI's composable sidebar.",
   "license": "MIT",
   "publishConfig": { "access": "public" },
   "type": "module",
@@ -10,5 +10,5 @@
   "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
   "files": ["dist", "README.md"],
   "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc -p tsconfig.json --noEmit" },
-  "dependencies": { "@flect/sdk": "workspace:*", "cordis": "^4.0.0-rc.8" }
+  "dependencies": { "@deep-tui/sdk": "workspace:*", "cordis": "^4.0.0-rc.8" }
 }

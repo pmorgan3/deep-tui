@@ -1,7 +1,7 @@
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import type { Context } from 'cordis'
-import { formatUnknownError, type TuiActions } from '@flect/sdk'
+import { formatUnknownError, type TuiActions } from '@deep-tui/sdk'
 
 export interface ModelPersistenceConfig {
   /** Restore and save the selected model for this project. */
@@ -13,7 +13,7 @@ export interface ModelPersistenceConfig {
 export const name = 'model-persistence'
 export const inject = ['project', 'tui']
 
-const defaultStateFile = '.flect/model.json'
+const defaultStateFile = '.deep-tui/model.json'
 
 function modelStatePath(ctx: Context, config: ModelPersistenceConfig): string {
   const filename = config.stateFile ?? defaultStateFile
@@ -53,7 +53,7 @@ async function restoreModel(ctx: Context, actions: TuiActions, config: ModelPers
 
 function showModelPicker(actions: TuiActions): void {
   actions.showOverlay({
-    id: 'flect.model.picker',
+    id: 'deep-tui.model.picker',
     title: 'Models',
     lines: [
       ...actions.state.models.map(model => `${model === actions.state.model ? '›' : ' '} ${model}`),
@@ -91,13 +91,13 @@ async function switchAndPersist(
 
 export function apply(ctx: Context, config: ModelPersistenceConfig = {}): void {
   ctx.tui.registerSessionHook({
-    id: 'flect.model.persistence',
+    id: 'deep-tui.model.persistence',
     priority: 50,
     start: actions => restoreModel(ctx, actions, config),
   })
 
   ctx.tui.registerKeybinding({
-    id: 'flect.model.persistence.cycle',
+    id: 'deep-tui.model.persistence.cycle',
     keys: ['ctrl+p'],
     description: 'Switch to the next configured model and remember the choice.',
     priority: 50,
@@ -113,7 +113,7 @@ export function apply(ctx: Context, config: ModelPersistenceConfig = {}): void {
   })
 
   ctx.tui.registerSlashCommand({
-    id: 'flect.model.persistence.command',
+    id: 'deep-tui.model.persistence.command',
     name: 'model',
     aliases: ['models'],
     description: 'Show or switch the active model and remember it for future sessions.',

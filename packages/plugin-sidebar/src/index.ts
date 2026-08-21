@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { TuiActions, TuiRenderContext, TuiSidebarRow } from '@flect/sdk'
+import type { TuiActions, TuiRenderContext, TuiSidebarRow } from '@deep-tui/sdk'
 
 export interface SidebarConfig {
   visible?: boolean
@@ -68,7 +68,7 @@ export function apply(ctx: Context, config: SidebarConfig = {}): void {
   }
 
   ctx.tui.registerComponent({
-    id: 'flect.sidebar.compositor',
+    id: 'deep-tui.sidebar.compositor',
     slot: 'sidebar',
     priority: 500,
     preferredWidth: state => sidebarWidth(state.width),
@@ -121,7 +121,7 @@ export function apply(ctx: Context, config: SidebarConfig = {}): void {
   })
 
   ctx.tui.registerKeybinding({
-    id: 'flect.sidebar.resize-start', keys: ['mouse-left'], priority: 2_000,
+    id: 'deep-tui.sidebar.resize-start', keys: ['mouse-left'], priority: 2_000,
     description: 'Grab the sidebar divider for resizing.',
     handle(event, actions) {
       const mouse = event.mouse
@@ -135,7 +135,7 @@ export function apply(ctx: Context, config: SidebarConfig = {}): void {
     },
   })
   ctx.tui.registerKeybinding({
-    id: 'flect.sidebar.resize-drag', keys: ['mouse-drag'], priority: 2_000,
+    id: 'deep-tui.sidebar.resize-drag', keys: ['mouse-drag'], priority: 2_000,
     description: 'Resize the sidebar while its divider is grabbed.',
     handle(event, actions) {
       if (!dragging || !event.mouse) return false
@@ -145,7 +145,7 @@ export function apply(ctx: Context, config: SidebarConfig = {}): void {
     },
   })
   ctx.tui.registerKeybinding({
-    id: 'flect.sidebar.resize-end', keys: ['mouse-release'], priority: 2_000,
+    id: 'deep-tui.sidebar.resize-end', keys: ['mouse-release'], priority: 2_000,
     description: 'Finish resizing the sidebar.',
     handle() {
       if (!dragging) return false
@@ -155,7 +155,7 @@ export function apply(ctx: Context, config: SidebarConfig = {}): void {
     },
   })
   ctx.tui.registerKeybinding({
-    id: 'flect.sidebar.toggle', keys: ['ctrl+b'], priority: 1_000,
+    id: 'deep-tui.sidebar.toggle', keys: ['ctrl+b'], priority: 1_000,
     description: 'Show or hide the composable sidebar.',
     handle(_event, actions) {
       if (visible) setVisible(false)
@@ -168,7 +168,7 @@ export function apply(ctx: Context, config: SidebarConfig = {}): void {
     },
   })
   ctx.tui.registerKeybinding({
-    id: 'flect.sidebar.focus', keys: ['tab'], priority: 500,
+    id: 'deep-tui.sidebar.focus', keys: ['tab'], priority: 500,
     description: 'Move keyboard focus into or out of the sidebar.',
     handle(_event, actions) {
       if (!visible || actions.state.width < minWidth || actions.state.input
@@ -179,7 +179,7 @@ export function apply(ctx: Context, config: SidebarConfig = {}): void {
     },
   })
   ctx.tui.registerKeybinding({
-    id: 'flect.sidebar.previous', keys: ['up'], priority: 1_000,
+    id: 'deep-tui.sidebar.previous', keys: ['up'], priority: 1_000,
     description: 'Select the previous interactive sidebar row.',
     handle() {
       if (!focused || !interactive.length) return false
@@ -189,7 +189,7 @@ export function apply(ctx: Context, config: SidebarConfig = {}): void {
     },
   })
   ctx.tui.registerKeybinding({
-    id: 'flect.sidebar.next', keys: ['down'], priority: 1_000,
+    id: 'deep-tui.sidebar.next', keys: ['down'], priority: 1_000,
     description: 'Select the next interactive sidebar row.',
     handle() {
       if (!focused || !interactive.length) return false
@@ -199,7 +199,7 @@ export function apply(ctx: Context, config: SidebarConfig = {}): void {
     },
   })
   ctx.tui.registerKeybinding({
-    id: 'flect.sidebar.activate', keys: ['enter'], priority: 1_000,
+    id: 'deep-tui.sidebar.activate', keys: ['enter'], priority: 1_000,
     description: 'Activate the selected sidebar row.',
     async handle(_event, actions) {
       if (!focused) return false
@@ -214,7 +214,7 @@ export function apply(ctx: Context, config: SidebarConfig = {}): void {
     },
   })
   ctx.tui.registerKeybinding({
-    id: 'flect.sidebar.blur', keys: ['escape'], priority: 1_000,
+    id: 'deep-tui.sidebar.blur', keys: ['escape'], priority: 1_000,
     description: 'Return keyboard focus to the prompt.',
     handle() {
       if (!focused) return false
@@ -231,7 +231,7 @@ export function apply(ctx: Context, config: SidebarConfig = {}): void {
     if (!focused) actions.notify(`sidebar requires a terminal at least ${minWidth} columns wide`)
   }
   ctx.tui.registerSlashCommand({
-    id: 'flect.sidebar.command', name: 'sidebar',
+    id: 'deep-tui.sidebar.command', name: 'sidebar',
     description: 'Show, hide, or focus the composable sidebar.',
     usage: '/sidebar [show|hide|focus|status|reset]',
     complete({ query }) {

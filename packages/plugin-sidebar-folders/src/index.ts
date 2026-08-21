@@ -1,5 +1,5 @@
 import type { Context } from 'cordis'
-import type { TuiActions, TuiSidebarRow, WorkspaceRoot } from '@flect/sdk'
+import type { TuiActions, TuiSidebarRow, WorkspaceRoot } from '@deep-tui/sdk'
 
 export const name = 'sidebar-folders'
 export const inject = ['project', 'tui', 'workspace']
@@ -16,7 +16,7 @@ export async function apply(ctx: Context): Promise<void> {
   const open = async (actions: TuiActions) => { await ctx.tui.executeSlash('/folders status', actions) }
 
   ctx.tui.registerSidebarSection({
-    id: 'flect.sidebar.folders', title: 'Folders', order: 55,
+    id: 'deep-tui.sidebar.folders', title: 'Folders', order: 55,
     render() {
       if (!roots.length) return undefined
       const unavailable = roots.filter(root => !root.available).length
@@ -44,7 +44,7 @@ export async function apply(ctx: Context): Promise<void> {
     },
   })
   ctx.tui.registerSessionHook({
-    id: 'flect.sidebar.folders.session', priority: 20,
+    id: 'deep-tui.sidebar.folders.session', priority: 20,
     start(actions) { return refresh(actions.state.cwd) },
   })
   const unsubscribe = ctx.workspace.subscribe(() => { void refresh() })

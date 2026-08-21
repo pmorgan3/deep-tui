@@ -15,7 +15,7 @@ import type {
   ToolCall,
   ToolPresentation,
   ConversationRecord,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 import {
   assertRecord,
   conversationSurface,
@@ -24,7 +24,7 @@ import {
   formatRuntimeContext,
   formatUnknownError,
   stableJsonStringify,
-} from '@flect/sdk'
+} from '@deep-tui/sdk'
 
 export const TOOL_ORDER_REST = '<unlisted-tools>'
 

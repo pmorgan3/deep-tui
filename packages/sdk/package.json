@@ -1,7 +1,7 @@
 {
-  "name": "@flect/sdk",
-  "version": "0.0.0",
-  "description": "Public plugin contracts for Flect.",
+  "name": "@deep-tui/sdk",
+  "version": "0.1.0",
+  "description": "Public plugin contracts for Deep TUI.",
   "license": "MIT",
   "publishConfig": { "access": "public" },
   "type": "module",
