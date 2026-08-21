@@ -50,6 +50,16 @@ function usageValue(usage: ModelUsage, key: keyof ModelUsage): number {
   return Math.max(0, usage[key] ?? 0)
 }
 
+/** DeepSeek peak windows are 01:00-04:00 and 06:00-10:00 UTC, with end times exclusive. */
+export function isDeepSeekPeakHour(at: Date | number = Date.now()): boolean {
+  const hour = new Date(at).getUTCHours()
+  return (hour >= 1 && hour < 4) || (hour >= 6 && hour < 10)
+}
+
+function usesDeepSeek(provider: string): boolean {
+  return /(^|[^a-z])deepseek([^a-z]|$)/i.test(provider)
+}
+
 function reasonFor(snapshot: BudgetSnapshot, limits: ResolvedLimits, nextStep: number): string | undefined {
   if (limits.maxDurationMs !== undefined && snapshot.elapsedMs >= limits.maxDurationMs) {
     return `run time budget reached (${limits.maxDurationMs}ms)`
@@ -138,6 +148,10 @@ export class BudgetController {
     if (!value) return undefined
     return cloneSnapshot({ ...value, elapsedMs: Date.now() - value.startedAt })
   }
+  deepSeekPeakActive(at: Date | number = Date.now()): boolean {
+    const value = [...this.active.values()].at(-1)
+    return Boolean(value && usesDeepSeek(value.context.provider) && isDeepSeekPeakHour(at))
+  }
 
   beforeRun(context: AgentLifecycleRunContext): void {
     if (!this.enabledValue) return
@@ -202,7 +216,9 @@ export function apply(ctx: Context, config: BudgetConfig = {}): void {
       if (!controller.enabled) return render.style('BUDGET OFF', 'warning', true)
       const current = controller.current()
       if (!current) return undefined
-      return render.style(`BUDGET ${current.steps}/${controller.limits.maxSteps ?? '∞'}`, current.stoppedReason ? 'danger' : 'accent', true)
+      const peak = controller.deepSeekPeakActive()
+      const label = `BUDGET ${current.steps}/${controller.limits.maxSteps ?? '∞'}${peak ? ' · DEEPSEEK PEAK' : ''}`
+      return render.style(label, current.stoppedReason ? 'danger' : peak ? 'warning' : 'accent', true)
     },
   })
 
@@ -221,10 +237,12 @@ export function apply(ctx: Context, config: BudgetConfig = {}): void {
         return
       }
       const current = controller.current() ?? controller.latest()
+      const peak = controller.deepSeekPeakActive()
       actions.showOverlay({
         id: 'deep-tui.budget.status', title: 'Run budget', tone: controller.enabled ? 'accent' : 'warning',
         lines: [
           controller.enabled ? 'Enabled.' : 'Disabled for this Deep TUI process.',
+          ...(peak ? ['DeepSeek peak pricing active (2× off-peak).'] : []),
           '',
           formatLimit('model steps', controller.limits.maxSteps),
           formatLimit('duration', controller.limits.maxDurationMs, 'ms'),
