@@ -1,0 +1,20 @@
+{
+  "name": "@flect/plugin-tool-workspace",
+  "version": "0.0.0",
+  "description": "Permission-gated workspace file tools.",
+  "license": "MIT",
+  "publishConfig": { "access": "public" },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@flect/sdk": "workspace:*",
+    "cordis": "^4.0.0-rc.8"
+  }
+}

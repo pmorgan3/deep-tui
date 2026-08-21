@@ -1,0 +1,21 @@
+{
+  "name": "@flect/plugin-render-markdown",
+  "version": "0.0.0",
+  "description": "Composable CommonMark and GFM rendering for Flect's TUI.",
+  "license": "MIT",
+  "publishConfig": { "access": "public" },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
+  "files": ["dist", "README.md"],
+  "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc -p tsconfig.json --noEmit" },
+  "dependencies": {
+    "@flect/sdk": "workspace:*",
+    "@types/mdast": "^4.0.4",
+    "cordis": "^4.0.0-rc.8",
+    "mdast-util-from-markdown": "^2.0.2",
+    "mdast-util-gfm": "^3.1.0",
+    "micromark-extension-gfm": "^3.0.0"
+  }
+}

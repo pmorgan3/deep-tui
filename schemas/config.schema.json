@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flect.config.schema.json",
+  "title": "Flect composition",
+  "type": "object",
+  "required": ["version", "plugins"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "enum": [1, 2] },
+    "extends": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "plugins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["use"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "use": {
+            "type": "string",
+            "minLength": 1,
+            "description": "An installed package, local file path, GitHub HTTPS URL, or github:owner/repository shorthand."
+          },
+          "enabled": { "type": "boolean", "default": true },
+          "config": {}
+        }
+      }
+    }
+  }
+}
