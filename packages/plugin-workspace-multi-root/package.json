@@ -3,16 +3,42 @@
   "version": "0.1.0",
   "description": "Persistent multi-folder workspace provider for Deep TUI.",
   "license": "MIT",
-  "publishConfig": { "access": "public" },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
-  "files": ["dist", "README.md"],
-  "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc -p tsconfig.json --noEmit" },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
   "dependencies": {
     "@deep-tui/plugin-workspace-local": "workspace:*",
     "@deep-tui/sdk": "workspace:*",
     "cordis": "^4.0.0-rc.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmorgan3/deep-tui.git",
+    "directory": "packages/plugin-workspace-multi-root"
+  },
+  "homepage": "https://github.com/pmorgan3/deep-tui#readme",
+  "bugs": {
+    "url": "https://github.com/pmorgan3/deep-tui/issues"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }

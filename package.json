@@ -4,6 +4,14 @@
   "private": true,
   "description": "Deep TUI: a plugin-first agentic harness built on Cordis.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmorgan3/deep-tui.git"
+  },
+  "homepage": "https://github.com/pmorgan3/deep-tui#readme",
+  "bugs": {
+    "url": "https://github.com/pmorgan3/deep-tui/issues"
+  },
   "type": "module",
   "packageManager": "pnpm@10.33.0",
   "engines": {
@@ -13,8 +21,11 @@
     "build": "pnpm -r run build",
     "check": "pnpm run build && pnpm run test && pnpm run typecheck",
     "dev": "node packages/cli/dist/bin.js",
+    "metadata:sync": "node scripts/sync-package-metadata.mjs",
     "pack:check": "pnpm run build && pnpm --filter './packages/**' -r pack --dry-run",
+    "publish:packages": "node scripts/publish-packages.mjs",
     "test": "vitest run",
+    "trust:packages": "node scripts/configure-trusted-publishers.mjs",
     "typecheck": "pnpm -r run typecheck"
   },
   "devDependencies": {
