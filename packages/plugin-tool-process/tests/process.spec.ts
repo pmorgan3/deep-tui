@@ -30,7 +30,8 @@ describe('run_command tool', () => {
   it('force-stops commands that ignore the timeout signal', async () => {
     const root = await mkdtemp(path.join(os.tmpdir(), 'deep-tui-process-timeout-'))
     directories.push(root)
-    const { ctx, close } = await composition({ timeoutMs: 30, killGraceMs: 20 })
+    // Give the child enough time to install its SIGTERM handler on loaded CI hosts.
+    const { ctx, close } = await composition({ timeoutMs: 500, killGraceMs: 50 })
     const result = await ctx.tools.get('run_command')?.execute({
       argv: [process.execPath, '-e', 'process.on("SIGTERM",()=>{}); setInterval(()=>{},1000)'],
     }, { cwd: root }) as { timedOut: boolean; signal: string }
