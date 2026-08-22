@@ -166,6 +166,7 @@ The default composition provides:
 - a composable full-screen TUI and a headless terminal interface;
 - durable sessions, compaction, budgets, usage and cost reporting;
 - remembered permissions, session-only auto approval, and read-only plan mode;
+- portable Agent Skills discovery plus an explicit curated source marketplace;
 - filesystem audit history with redaction and hash verification.
 
 Most features have a package README under `packages/` with their configuration

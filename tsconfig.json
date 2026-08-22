@@ -36,6 +36,7 @@
     { "path": "packages/plugin-sidebar-verification" },
     { "path": "packages/plugin-session-files" },
     { "path": "packages/plugin-session-title" },
+    { "path": "packages/plugin-skills" },
     { "path": "packages/plugin-prompt-coding" },
     { "path": "packages/plugin-theme-default" },
     { "path": "packages/plugin-theme-gruvbox" },

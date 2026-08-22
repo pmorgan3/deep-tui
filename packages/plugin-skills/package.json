@@ -1,0 +1,44 @@
+{
+  "name": "@deep-tui/plugin-skills",
+  "version": "0.1.0",
+  "description": "Agent Skills discovery and curated source management for Deep TUI.",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@deep-tui/sdk": "workspace:*",
+    "cordis": "^4.0.0-rc.8",
+    "yaml": "^2.8.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmorgan3/deep-tui.git",
+    "directory": "packages/plugin-skills"
+  },
+  "homepage": "https://github.com/pmorgan3/deep-tui#readme",
+  "bugs": {
+    "url": "https://github.com/pmorgan3/deep-tui/issues"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

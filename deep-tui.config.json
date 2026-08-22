@@ -27,6 +27,9 @@
       "use": "@deep-tui/plugin-prompt-coding"
     },
     {
+      "use": "@deep-tui/plugin-skills"
+    },
+    {
       "use": "@deep-tui/plugin-theme-default"
     },
     {

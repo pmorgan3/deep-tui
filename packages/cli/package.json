@@ -1,6 +1,6 @@
 {
   "name": "@deep-tui/cli",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Plugin-first agent harness CLI microkernel.",
   "license": "MIT",
   "publishConfig": {
@@ -66,6 +66,7 @@
     "@deep-tui/plugin-sidebar-verification": "workspace:*",
     "@deep-tui/plugin-session-files": "workspace:*",
     "@deep-tui/plugin-session-title": "workspace:*",
+    "@deep-tui/plugin-skills": "workspace:*",
     "@deep-tui/plugin-theme-default": "workspace:*",
     "@deep-tui/plugin-theme-gruvbox": "workspace:*",
     "@deep-tui/plugin-theme-catppuccin": "workspace:*",

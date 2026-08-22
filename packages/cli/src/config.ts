@@ -51,6 +51,7 @@ export const starterConfig: HarnessConfig = {
     { use: '@deep-tui/plugin-provider-deepseek' },
     { use: '@deep-tui/plugin-session-title' },
     { use: '@deep-tui/plugin-prompt-coding' },
+    { use: '@deep-tui/plugin-skills' },
     { use: '@deep-tui/plugin-theme-default' },
     { use: '@deep-tui/plugin-theme-gruvbox' },
     { use: '@deep-tui/plugin-theme-catppuccin' },

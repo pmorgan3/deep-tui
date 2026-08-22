@@ -24,6 +24,7 @@ function bootstrapHelp(): string {
     `  deep-tui plugin sync [github-url-or-id]\n` +
     `  deep-tui plugin update [github-url-or-id]\n` +
     `  deep-tui config paths|show|explain|validate|init\n` +
+    `  deep-tui skills list|catalog|search|show|install|update|remove\n` +
     `  deep-tui <plugin-contributed-command> [...args]\n\n` +
     `Global options:\n` +
     `  --config <path>  Use an explicit composition\n` +
