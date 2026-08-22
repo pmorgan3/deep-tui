@@ -10,26 +10,33 @@ Deep TUI is pre-alpha. Its contracts and configuration may change.
 
 ## Quick start
 
-Requirements: Node.js 22+ and pnpm 10.
+Requirement: Node.js 22 or newer.
 
 ```sh
-pnpm install
-pnpm build
+npm install --global @deep-tui/cli
+cd path/to/your/project
+deep-tui init
 export DEEPSEEK_API_KEY=your-key
-pnpm dev
+deep-tui
 ```
 
-`pnpm dev` opens the default TUI using [deep-tui.config.json](deep-tui.config.json).
-Type a prompt and press Enter. Type `/` to browse commands.
+`deep-tui init` creates the default composition in `deep-tui.config.json`, and
+`deep-tui` opens the TUI. Type a prompt and press Enter. Type `/` to browse
+commands. To use one default composition across all projects, run
+`deep-tui config init --scope user` instead of `deep-tui init`; a project
+configuration takes precedence when present.
 
 Run without the TUI:
 
 ```sh
-pnpm dev run --model flash "Summarize this repository"
-pnpm dev run --model pro --new-session "Implement the next task"
-pnpm dev sessions list
-pnpm dev config validate
+deep-tui run --model flash "Summarize this repository"
+deep-tui run --model pro --new-session "Implement the next task"
+deep-tui sessions list
+deep-tui config validate
 ```
+
+Upgrade later with `npm install --global @deep-tui/cli@latest`. pnpm is needed
+only when developing Deep TUI itself.
 
 ## Development
 
@@ -98,10 +105,10 @@ Configuration can layer user, extended, project, and explicit files. Inspect
 the resolved result before starting the UI:
 
 ```sh
-pnpm dev config paths
-pnpm dev config show
-pnpm dev config explain @deep-tui/plugin-agent
-pnpm dev config validate
+deep-tui config paths
+deep-tui config show
+deep-tui config explain @deep-tui/plugin-agent
+deep-tui config validate
 ```
 
 Use `--isolated-config` when a command should load only the selected file.
@@ -111,8 +118,8 @@ Use `--isolated-config` when a command should load only the selected file.
 Scaffold and activate a local plugin:
 
 ```sh
-pnpm dev plugin create concise-prompt
-pnpm dev plugin create my-command --template slash
+deep-tui plugin create concise-prompt
+deep-tui plugin create my-command --template slash
 ```
 
 Local plugins are created under `.deep-tui/plugins/` and added to the active
@@ -138,9 +145,9 @@ keybindings, renderers, themes, and permission handlers.
 Plugins can be loaded from npm, a local path, or a pinned GitHub URL:
 
 ```sh
-pnpm dev plugin add ./examples/slash-greeting.mjs
-pnpm dev plugin add https://github.com/example/deep-tui-plugin#v1.0.0 --scope user
-pnpm dev plugin sync --scope user
+deep-tui plugin add ./examples/slash-greeting.mjs
+deep-tui plugin add https://github.com/example/deep-tui-plugin#v1.0.0 --scope user
+deep-tui plugin sync --scope user
 ```
 
 Plugins execute with the same operating-system privileges as Deep TUI. Install
