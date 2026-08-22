@@ -24,6 +24,20 @@ describe('run budget', () => {
     expect(isDeepSeekPeakHour(new Date('2026-08-21T10:00:00Z'))).toBe(false)
   })
 
+  it('does not impose a model-step limit by default', async () => {
+    const ctx = new Context()
+    const services = await Promise.all([ctx.plugin(AgentLifecycleService), ctx.plugin(TuiService)])
+    const plugin = await ctx.plugin(budgetPlugin)
+    try {
+      const run = runContext()
+      await ctx.agentHooks.start(run)
+      expect(await ctx.agentHooks.beforeStep({ ...run, step: 65, usage: {} })).toBeUndefined()
+      await ctx.agentHooks.finish({ ...run, steps: 65, status: 'complete', usage: {} })
+    } finally {
+      await plugin.dispose(); await Promise.all(services.map(service => service.dispose()))
+    }
+  })
+
   it('stops before the next step after step and reported-usage limits', async () => {
     const ctx = new Context()
     const services = await Promise.all([ctx.plugin(AgentLifecycleService), ctx.plugin(TuiService)])

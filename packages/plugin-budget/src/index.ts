@@ -95,7 +95,7 @@ export interface ResolvedLimits {
 }
 
 function resolveLimits(config: BudgetConfig): ResolvedLimits {
-  const maxSteps = positiveInteger(config.maxSteps, 64, 'budget maxSteps')
+  const maxSteps = positiveInteger(config.maxSteps, undefined, 'budget maxSteps')
   const maxDurationMs = positiveInteger(config.maxDurationMs, 30 * 60_000, 'budget maxDurationMs')
   const maxInputTokens = positiveInteger(config.maxInputTokens, undefined, 'budget maxInputTokens')
   const maxOutputTokens = positiveInteger(config.maxOutputTokens, undefined, 'budget maxOutputTokens')

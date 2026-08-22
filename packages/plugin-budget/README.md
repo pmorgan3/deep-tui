@@ -9,7 +9,7 @@ usage accumulated so far.
 {
   "use": "@deep-tui/plugin-budget",
   "config": {
-    "maxSteps": 64,
+    "maxSteps": 100,
     "maxDurationMs": 1800000,
     "maxTotalTokens": 1000000,
     "maxCostUsd": 2
@@ -17,11 +17,12 @@ usage accumulated so far.
 }
 ```
 
-`maxSteps` defaults to 64 and `maxDurationMs` defaults to 30 minutes. Token and
-cost limits are opt-in because not every provider reports them. Usage limits
-are necessarily soft by one model response: the plugin can account for a
-response only after the provider reports its usage. Time is checked between
-model steps; provider-level request timeouts remain a separate concern.
+`maxSteps` is opt-in; runs have no model-step limit when it is omitted.
+`maxDurationMs` defaults to 30 minutes. Token and cost limits are also opt-in
+because not every provider reports them. Usage limits are necessarily soft by
+one model response: the plugin can account for a response only after the
+provider reports its usage. Time is checked between model steps; provider-level
+request timeouts remain a separate concern.
 
 Cost limits consume the provider's calculated charge, so DeepSeek requests use
 the peak or off-peak tariff active when each request starts. During DeepSeek's
